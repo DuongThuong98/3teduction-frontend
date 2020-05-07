@@ -1,0 +1,82 @@
+
+// Custome style of theme
+.sidebar .sub-menu {
+    display: block !important;
+}
+
+.sidebar .nav {
+    cursor: pointer;
+}
+
+.sidebar .nav>li.nav-profile .cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('./../../images/top-menu.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.sidebar .nav>li.nav-profile .image {
+    width: 34px;
+    height: 34px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+}
+
+.sidebar .nav>li.nav-profile .cover.with-shadow:before {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(26,34,41,.5);
+    content: '';
+}
+
+.sidebar .nav>li.nav-profile .info {
+    font-size: 14px;
+    position: relative;
+}
+
+.active--left-bar {
+    color: #fff !important;
+    background-color: #00acac !important;
+}
+
+.parent--nav {
+    display: block;
+    padding: 8px 20px;
+    line-height: 20px;
+    color: #a8acb1;
+
+    i {
+        margin-right: 15px;
+        width: 14px;
+        text-align: center;
+        line-height: 20px;
+        font-size: 14px;
+    }
+}
+.open-parent-nav {
+    background-color: #232a2f;
+}
+
+@media only screen and (max-height: 600px) {
+    .sidebar {
+        overflow-y: scroll;
+    }
+}

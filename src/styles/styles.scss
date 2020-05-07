@@ -1,0 +1,35 @@
+.btn-purple {
+    color: #fff;
+    background-color: #727cb6;
+    border-color: #727cb6;
+
+    &:hover {
+        color: #fff;
+        background-color: #545fa1;
+        border-color: #545fa1;
+    }
+
+    &:focus {
+        color: #fff;
+        background-color: #545fa1;
+        border-color: #545fa1;
+    }
+}
+
+.ant-btn-success {
+    color: #fff !important;
+    background: #00acac !important;
+    border-color: #00acac !important;
+
+    &:hover {
+        color: #fff !important;
+        background-color: #008a8a !important;
+        border-color: #008a8a !important;
+    }
+
+    &:focus {
+        color: #fff !important;
+        background-color: #008a8a !important;
+        border-color: #008a8a !important;
+    }
+}
