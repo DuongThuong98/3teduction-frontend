@@ -1,0 +1,55 @@
+.Header {
+    &__profile-btn {
+        margin: 1.7rem 1.7rem 0 0;
+        cursor: pointer;
+    }
+
+    &__nav-child {
+        color: #333;
+        display: block;
+        padding: 5px 15px;
+        &:hover {
+            background: #edf0f5;
+        }
+    }
+
+    &__logo {
+        background: url('./../../images/coma_misti.jpg');
+        color: red;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: bold;
+        font-size: 37px;
+        font-family: arial, helvetica;
+        text-align: center;
+        cursor: pointer;
+        margin-left: 3rem;
+    }
+
+    &__line-1 {
+        -webkit-transform: rotate(-45deg) translate(0, 1px);
+        -moz-transform: rotate(-45deg) translate(0, 1px);
+        -ms-transform: rotate(-45deg) translate(0, 1px);
+        -o-transform: rotate(-45deg) translate(0, 1px);
+        transform: rotate(-45deg) translate(0, 1px);
+        transition: all 0.3s;
+    }
+
+    &__line-2 {
+        opacity: 0;
+        transition: all 0.2s;
+    }
+
+    &__line-3 {
+        -webkit-transform: rotate(45deg) translate(-7px, -9px);
+        -moz-transform: rotate(45deg) translate(-7px, -9px);
+        -ms-transform: rotate(45deg) translate(-7px, -9px);
+        -o-transform: rotate(45deg) translate(-7px, -9px);
+        transform: rotate(45deg) translate(-7px, -9px);
+        transition: all 0.3s;
+    }
+
+    .icon-bar {
+        transition: all 0.3s;
+    }
+}
