@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
 import { Prompt } from "react-router-dom";
 
@@ -20,7 +21,7 @@ class TeacherComponent extends Component {
               <a
                 type="button"
                 className="btn btn-info d-none d-lg-block m-l-15"
-                href="./_admin-add-teacher.html"
+                href="/teachers/add"
               >
                 <i className="fa fa-plus-circle"></i> Create New
               </a>
@@ -170,7 +171,7 @@ class TeacherComponent extends Component {
                                   <a
                                     className="page-link"
                                     href="#"
-                                    tabindex="-1"
+                                    tabIndex="-1"
                                   >
                                     Previous
                                   </a>

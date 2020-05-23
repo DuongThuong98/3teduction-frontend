@@ -41,7 +41,7 @@ class DocumentComponent extends Component {
                             <div class="row">
                               <div class="col-md-2 col-xs-12">
                                 <img
-                                  src="../assets/images/big/img1.jpg"
+                                  src="images/big/img1.jpg"
                                   alt="user"
                                   class="img-responsive radius"
                                 />
@@ -66,7 +66,7 @@ class DocumentComponent extends Component {
                             <div class="row">
                               <div class="col-md-2 col-xs-12">
                                 <img
-                                  src="../assets/images/big/img1.jpg"
+                                  src="images/big/img1.jpg"
                                   alt="user"
                                   class="img-responsive radius"
                                 />
@@ -91,7 +91,7 @@ class DocumentComponent extends Component {
                             <div class="row">
                               <div class="col-md-2 col-xs-12">
                                 <img
-                                  src="../assets/images/big/img1.jpg"
+                                  src="images/big/img1.jpg"
                                   alt="user"
                                   class="img-responsive radius"
                                 />
@@ -124,7 +124,7 @@ class DocumentComponent extends Component {
                                       <a
                                         class="page-link"
                                         href="#"
-                                        tabindex="-1"
+                                        tabIndex="-1"
                                       >
                                         Previous
                                       </a>
@@ -152,6 +152,7 @@ class DocumentComponent extends Component {
                                   </ul>
                                 </nav>
                               </div>
+                            </div>
                             </div>
                           </ul>
                         </div>
@@ -215,7 +216,6 @@ class DocumentComponent extends Component {
             </div>
           </div>
         </div>
-      </div>
     );
   }
 }

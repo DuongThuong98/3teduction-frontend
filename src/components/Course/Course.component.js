@@ -74,17 +74,17 @@ class CourseComponent extends Component {
                         <div class="card">
                             <div class="el-card-item">
                                 <div class="el-card-avatar el-overlay-1">
-                                    <img src="../assets/images/big/img1.jpg" alt="user" />
+                                    <img src="images/big/img1.jpg" alt="user" />
                                     <div class="el-overlay">
                                         <ul class="el-info">
                                             <li>
                                                 <a class="btn default btn-outline image-popup-vertical-fit"
-                                                    href="../assets/images/big/img1.jpg">
+                                                    href="images/big/img1.jpg">
                                                     <i class="icon-paper-plane" title="Vào lớp"></i>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="btn default btn-outline" href="javascript:void(0);"
+                                                <a class="btn default btn-outline" 
                                                     data-toggle="modal" data-target="#show-modal-du-thinh">
                                                     <i class="icon-earphones" title="Dự thính"></i>
                                                 </a>
@@ -110,17 +110,17 @@ class CourseComponent extends Component {
                         <div class="card">
                             <div class="el-card-item">
                                 <div class="el-card-avatar el-overlay-1">
-                                    <img src="../assets/images/big/img2.jpg" alt="user" />
+                                    <img src="images/big/img2.jpg" alt="user" />
                                     <div class="el-overlay">
                                         <ul class="el-info">
                                             <li>
                                                 <a class="btn default btn-outline image-popup-vertical-fit"
-                                                    href="../assets/images/big/img2.jpg">
+                                                    href="images/big/img2.jpg">
                                                     <i class="icon-paper-plane" title="Vào lớp"></i>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="btn default btn-outline" href="javascript:void(0);">
+                                                <a class="btn default btn-outline" >
                                                     <i class="icon-earphones" title="Dự thính"></i>
                                                 </a>
                                             </li>
@@ -144,17 +144,17 @@ class CourseComponent extends Component {
                         <div class="card">
                             <div class="el-card-item">
                                 <div class="el-card-avatar el-overlay-1">
-                                    <img src="../assets/images/big/img3.jpg" alt="user" />
+                                    <img src="images/big/img3.jpg" alt="user" />
                                     <div class="el-overlay">
                                         <ul class="el-info">
                                             <li>
                                                 <a class="btn default btn-outline image-popup-vertical-fit"
-                                                    href="../assets/images/big/img3.jpg">
+                                                    href="images/big/img3.jpg">
                                                     <i class="icon-paper-plane" title="Vào lớp"></i>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="btn default btn-outline" href="javascript:void(0);">
+                                                <a class="btn default btn-outline" >
                                                     <i class="icon-earphones" title="Dự thính"></i>
                                                 </a>
                                             </li>
@@ -178,17 +178,17 @@ class CourseComponent extends Component {
                         <div class="card">
                             <div class="el-card-item">
                                 <div class="el-card-avatar el-overlay-1">
-                                    <img src="../assets/images/big/img4.jpg" alt="user" />
+                                    <img src="images/big/img4.jpg" alt="user" />
                                     <div class="el-overlay">
                                         <ul class="el-info">
                                             <li>
                                                 <a class="btn default btn-outline image-popup-vertical-fit"
-                                                    href="../assets/images/big/img4.jpg">
+                                                    href="images/big/img4.jpg">
                                                     <i class="icon-paper-plane" title="Vào lớp"></i>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="btn default btn-outline" href="javascript:void(0);">
+                                                <a class="btn default btn-outline" >
                                                     <i class="icon-earphones" title="Dự thính"></i>
                                                 </a>
                                             </li>
@@ -212,17 +212,17 @@ class CourseComponent extends Component {
                         <div class="card">
                             <div class="el-card-item">
                                 <div class="el-card-avatar el-overlay-1">
-                                    <img src="../assets/images/big/img5.jpg" alt="user" />
+                                    <img src="images/big/img5.jpg" alt="user" />
                                     <div class="el-overlay">
                                         <ul class="el-info">
                                             <li>
                                                 <a class="btn default btn-outline image-popup-vertical-fit"
-                                                    href="../assets/images/big/img5.jpg">
+                                                    href="images/big/img5.jpg">
                                                     <i class="icon-paper-plane" title="Vào lớp"></i>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="btn default btn-outline" href="javascript:void(0);">
+                                                <a class="btn default btn-outline" >
                                                     <i class="icon-earphones" title="Dự thính"></i>
                                                 </a>
                                             </li>
@@ -243,7 +243,7 @@ class CourseComponent extends Component {
                         </div>
                     </div>
                 </div>
-                <div class="row mt-2" style="padding-left: 10px;">
+                <div class="row mt-2" style={{paddingLeft: '10px'}}>
                     <div class="card">
                         <div class="box bg-info text-center">
                             <h4 class="font-light text-white">Học giao tiếp song ngữ</h4>
@@ -255,17 +255,17 @@ class CourseComponent extends Component {
                         <div class="card">
                             <div class="el-card-item">
                                 <div class="el-card-avatar el-overlay-1">
-                                    <img src="../assets/images/big/img1.jpg" alt="user" />
+                                    <img src="images/big/img1.jpg" alt="user" />
                                     <div class="el-overlay">
                                         <ul class="el-info">
                                             <li>
                                                 <a class="btn default btn-outline image-popup-vertical-fit"
-                                                    href="../assets/images/big/img1.jpg">
+                                                    href="images/big/img1.jpg">
                                                     <i class="icon-paper-plane" title="Vào lớp"></i>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="btn default btn-outline" href="javascript:void(0);"
+                                                <a class="btn default btn-outline" 
                                                     data-toggle="modal" data-target="#show-modal-du-thinh">
                                                     <i class="icon-earphones" title="Dự thính"></i>
                                                 </a>
@@ -291,17 +291,17 @@ class CourseComponent extends Component {
                         <div class="card">
                             <div class="el-card-item">
                                 <div class="el-card-avatar el-overlay-1">
-                                    <img src="../assets/images/big/img2.jpg" alt="user" />
+                                    <img src="images/big/img2.jpg" alt="user" />
                                     <div class="el-overlay">
                                         <ul class="el-info">
                                             <li>
                                                 <a class="btn default btn-outline image-popup-vertical-fit"
-                                                    href="../assets/images/big/img2.jpg">
+                                                    href="images/big/img2.jpg">
                                                     <i class="icon-paper-plane" title="Vào lớp"></i>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="btn default btn-outline" href="javascript:void(0);">
+                                                <a class="btn default btn-outline" >
                                                     <i class="icon-earphones" title="Dự thính"></i>
                                                 </a>
                                             </li>
@@ -325,17 +325,17 @@ class CourseComponent extends Component {
                         <div class="card">
                             <div class="el-card-item">
                                 <div class="el-card-avatar el-overlay-1">
-                                    <img src="../assets/images/big/img3.jpg" alt="user" />
+                                    <img src="images/big/img3.jpg" alt="user" />
                                     <div class="el-overlay">
                                         <ul class="el-info">
                                             <li>
                                                 <a class="btn default btn-outline image-popup-vertical-fit"
-                                                    href="../assets/images/big/img3.jpg">
+                                                    href="images/big/img3.jpg">
                                                     <i class="icon-paper-plane" title="Vào lớp"></i>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="btn default btn-outline" href="javascript:void(0);">
+                                                <a class="btn default btn-outline" >
                                                     <i class="icon-earphones" title="Dự thính"></i>
                                                 </a>
                                             </li>
@@ -356,7 +356,7 @@ class CourseComponent extends Component {
                         </div>
                     </div>
                 </div>
-                <div class="row mt-2" style="padding-left: 10px;">
+                <div class="row mt-2" style={{paddingLeft: '10px'}}>
                     <div class="card">
                         <div class="box bg-info text-center">
                             <h4 class="font-light text-white">Học nghe</h4>
@@ -368,17 +368,17 @@ class CourseComponent extends Component {
                         <div class="card">
                             <div class="el-card-item">
                                 <div class="el-card-avatar el-overlay-1">
-                                    <img src="../assets/images/big/img6.jpg" alt="user" />
+                                    <img src="images/big/img6.jpg" alt="user" />
                                     <div class="el-overlay">
                                         <ul class="el-info">
                                             <li>
                                                 <a class="btn default btn-outline image-popup-vertical-fit"
-                                                    href="../assets/images/big/img6.jpg">
+                                                    href="images/big/img6.jpg">
                                                     <i class="icon-paper-plane" title="Vào lớp"></i>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="btn default btn-outline" href="javascript:void(0);"
+                                                <a class="btn default btn-outline" 
                                                     data-toggle="modal" data-target="#show-modal-du-thinh">
                                                     <i class="icon-earphones" title="Dự thính"></i>
                                                 </a>
@@ -404,17 +404,17 @@ class CourseComponent extends Component {
                         <div class="card">
                             <div class="el-card-item">
                                 <div class="el-card-avatar el-overlay-1">
-                                    <img src="../assets/images/big/img5.jpg" alt="user" />
+                                    <img src="images/big/img5.jpg" alt="user" />
                                     <div class="el-overlay">
                                         <ul class="el-info">
                                             <li>
                                                 <a class="btn default btn-outline image-popup-vertical-fit"
-                                                    href="../assets/images/big/img5.jpg">
+                                                    href="images/big/img5.jpg">
                                                     <i class="icon-paper-plane" title="Vào lớp"></i>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="btn default btn-outline" href="javascript:void(0);">
+                                                <a class="btn default btn-outline" >
                                                     <i class="icon-earphones" title="Dự thính"></i>
                                                 </a>
                                             </li>
@@ -438,17 +438,17 @@ class CourseComponent extends Component {
                         <div class="card">
                             <div class="el-card-item">
                                 <div class="el-card-avatar el-overlay-1">
-                                    <img src="../assets/images/big/img3.jpg" alt="user" />
+                                    <img src="images/big/img3.jpg" alt="user" />
                                     <div class="el-overlay">
                                         <ul class="el-info">
                                             <li>
                                                 <a class="btn default btn-outline image-popup-vertical-fit"
-                                                    href="../assets/images/big/img3.jpg">
+                                                    href="images/big/img3.jpg">
                                                     <i class="icon-paper-plane" title="Vào lớp"></i>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="btn default btn-outline" href="javascript:void(0);">
+                                                <a class="btn default btn-outline" >
                                                     <i class="icon-earphones" title="Dự thính"></i>
                                                 </a>
                                             </li>
@@ -469,7 +469,7 @@ class CourseComponent extends Component {
                         </div>
                     </div>
                 </div>
-                <div class="row mt-2" style="padding-left: 10px;">
+                <div class="row mt-2" style={{paddingLeft: '10px'}}>
                     <div class="card">
                         <div class="box bg-info text-center">
                             <h4 class="font-light text-white">Ôn tập</h4>
@@ -481,49 +481,49 @@ class CourseComponent extends Component {
                         <div class="row mt-1">
                             <div class="col-lg-3 col-md-6">
                                 <div class="card">
-                                    <img class="card-img-top img-responsive" src="../assets/images/big/img1.jpg"
+                                    <img class="card-img-top img-responsive" src="images/big/img1.jpg"
                                         alt="Card image cap"/>
                                     <div class="card-body h-100">
                                         <h4 class="card-title">Ôn tập ngữ pháp</h4>
                                         <p class="card-text">Some quick example text to build on the card title and make
                                             up the bulk of the card's content.</p>
-                                        <a href="javascript:void(0)" class="btn btn-primary">Ôn tập</a>
+                                        <a  class="btn btn-primary">Ôn tập</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6">
                                 <div class="card">
-                                    <img class="card-img-top img-responsive" src="../assets/images/big/img2.jpg"
+                                    <img class="card-img-top img-responsive" src="images/big/img2.jpg"
                                         alt="Card image cap"/>
                                     <div class="card-body h-100">
                                         <h4 class="card-title">Ôn tập từ vừng</h4>
                                         <p class="card-text">Some quick example text to build on the card title and make
                                             up the bulk of the card's content.</p>
-                                        <a href="javascript:void(0)" class="btn btn-primary">Ôn tập</a>
+                                        <a  class="btn btn-primary">Ôn tập</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6">
                                 <div class="card">
-                                    <img class="card-img-top img-responsive" src="../assets/images/big/img3.jpg"
+                                    <img class="card-img-top img-responsive" src="images/big/img3.jpg"
                                         alt="Card image cap"/>
                                     <div class="card-body h-100">
                                         <h4 class="card-title">ABC</h4>
                                         <p class="card-text">Some quick example text to build on the card title and make
                                             up the bulk of the card's content.</p>
-                                        <a href="javascript:void(0)" class="btn btn-primary">Ôn tập</a>
+                                        <a  class="btn btn-primary">Ôn tập</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6 img-responsive">
                                 <div class="card">
-                                    <img class="card-img-top img-responsive" src="../assets/images/big/img4.jpg"
+                                    <img class="card-img-top img-responsive" src="images/big/img4.jpg"
                                         alt="Card image cap"/>
                                     <div class="card-body h-100">
                                         <h4 class="card-title">Card title</h4>
                                         <p class="card-text">Some quick example text to build on the card title and make
                                             up the bulk of the card's content.</p>
-                                        <a href="javascript:void(0)" class="btn btn-primary">Ôn tập</a>
+                                        <a  class="btn btn-primary">Ôn tập</a>
                                     </div>
                                 </div>
                             </div>

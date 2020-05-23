@@ -130,7 +130,7 @@ class ClassComponent extends Component {
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <div id="add-class" class="modal fade in" tabindex="-1" role="dialog"
+                                                <div id="add-class" class="modal fade in" tabIndex="-1" role="dialog"
                                                     aria-labelledby="myModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
@@ -140,7 +140,7 @@ class ClassComponent extends Component {
                                                                     aria-hidden="true">×</button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <from class="form-horizontal form-material">
+                                                                <div class="form-horizontal form-material">
                                                                     <div class="form-group">
                                                                         <div class="col-md-12 m-b-20">
                                                                             <div class="form-group">
@@ -169,7 +169,7 @@ class ClassComponent extends Component {
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </from>
+                                                                </div>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-info waves-effect"
@@ -181,13 +181,13 @@ class ClassComponent extends Component {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <td colspan="6">
+                                                <td colSpan="6">
                                                     <div class="text-right">
                                                         <nav aria-label="Page navigation example">
                                                             <ul class="pagination justify-content-end">
                                                                 <li class="page-item disabled">
                                                                     <a class="page-link" href="#"
-                                                                        tabindex="-1">Previous</a>
+                                                                        tabIndex="-1">Previous</a>
                                                                 </li>
                                                                 <li class="page-item"><a class="page-link"
                                                                         href="#">1</a></li>

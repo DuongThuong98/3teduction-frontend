@@ -21,13 +21,13 @@ class App extends Component {
           <div id="main-wrapper">
             <Header></Header>
             <Menu></Menu>
-            <div class="page-wrapper">
-              <div class="container-fluid">
+            <div className="page-wrapper">
+              <div className="container-fluid">
                 <Switch>{this.showContentMenu(routes)}</Switch>
                 <Rightbar></Rightbar>
               </div>
             </div>
-            <footer class="footer">
+            <footer className="footer">
               © 2019 Eliteadmin by themedesigner.in
             </footer>
           </div>

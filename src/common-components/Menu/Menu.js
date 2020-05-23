@@ -5,30 +5,16 @@ import {
   Route,
   Redirect,
   withRouter,
+  Switch,
 } from "react-router-dom";
 // import { connect } from 'react-redux';
 
 import "./Menu.scss";
+import menus from "../../menus";
+import MenuProfile from "./MenuProfile/MenuProfile";
 
-const menus = [
-  {
-    name: "Home",
-    to: "/",
-    exact: true,
-  },
-  {
-    name: "Teacher",
-    to: "/teachers",
-    exact: true,
-  },
-  {
-    name: "Student",
-    to: "/students",
-    exact: true,
-  },
-];
 
-const MenuLink = ({ label, to, activeOnlyWhenExact }) => {
+const MenuLink = ({ label, to, activeOnlyWhenExact, icon }) => {
   return (
     <Route
       path={to}
@@ -37,7 +23,7 @@ const MenuLink = ({ label, to, activeOnlyWhenExact }) => {
         var active = match ? "active" : "";
         return (
           <li className={active}>
-            <Link className="waves-effect waves-dark" to={to}> <i className="icon-speedometer" /><span className="hide-menu">{label}</span>
+            <Link className="waves-effect waves-dark" to={to}> <i className={icon} /><span className="hide-menu">{label}</span>
             </Link>
          </li>
         );
@@ -54,47 +40,9 @@ class Menu extends Component {
             <div className="scroll-sidebar">
               <nav className="sidebar-nav">
                 <ul id="sidebarnav">
-                  <li className="user-pro">
-                    {" "}
-                    <a
-                      className="has-arrow waves-effect waves-dark"
-                      aria-expanded="false"
-                    >
-                      <img
-                        src="images/users/1.jpg"
-                        alt="user-img"
-                        className="img-circle"
-                      />
-                      <span className="hide-menu">Prof. Mark</span>
-                    </a>
-                    <ul aria-expanded="false" className="collapse">
-                      <li>
-                        <a>
-                          <i className="ti-user" /> My Profile
-                        </a>
-                      </li>
-                      <li>
-                        <a>
-                          <i className="ti-wallet" /> My Balance
-                        </a>
-                      </li>
-                      <li>
-                        <a>
-                          <i className="ti-email" /> Inbox
-                        </a>
-                      </li>
-                      <li>
-                        <a>
-                          <i className="ti-settings" /> Account Setting
-                        </a>
-                      </li>
-                      <li>
-                        <a>
-                          <i className="fa fa-power-off" /> Logout
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
+                <Switch>
+                   <MenuProfile></MenuProfile>
+                </Switch>
                   {this.showMenus(menus)}
                 </ul>
               </nav>
@@ -111,7 +59,8 @@ showMenus = (menus) => {
      return( <MenuLink key={index}
        to={menu.to} 
        label={menu.name}
-       activeOnlyWhenExact={menu.active}></MenuLink>
+       activeOnlyWhenExact={menu.active}
+       icon ={menu.icon}></MenuLink>
      )})
   }
   return result;

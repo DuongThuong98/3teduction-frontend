@@ -24,7 +24,7 @@ class Home extends Component {
             <div className="d-flex justify-content-end align-items-center">
               <ol className="breadcrumb">
                 <li className="breadcrumb-item">
-                  <a href="javascript:void(0)">Home</a>
+                  <a >Home</a>
                 </li>
                 <li className="breadcrumb-item active">Widget Data</li>
               </ol>
@@ -150,7 +150,7 @@ class Home extends Component {
                           </button>
                         </div>
                         <div className="modal-body">
-                          <from className="form-horizontal form-material">
+                          <div className="form-horizontal form-material">
                             <div className="form-group">
                               <div className="col-md-12 m-b-20">
                                 <div className="form-group">
@@ -171,7 +171,7 @@ class Home extends Component {
                                   <input
                                     type="text"
                                     className="form-control"
-                                    placeholder
+                                    placeholder=""
                                   />
                                 </div>
                               </div>
@@ -188,7 +188,7 @@ class Home extends Component {
                                 </div>
                               </div>
                             </div>
-                          </from>
+                          </div>
                         </div>
                         <div className="modal-footer">
                           <button
@@ -247,7 +247,7 @@ class Home extends Component {
                             data-target="#add-class"
                             data-toggle="modal"
                           >
-                            <i className /> Edit
+                            <i /> Edit
                           </button>
                           <button id="remove" className="btn btn-warning">
                             <i className="ti-trash" /> Hủy lớp
