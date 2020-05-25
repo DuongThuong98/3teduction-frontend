@@ -22,8 +22,8 @@ export const GET_STATUS = "GET_STATUS";
 
 export const EDIT_CONTRACTOR_POTENTIAL = "EDIT";
 
-export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
-export const ADD_PRODUCT = "ADD_PRODUCT";
-export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
-export const DELETE_PRODUCT = "DELETE_PRODUCT";
-export const EDIT_PRODUCT = "EDIT_PRODUCT";
+export const GET_TEACHERS = "GET_TEACHERS";
+export const ADD_TEACHER = "ADD_TEACHER";
+export const UPDATE_TEACHER = "UPDATE_TEACHER";
+export const DELETE_TEACHER = "DELETE_TEACHER";
+export const GET_TEACHER_BY_ID = "GET_TEACHER_BY_ID";
