@@ -19,12 +19,12 @@ class App extends Component {
       <Router>
         <div className="App">
           <div id="main-wrapper">
-            <Header></Header>
-            <Menu></Menu>
+            <Header />
+            <Menu />
             <div className="page-wrapper">
               <div className="container-fluid">
                 <Switch>{this.showContentMenu(routes)}</Switch>
-                <Rightbar></Rightbar>
+                <Rightbar />
               </div>
             </div>
             <footer className="footer">

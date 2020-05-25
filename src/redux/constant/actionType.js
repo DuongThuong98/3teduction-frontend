@@ -1,7 +1,7 @@
 // Setting
-export const OPEN_LEFT_SIDE_BAR = 'OPEN_LEFT_SIDE_BAR';
-export const CLOSE_MODAL = 'CLOSE_MODAL';
-export const LOADING = 'LOADING';
+export const OPEN_LEFT_SIDE_BAR = "OPEN_LEFT_SIDE_BAR";
+export const CLOSE_MODAL = "CLOSE_MODAL";
+export const LOADING = "LOADING";
 
 // Authentication
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
@@ -20,7 +20,10 @@ export const DELETE_USER = "DELETE_USER";
 export const GET_REGIONS = "GET_REGIONS";
 export const GET_STATUS = "GET_STATUS";
 
-export const EDIT_CONTRACTOR_POTENTIAL ="EDIT";
+export const EDIT_CONTRACTOR_POTENTIAL = "EDIT";
 
-
-
+export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
+export const ADD_PRODUCT = "ADD_PRODUCT";
+export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
+export const DELETE_PRODUCT = "DELETE_PRODUCT";
+export const EDIT_PRODUCT = "EDIT_PRODUCT";

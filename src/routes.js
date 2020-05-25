@@ -24,19 +24,26 @@ const routes = [
   // teacher
   {
     path: "/teachers/edit/:id",
-    exact: true,
+    exact: false,
     pageTitle: "Edit Teacher",
-    main: () => <TeacherAddEditComponent></TeacherAddEditComponent>,
+    main: ({ match, history }) => (
+      <TeacherAddEditComponent
+        match={match}
+        history={history}
+      ></TeacherAddEditComponent>
+    ),
   },
   {
     path: "/teachers/add",
-    exact: true,
+    exact: false,
     pageTitle: "Add Teacher",
-    main: () => <TeacherAddEditComponent></TeacherAddEditComponent>,
+    main: ({ history }) => (
+      <TeacherAddEditComponent history={history}></TeacherAddEditComponent>
+    ),
   },
   {
     path: "/teachers",
-    exact: true,
+    exact: false,
     pageTitle: "List Teacher",
     main: () => <TeacherComponent></TeacherComponent>,
   },
@@ -44,19 +51,19 @@ const routes = [
   //student
   {
     path: "/students",
-    exact: true,
+    exact: false,
     pageTitle: "List Student",
     main: () => <StudentComponent></StudentComponent>,
   },
   {
     path: "/students/edit/:id",
-    exact: true,
+    exact: false,
     pageTitle: "Edit Student",
     main: () => <StudentComponent></StudentComponent>,
   },
   {
     path: "/students/add",
-    exact: true,
+    exact: false,
     pageTitle: "Add Student",
     main: () => <TeacherAddEditComponent></TeacherAddEditComponent>,
   },
@@ -64,19 +71,19 @@ const routes = [
   //admin
   {
     path: "/admins",
-    exact: true,
+    exact: false,
     pageTitle: "List Admin",
     main: () => <AdminComponent></AdminComponent>,
   },
   {
     path: "/admins/edit/:id",
-    exact: true,
+    exact: false,
     pageTitle: "Edit Admin",
     main: () => <AdminComponent></AdminComponent>,
   },
   {
     path: "/admins/add",
-    exact: true,
+    exact: false,
     pageTitle: "Add Admin",
     main: () => <AdminComponent></AdminComponent>,
   },
@@ -84,19 +91,19 @@ const routes = [
   //admin
   {
     path: "/admins",
-    exact: true,
+    exact: false,
     pageTitle: "List Admin",
     main: () => <AdminComponent></AdminComponent>,
   },
   {
     path: "/admins/edit/:id",
-    exact: true,
+    exact: false,
     pageTitle: "Edit Admin",
     main: () => <AdminComponent></AdminComponent>,
   },
   {
     path: "/admins/add",
-    exact: true,
+    exact: false,
     pageTitle: "Add Admin",
     main: () => <AdminComponent></AdminComponent>,
   },
@@ -104,19 +111,19 @@ const routes = [
   //class
   {
     path: "/classes",
-    exact: true,
+    exact: false,
     pageTitle: "List Class",
     main: () => <ClassComponent></ClassComponent>,
   },
   {
     path: "/classes/edit/:id",
-    exact: true,
+    exact: false,
     pageTitle: "Edit Class",
     main: () => <ClassComponent></ClassComponent>,
   },
   {
     path: "/classes/add",
-    exact: true,
+    exact: false,
     pageTitle: "Add Class",
     main: () => <ClassComponent></ClassComponent>,
   },
@@ -124,19 +131,19 @@ const routes = [
   //course
   {
     path: "/courses",
-    exact: true,
+    exact: false,
     pageTitle: "List Course",
     main: () => <CourseComponent></CourseComponent>,
   },
   {
     path: "/courses/edit/:id",
-    exact: true,
+    exact: false,
     pageTitle: "Edit Course",
     main: () => <CourseComponent></CourseComponent>,
   },
   {
     path: "/courses/add",
-    exact: true,
+    exact: false,
     pageTitle: "Add Course",
     main: () => <CourseComponent></CourseComponent>,
   },
@@ -144,19 +151,19 @@ const routes = [
   //Document
   {
     path: "/documents",
-    exact: true,
+    exact: false,
     pageTitle: "List Document",
     main: () => <DocumentComponent></DocumentComponent>,
   },
   {
     path: "/documents/edit/:id",
-    exact: true,
+    exact: false,
     pageTitle: "Edit Document",
     main: () => <DocumentComponent></DocumentComponent>,
   },
   {
     path: "/documents/add",
-    exact: true,
+    exact: false,
     pageTitle: "Add Document",
     main: () => <DocumentComponent></DocumentComponent>,
   },
@@ -164,19 +171,19 @@ const routes = [
   //Exercise
   {
     path: "/exercises",
-    exact: true,
+    exact: false,
     pageTitle: "List Exercise",
     main: () => <ExerciseComponent></ExerciseComponent>,
   },
   {
     path: "/exercises/edit/:id",
-    exact: true,
+    exact: false,
     pageTitle: "Edit Exercise",
     main: () => <ExerciseComponent></ExerciseComponent>,
   },
   {
     path: "/exercises/add",
-    exact: true,
+    exact: false,
     pageTitle: "Add Exercise",
     main: () => <ExerciseComponent></ExerciseComponent>,
   },
@@ -184,7 +191,7 @@ const routes = [
   //login
   {
     path: "/login",
-    exact: true,
+    exact: false,
     pageTitle: "Login",
     // main:()=><LoginComponent></LoginComponent>
   },
@@ -192,7 +199,7 @@ const routes = [
   //login
   {
     path: "/register",
-    exact: true,
+    exact: false,
     pageTitle: "Register",
     // main:()=><RegisterComponent></RegisterComponent>
   },
@@ -200,19 +207,19 @@ const routes = [
   //feedback
   {
     path: "/feedbacks",
-    exact: true,
+    exact: false,
     pageTitle: "List Feedback",
     main: () => <FeedbackComponent></FeedbackComponent>,
   },
   {
     path: "/feedbacks/edit/:id",
-    exact: true,
+    exact: false,
     pageTitle: "Edit Feedback",
     main: () => <FeedbackComponent></FeedbackComponent>,
   },
   {
     path: "/feedbacks/add",
-    exact: true,
+    exact: false,
     pageTitle: "Add Feedback",
     main: () => <FeedbackComponent></FeedbackComponent>,
   },
@@ -220,13 +227,13 @@ const routes = [
   //profile
   {
     path: "/my-profile",
-    exact: true,
+    exact: false,
     pageTitle: "Get My Account",
     // main:()=><ProfileComponent></ProfileComponent>
   },
   {
     path: "/change-password",
-    exact: true,
+    exact: false,
     pageTitle: "Change password ",
     // main:()=><ProfileChangPasswordComponent></ProfileChangPasswordComponent>
   },
@@ -234,8 +241,8 @@ const routes = [
   //not found
   {
     path: "",
-    exact: true,
-    main: () => <NotFound></NotFound>,
+    exact: false,
+    main: () => <NotFound />,
   },
 ];
 

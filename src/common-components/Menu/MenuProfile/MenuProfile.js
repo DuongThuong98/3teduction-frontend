@@ -60,7 +60,10 @@ class MenuProfile extends Component {
     return (
       <li className="user-pro">
         {" "}
-        <Link className="has-arrow waves-effect waves-dark" aria-expanded="false">
+        <Link
+          className="has-arrow waves-effect waves-dark"
+          aria-expanded="false"
+        >
           <img src="images/users/1.jpg" alt="user-img" className="img-circle" />
           <span className="hide-menu">Prof. Mark</span>
         </Link>
