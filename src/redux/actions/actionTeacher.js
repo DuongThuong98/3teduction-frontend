@@ -1,5 +1,5 @@
 import * as Types from '../constant/actionType';
-import * as api from '../../utils/api';
+import callApi from '../../utils/apiCall';
 
 export const actFetchTeachersRequest = () => {
     return dispatch => {
