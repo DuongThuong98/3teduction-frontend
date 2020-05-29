@@ -1,8 +1,7 @@
 import axios from "axios";
 import { authHeader } from "./authHeader";
 import { toastr } from "react-redux-toastr";
-import axios from "axios";
-import * as Config from "./../constants/Config";
+// import * as Config from "./../constants/Config";
 const api = "https://5e9c7e640fd0b50016f74630.mockapi.io";
 
 // config interceptors
@@ -22,31 +21,31 @@ httpClient.interceptors.request.use(function (config) {
 //     return config;
 // });
 
-httpClient.interceptors.response.use(
-  function (response) {
-    if (response.status === 200 && response.data && response.data.message) {
-      toastr.success(response.data.message);
-    }
-    return response;
-  },
-  function (error) {
-    let errorResponse = error.response;
+// httpClient.interceptors.response.use(
+//   function (response) {
+//     if (response.status === 200 && response.data && response.data.message) {
+//       toastr.success(response.data.message);
+//     }
+//     return response;
+//   },
+//   function (error) {
+//     let errorResponse = error.response;
 
-    if (errorResponse.status === 401) {
-      toastr.error(errorResponse.data.message);
-    }
+//     if (errorResponse.status === 401) {
+//       toastr.error(errorResponse.data.message);
+//     }
 
-    if (errorResponse.status === 400) {
-      toastr.error(errorResponse.data.message);
-    }
+//     if (errorResponse.status === 400) {
+//       toastr.error(errorResponse.data.message);
+//     }
 
-    if (errorResponse.status === 403) {
-      toastr.error(errorResponse.data.message);
-    }
+//     if (errorResponse.status === 403) {
+//       toastr.error(errorResponse.data.message);
+//     }
 
-    return Promise.reject(error);
-  }
-);
+//     return Promise.reject(error);
+//   }
+// );
 
 export const downloadCVUrl = httpClient.defaults.baseURL;
 

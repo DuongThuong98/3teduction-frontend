@@ -96,17 +96,15 @@ class Header extends Component {
                 <b>
                   <img
                     src="images/logo-icon.png"
-                    alt="homepage"
                     className="dark-logo"
                   />
                   <img
                     src="images/logo-light-icon.png"
-                    alt="homepage"
                     className="light-logo"
                   />
                 </b>
                 <span className="hidden-xs">
-                  <span className="font-bold">elite</span>university
+                  <span className="font-bold">English Web</span>
                 </span>
               </a>
             </div>
@@ -362,7 +360,7 @@ class Header extends Component {
                 </li>
                 <li className="nav-item right-side-toggle">
                   {" "}
-                  <Link className="nav-link  waves-effect waves-light">
+                  <Link className="nav-link  waves-effect waves-light" to="#">
                     <i className="ti-settings" />
                   </Link>
                 </li>

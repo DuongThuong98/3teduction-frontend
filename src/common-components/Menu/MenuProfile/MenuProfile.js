@@ -63,9 +63,10 @@ class MenuProfile extends Component {
         <Link
           className="has-arrow waves-effect waves-dark"
           aria-expanded="false"
+          to="#"
         >
           <img src="images/users/1.jpg" alt="user-img" className="img-circle" />
-          <span className="hide-menu">Prof. Mark</span>
+          <span className="hide-menu">Admin</span>
         </Link>
         <ul aria-expanded="false" className="collapse">
           {this.showMenus(menusProfile)}

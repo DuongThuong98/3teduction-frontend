@@ -11,6 +11,9 @@ export const SIGN_IN = "SIGN_IN";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 
+export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";
+
 // Data User
 export const GET_USERS = "GET_USERS";
 export const GET_USER = "GET_USER";

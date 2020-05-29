@@ -18,12 +18,6 @@ const menus = [
     icon: "fa fa-users",
   },
   {
-    name: "Student add test",
-    to: "/students/add",
-    exact: false,
-    icon: "fa fa-users",
-  },
-  {
     name: "Admin",
     to: "/admins",
     exact: false,

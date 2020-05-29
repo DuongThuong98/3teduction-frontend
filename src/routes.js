@@ -12,7 +12,9 @@ import ExerciseComponent from "./components/Exercise/Exercise.component";
 import FeedbackComponent from "./components/Feedback/Feedback.component";
 import TeacherAddEditComponent from "./components/Teacher/TeacherAddEdit.component";
 import NotFound from "./components/PageNotFound/PageNotFound";
+import Login from "./components/Login/Login";
 
+/** @type{import("react-router-config").RouteConfig} */
 const routes = [
   {
     path: "/",
@@ -188,22 +190,6 @@ const routes = [
     main: () => <ExerciseComponent></ExerciseComponent>,
   },
 
-  //login
-  {
-    path: "/login",
-    exact: false,
-    pageTitle: "Login",
-    // main:()=><LoginComponent></LoginComponent>
-  },
-
-  //login
-  {
-    path: "/register",
-    exact: false,
-    pageTitle: "Register",
-    // main:()=><RegisterComponent></RegisterComponent>
-  },
-
   //feedback
   {
     path: "/feedbacks",
@@ -238,12 +224,49 @@ const routes = [
     // main:()=><ProfileChangPasswordComponent></ProfileChangPasswordComponent>
   },
 
+  {
+    path: "/login",
+    exact: false,
+    pageTitle: "Login",
+    main: Login,
+    auth: true
+  },
   //not found
   {
     path: "",
     exact: false,
+    auth: true,
     main: () => <NotFound />,
   },
+
+
+  //register
+  {
+    path: "/register",
+    exact: false,
+    pageTitle: "Register",
+    // main:()=><RegisterComponent></RegisterComponent>
+  },
 ];
+
+const publicRoutes = [
+
+  //login
+  {
+    path: "/login",
+    exact: false,
+    pageTitle: "Login",
+    main: () => <Login></Login>
+  },
+
+  //register
+  {
+    path: "/register",
+    exact: false,
+    pageTitle: "Register",
+    // main:()=><RegisterComponent></RegisterComponent>
+  },
+
+]
 
 export default routes;
