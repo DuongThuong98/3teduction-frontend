@@ -1,14 +1,14 @@
+// @ts-nocheck
 import axios from "axios";
 import { authHeader } from "./authHeader";
 import { toastr } from "react-redux-toastr";
-// import * as Config from "./../constants/Config";
+
 const api = "https://5e9c7e640fd0b50016f74630.mockapi.io";
 
 // config interceptors
 const httpClient = axios.create();
-// const httpClientUpload = axios.create();
 
-httpClient.defaults.baseURL = "https://localhost:5001/";
+httpClient.defaults.baseURL = "https://localhost:5000/";
 
 httpClient.defaults.headers.post["Content-Type"] = "application/json";
 httpClient.interceptors.request.use(function (config) {
@@ -16,38 +16,31 @@ httpClient.interceptors.request.use(function (config) {
   return config;
 });
 
-// httpClientUpload.interceptors.request.use(function (config) {
-//     config.headers.Authorization =  authHeader().Authorization;
-//     return config;
-// });
+httpClient.interceptors.response.use(
+  function (response) {
+    if (response.status === 200 && response.data && response.data.message) {
+     toastr.success(response.data.message);
+    }
+    return response;
+  },
+  function (error) {
+    let errorResponse = error.response;
 
-// httpClient.interceptors.response.use(
-//   function (response) {
-//     if (response.status === 200 && response.data && response.data.message) {
-//       toastr.success(response.data.message);
-//     }
-//     return response;
-//   },
-//   function (error) {
-//     let errorResponse = error.response;
+    if (errorResponse.status === 401) {
+     toastr.error(errorResponse.data.message);
+    }
 
-//     if (errorResponse.status === 401) {
-//       toastr.error(errorResponse.data.message);
-//     }
+    if (errorResponse.status === 400) {
+      toastr.error(errorResponse.data.message);
+    }
 
-//     if (errorResponse.status === 400) {
-//       toastr.error(errorResponse.data.message);
-//     }
+    if (errorResponse.status === 403) {
+      toastr.error(errorResponse.data.message);
+    }
 
-//     if (errorResponse.status === 403) {
-//       toastr.error(errorResponse.data.message);
-//     }
-
-//     return Promise.reject(error);
-//   }
-// );
-
-export const downloadCVUrl = httpClient.defaults.baseURL;
+    return Promise.reject(error);
+  }
+);
 
 // User Manage
 export const getListUsers = () => {
@@ -70,13 +63,9 @@ export const deleteUser = (id) => {
   return httpClient.delete(`api/users/${id}`);
 };
 
-export const getRoles = () => {
-  return httpClient.get("api/roles/get-roles");
-};
-
 // AUTHENTICATION
 export const login = (acc) => {
-  return httpClient.post("api/auth/login", acc);
+  return httpClient.post("auth/login", acc);
 };
 
 export const getCurrentUser = () => {
@@ -114,13 +103,3 @@ export const newPassword = (setting) => {
   };
   return httpClient.post("api/auth/change-password", pass);
 };
-
-export default function callApi(endpoint, method = "GET", body) {
-  return axios({
-    method: method,
-    url: `api/${endpoint}`,
-    data: body,
-  }).catch((err) => {
-    console.log(err);
-  });
-}

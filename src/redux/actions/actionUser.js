@@ -47,3 +47,20 @@ export const updatePassword = (password) => {
         }
     }
 }
+
+//temp
+export function setUserDetails(user){
+    return{
+        type: "LOGIN_SUCCESS",
+        auth: user.auth,
+        token: user.token
+    }
+}
+
+export function logoutUser(){
+    return{
+        type: "LOGOUT_SUCCESS",
+        auth: false,
+        token: ''
+    }
+}

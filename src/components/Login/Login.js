@@ -2,7 +2,8 @@ import React, { useState, useEffect, Component } from 'react';
 import { HashRouter as Router, Link, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from 'react-redux'
 import './Login.scss';
-import { history } from '../../helpers/index';
+import * as api from './../../utils/api';
+import * as actions from './../../redux/actions/actionUser';
 
 class Login extends Component {
 
@@ -15,24 +16,39 @@ class Login extends Component {
         }
     }
 
-    componentDidMount() {
+    componentDidMount () {
         console.log(this.props);
-        if(localStorage.getItem('token')){
+        if (localStorage.getItem('token')) {
             this.props.history.push('/');
         }
     }
 
     handleChange = prop => event => {
+        console.log(event.target.value)
+        debugger
         this.setState({ [prop]: event.target.value });
     };
 
-    login = event =>{
-        this.setState({ submitted: true });
+    login = event => {
         const { email, password } = this.state;
-        const { dispatch } = this.props;
-        // if (email && password) {
-        //     dispatch(userActions.login(email, password));
-        // }
+        event.preventDefault();
+        console.log(this.state)
+        api.login(JSON.stringify(
+            {email: email,
+            password:password}
+        ))
+            .then(res => {
+                localStorage.setItem('token', res.data.data.token);
+                let expiredTime = new Date(res.data.data.expiry);
+                // expiredTime = Date.parse(expiredTime);
+                // localStorage.setItem('expiredTime', expiredTime);
+
+                this.props.setCurrentUser(res.data.data);
+            })
+            .catch(err => {
+                let response = err.response;
+                console.log('err', err);
+            })
     }
 
     render () {
@@ -42,17 +58,17 @@ class Login extends Component {
                     <div className="login-register" style={{ backgroundImage: 'https://image.freepik.com/free-vector/workspace-cartoon-style_23-2147508020.jpg' }}>
                         <div className="login-box card">
                             <div className="card-body">
-                                <form className="form-horizontal form-material" id="loginform">
+                                <form className="form-horizontal form-material" id="loginform" onSubmit={(e) => e.preventDefault()}>
                                     <h3 className="text-center m-b-20">Sign In</h3>
                                     <div className="form-group ">
                                         <div className="col-xs-12">
-                                            <input className="form-control" type="email" required placeholder="Email"  onChange = {this.handleChange('email')}/>
+                                            <input className="form-control" type="email" required placeholder="Email" onChange={this.handleChange('email')} />
                                         </div>
                                     </div>
                                     <div className="form-group">
                                         <div className="col-xs-12">
                                             <input className="form-control" autoComplete="current-password" type={this.state.showPassword ? 'text' : 'password'}
-                                             required placeholder="Password" onChange = {this.handleChange('password')} />
+                                                required placeholder="Password" onChange={this.handleChange('password')} />
                                         </div>
                                     </div>
                                     <div className="form-group row">
@@ -70,7 +86,7 @@ class Login extends Component {
                                     </div>
                                     <div className="form-group text-center">
                                         <div className="col-xs-12 p-b-20">
-                                            <button className="btn btn-block btn-lg btn-info btn-rounded" type="submit" onClick={(event)=>{this.login()}}>Log In</button>
+                                            <button className="btn btn-block btn-lg btn-info btn-rounded" type="submit" onClick={(event) => { this.login() }}>Log In</button>
                                         </div>
                                     </div>
                                     <div className="row">
@@ -104,4 +120,8 @@ const mapStateToProps = (state) => {
     // };
 }
 
-export default connect(mapStateToProps, null)(withRouter(Login));
+const mapDispatchToProps = (dispatch) => ({
+    setCurrentUser:(props) => dispatch(actions.setCurrentUser(props)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login));

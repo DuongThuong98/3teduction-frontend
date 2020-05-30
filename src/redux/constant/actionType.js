@@ -9,6 +9,7 @@ export const GET_CURRENT_USER = "GET_CURRENT_USER";
 export const UPDATE_CURRENT_USER = "UPDATE_CURRENT_USER";
 export const SIGN_IN = "SIGN_IN";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 
 export const LOGIN = "LOGIN";
@@ -22,8 +23,6 @@ export const EDIT_USERS = "EDIT_USERS";
 export const DELETE_USER = "DELETE_USER";
 export const GET_REGIONS = "GET_REGIONS";
 export const GET_STATUS = "GET_STATUS";
-
-export const EDIT_CONTRACTOR_POTENTIAL = "EDIT";
 
 export const GET_TEACHERS = "GET_TEACHERS";
 export const ADD_TEACHER = "ADD_TEACHER";
