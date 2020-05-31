@@ -103,3 +103,25 @@ export const newPassword = (setting) => {
   };
   return httpClient.post("api/auth/change-password", pass);
 };
+
+
+// Class Manage
+export const getAllClasses = () => {
+  return httpClient.get("classes/all");
+};
+
+export const getClassById = (id) => {
+  return httpClient.get(`classes/${id}`);
+};
+
+export const createClass = (classModel) => {
+  return httpClient.post("classes", classModel);
+};
+
+export const updateClass = (id, classModel) => {
+  return httpClient.put(`classes/${id}`, classModel);
+};
+
+export const deleteClass = (id) => {
+  return httpClient.delete(`classes/${id}`);
+};

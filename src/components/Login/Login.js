@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import "./Login.scss";
 import * as api from "./../../utils/api";
 import * as actions from "./../../redux/actions/actionUser";
+import jwt from "jwt-decode";
 
 class Login extends Component {
   constructor(props) {
@@ -38,16 +39,16 @@ class Login extends Component {
       .login(JSON.stringify({ email: email, password: password }))
       .then((res) => {
         localStorage.setItem("token", res.data.accessToken);
-        let expiredTime = new Date(res.data.data.expiry);
-        // expiredTime = Date.parse(expiredTime);
-        // localStorage.setItem('expiredTime', expiredTime);
+        var decoded = jwt(res.data.accessToken);
 
-        this.props.setCurrentUser(res.data);
-        debugger
-        this.props.history.push("/");
+        if (decoded.exp >= new Date().getTime() / 1000) {
+          localStorage.setItem("expiredTime", decoded.exp);
+        }
+
+        // this.props.history.push("/");
+        // this.props.setCurrentUser(res.data);
       })
       .catch((err) => {
-        let response = err.response;
         console.log("err", err);
       });
   };
@@ -171,15 +172,8 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  // const { loggingIn } = state.authentication;
-  // return {
-  //     loggingIn
-  // };
-};
-
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (props) => dispatch(actions.setCurrentUser(props)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login));
+export default connect(null, mapDispatchToProps)(withRouter(Login));
