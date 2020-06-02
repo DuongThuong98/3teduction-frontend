@@ -81,19 +81,19 @@ function TableClass(props) {
     {
       key: "action",
       width: "20%",
-      render: (id) => {
+      render: (row) => {
         return (
           <React.Fragment>
             <div className="container-btn">
               <button
                 className="btn btn-sm btn-success width-60 m-r-2 container-btn__edit"
-                onClick={() => editTable(id.id)}
+                onClick={() => editTable(row._id)}
               >
                 Edit
               </button>
               <button
-                className="btn btn-sm btn-purple width-60 container-btn__delete"
-                onClick={() => showModal(id.id)}
+                className="btn btn-sm btn-danger width-60 container-btn__delete m-l-10"
+                onClick={() => showModal(row._id)}
               >
                 Delete
               </button>
