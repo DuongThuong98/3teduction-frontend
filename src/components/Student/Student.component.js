@@ -134,13 +134,13 @@ class StudentComponent extends Component {
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <td colspan="6">
+                                                <td colSpan="6">
                                                     <div className="text-right">
                                                         <nav aria-label="Page navigation example">
                                                             <ul className="pagination justify-content-end">
                                                                 <li className="page-item disabled">
                                                                     <a className="page-link" href="#"
-                                                                        tabindex="-1">Previous</a>
+                                                                        tabIndex="-1">Previous</a>
                                                                 </li>
                                                                 <li className="page-item"><a className="page-link"
                                                                         href="#">1</a></li>

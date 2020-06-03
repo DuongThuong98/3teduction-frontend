@@ -1,15 +1,19 @@
-import { combineReducers } from 'redux';
-import {reducer as toastrReducer} from 'react-redux-toastr'
+import { combineReducers } from "redux";
+import { reducer as toastrReducer } from "react-redux-toastr";
 
-import setting from './setting';
-import user from './user';
-import {ContractorIdAndJobId} from './contractor-potential'
+import user from "./user.reducer";
+import teachers from "./teacher/teacher";
+import itemEditing from "./teacher/itemEditing";
+import major from '../major/major.reducers';
+import tag from '../tag/tag.reducers';
 
 const appReducers = combineReducers({
-    setting,
+    teachers,
+    itemEditing,
     user,
     toastr: toastrReducer,
-    ContractorIdAndJobId
+    major,
+    tag
 });
 
 export default appReducers;

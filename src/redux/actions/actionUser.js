@@ -1,4 +1,3 @@
-
 import * as typeAction from '../constant/actionType';
 import * as api from './../../utils/api';
 
@@ -16,7 +15,7 @@ export const getCurrentUser = () => {
             if (response) {
                 dispatch(getActionCurrentUser(response.data.data));
             }
-        } catch(err) {
+        } catch (err) {
             console.log(err);
         }
     }
@@ -43,8 +42,25 @@ export const updatePassword = (password) => {
             if (response) {
                 console.log('updatePassword', response);
             }
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
+    }
+}
+
+//temp
+export function setUserDetails(user){
+    return{
+        type: "LOGIN_SUCCESS",
+        auth: user.auth,
+        token: user.token
+    }
+}
+
+export function logoutUser(){
+    return{
+        type: "LOGOUT_SUCCESS",
+        auth: false,
+        token: ''
     }
 }

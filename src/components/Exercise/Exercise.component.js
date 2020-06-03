@@ -149,9 +149,9 @@ class ExerciseComponent extends Component {
                       <tr>
                         <td>1011</td>
                         <td>
-                          <a href="javascript:void(0)">
+                          <a >
                             <img
-                              src="../assets/images/users/1.jpg"
+                              src="images/users/1.jpg"
                               alt="user"
                               class="img-circle"
                             />{" "}
@@ -177,9 +177,9 @@ class ExerciseComponent extends Component {
                       <tr>
                         <td>1224</td>
                         <td>
-                          <a href="javascript:void(0)">
+                          <a >
                             <img
-                              src="../assets/images/users/7.jpg"
+                              src="images/users/7.jpg"
                               alt="user"
                               class="img-circle"
                             />{" "}
@@ -208,7 +208,7 @@ class ExerciseComponent extends Component {
                         <div
                           id="add-contact"
                           class="modal fade in"
-                          tabindex="-1"
+                          tabIndex="-1"
                           role="dialog"
                           aria-labelledby="myModalLabel"
                           aria-hidden="true"
@@ -229,7 +229,7 @@ class ExerciseComponent extends Component {
                                 </button>
                               </div>
                               <div class="modal-body">
-                                <from class="form-horizontal form-material">
+                                <div class="form-horizontal form-material">
                                   <div class="form-group">
                                     <div class="col-md-12 m-b-20">
                                       <div class="form-group">
@@ -316,7 +316,7 @@ class ExerciseComponent extends Component {
                                       </div>
                                     </div>
                                   </div>
-                                </from>
+                                </div>
                               </div>
                               <div class="modal-footer">
                                 <button
@@ -337,12 +337,12 @@ class ExerciseComponent extends Component {
                             </div>
                           </div>
                         </div>
-                        <td colspan="6">
+                        <td colSpan="6">
                           <div class="text-right">
                             <nav aria-label="Page navigation example">
                               <ul class="pagination justify-content-end">
                                 <li class="page-item disabled">
-                                  <a class="page-link" href="#" tabindex="-1">
+                                  <a class="page-link" href="#" tabIndex="-1">
                                     Previous
                                   </a>
                                 </li>
@@ -417,12 +417,12 @@ class ExerciseComponent extends Component {
                     </tbody>
                     <tfoot>
                       <tr>
-                        <td colspan="6">
+                        <td colSpan="6">
                           <div class="text-right">
                             <nav aria-label="Page navigation example">
                               <ul class="pagination justify-content-end">
                                 <li class="page-item disabled">
-                                  <a class="page-link" href="#" tabindex="-1">
+                                  <a class="page-link" href="#" tabIndex="-1">
                                     Previous
                                   </a>
                                 </li>
