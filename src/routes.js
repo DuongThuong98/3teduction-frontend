@@ -15,6 +15,7 @@ import TeacherAddEditComponent from "./components/Teacher/TeacherAddEdit.compone
 import NotFound from "./components/PageNotFound/PageNotFound";
 import Login from "./components/Login/Login";
 import ManageClass from "./components/ManageClass/ManageClass";
+import ManageClassForm from "./components/ManageClass/ManageClassForm";
 
 /** @type{import("react-router-config").RouteConfig} */
 const routes = [
@@ -117,19 +118,19 @@ const routes = [
     path: "/classes",
     exact: false,
     pageTitle: "List Class",
-    main: () => <ClassComponent></ClassComponent>,
+    main: () => <ClassComponent/>,
   },
   {
     path: "/classes/edit/:id",
     exact: false,
     pageTitle: "Edit Class",
-    main: () => <ClassComponent></ClassComponent>,
+    main: () => <ManageClassForm/>,
   },
   {
     path: "/classes/add",
     exact: false,
     pageTitle: "Add Class",
-    main: () => <ClassComponent></ClassComponent>,
+    main: () => <ManageClassForm/>,
   },
 
   //class test
@@ -143,13 +144,13 @@ const routes = [
     path: "/classes-test/edit/:id",
     exact: false,
     pageTitle: "Edit Class",
-    main: () => <ManageClass></ManageClass>,
+    main: () => <ManageClassForm/>,
   },
   {
-    path: "/classes-test/add",
-    exact: false,
+    path: "/classestest/add",
+    exact: true,
     pageTitle: "Add Class",
-    main: () => <ManageClass></ManageClass>,
+    main: () => <ManageClassForm/>,
   },
 
   //course

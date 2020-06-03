@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { HashRouter as Router, withRouter } from "react-router-dom";
+import { HashRouter as Router, withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Input, Table, Modal } from "antd";
 import 'antd/dist/antd.css'
@@ -71,16 +71,37 @@ function TableClass(props) {
       title: "Name",
       dataIndex: "name",
       sorter: (a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1),
-      width: "40%",
+      width: "20%",
     },
     {
       title: "Status",
       dataIndex: "status",
-      width: "40%",
+      width: "5%",
     },
     {
-      key: "action",
+      title: "Category",
+      dataIndex: "categoryName",
+      width: "15%",
+    },
+    {
+      title: "Date Opening",
+      dataIndex: "dateOpening",
+      width: "15%",
+    }, 
+    {
+      title: "Date Closed",
+      dataIndex: "dateClosed",
+      width: "15%",
+    }, 
+    {
+      title: "Course",
+      dataIndex: "courseName",
       width: "20%",
+    },
+    {
+      title: "Action",
+      key: "action",
+      width: "10%",
       render: (row) => {
         return (
           <React.Fragment>
@@ -122,15 +143,18 @@ function TableClass(props) {
               </li>
               <li className="breadcrumb-item active">Widget Data</li>
             </ol>
-            <button
+            {/* <button
               type="button"
-              onClick={() => props.history.push("/classes/add")}
+              onClick={() => props.history.push("/classes-test/add")}
               className="btn btn-info d-none d-lg-block m-l-15"
-              data-target="#add-class"
-              data-toggle="modal"
             >
               <i className="fa fa-plus-circle" /> Create New
-            </button>
+            </button> */}
+            <Link
+                type="button"
+                className="btn btn-info d-none d-lg-block m-l-15"
+                to="/classestest/add"
+              ><i className="fa fa-plus-circle" /> Create New</Link>
           </div>
         </div>
       </div>

@@ -125,3 +125,17 @@ export const updateClass = (id, classModel) => {
 export const deleteClass = (id) => {
   return httpClient.delete(`classes/${id}`);
 };
+
+//Category
+export const getCategoryDropdown = () => {
+  return httpClient.get("categories/dropdown");
+};
+
+
+
+
+
+//Course
+export const getCourseDropdown = () => {
+  return httpClient.get("courses/dropdown");
+};
