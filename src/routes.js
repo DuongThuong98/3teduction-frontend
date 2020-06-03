@@ -118,19 +118,19 @@ const routes = [
     path: "/classes",
     exact: false,
     pageTitle: "List Class",
-    main: () => <ClassComponent/>,
+    main: () => <ClassComponent />,
   },
   {
     path: "/classes/edit/:id",
     exact: false,
     pageTitle: "Edit Class",
-    main: () => <ManageClassForm/>,
+    main: () => <ManageClassForm />,
   },
   {
     path: "/classes/add",
     exact: false,
     pageTitle: "Add Class",
-    main: () => <ManageClassForm/>,
+    main: () => <ManageClassForm />,
   },
 
   //class test
@@ -141,16 +141,16 @@ const routes = [
     main: () => <ManageClass></ManageClass>,
   },
   {
-    path: "/classes-test/edit/:id",
+    path: "/classestest/edit/:id",
     exact: false,
     pageTitle: "Edit Class",
-    main: () => <ManageClassForm/>,
+    main: () => <ManageClassForm />,
   },
   {
     path: "/classestest/add",
     exact: true,
     pageTitle: "Add Class",
-    main: () => <ManageClassForm/>,
+    main: () => <ManageClassForm />,
   },
 
   //course

@@ -127,10 +127,10 @@ export const deleteClass = (id) => {
 
 //Category
 export const getCategoryDropdown = () => {
-  return httpClient.get("categories/all");
+  return httpClient.get("categories/support/dropdown");
 };
 
 //Course
 export const getCourseDropdown = () => {
-  return httpClient.get("courses/all");
+  return httpClient.get("courses/support/dropdown");
 };

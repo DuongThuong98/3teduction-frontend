@@ -52,7 +52,7 @@ function TableClass(props) {
   };
 
   const editTable = (id) => {
-    props.history.push(`/classes/edit/${id}`);
+    props.history.push(`/classestest/edit/${id}`);
   };
 
   const onSearchChange = (event) => {

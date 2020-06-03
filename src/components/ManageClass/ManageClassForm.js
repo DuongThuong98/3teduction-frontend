@@ -11,9 +11,9 @@ import { useToasts } from "react-toast-notifications";
 import Select from "react-select";
 
 import * as api from "./../../utils/api";
-import { Checkbox, DatePicker } from "antd";
+import { Checkbox, DatePicker, Input } from "antd";
 
-function ManageClassForm (props) {
+function ManageClassForm(props) {
   const [classModel, setClassModel] = useState({
     name: "",
     status: 0,
@@ -21,35 +21,35 @@ function ManageClassForm (props) {
     courseID: "",
     dateOpening: "",
     dateClosed: "",
-    content:''
+    content: "",
   });
 
   const [categories, setCategories] = useState([]);
   const [courses, setCourses] = useState([]);
-  const dateFormat = 'DD/MM/YYYY';
+  const dateFormat = "DD/MM/YYYY";
 
   useEffect(() => {
     api
       .getCategoryDropdown()
-      .then(res => {
-        let list = res.data.data.map(c => {
+      .then((res) => {
+        let list = res.data.data.map((c) => {
           return c;
         });
         setCategories(list);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log("err", err);
       });
 
     api
       .getCourseDropdown()
-      .then(res => {
-        let list = res.data.data.map(c => {
+      .then((res) => {
+        let list = res.data.data.map((c) => {
           return c;
         });
         setCourses(list);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log("err", err);
       });
 
@@ -57,7 +57,9 @@ function ManageClassForm (props) {
       api
         .getClassById(idUrl)
         .then((res) => {
-          setClassModel(res.data.data);
+          console.log("class", res);
+
+          setClassModel(res.data);
         })
         .catch((err) => {
           console.log("err", err);
@@ -69,27 +71,25 @@ function ManageClassForm (props) {
 
   const handleOnchange = (e) => {
     let target = e.target;
-    let value = target.type === 'checkbox' ? target.checked : target.value;
+    let value = target.type === "checkbox" ? target.checked : target.value;
 
     setClassModel({
       ...classModel,
       [target.name]: value,
     });
-    console.log("handleOnchange", classModel);
   };
 
   function onChangeDateOpen(date, dateString) {
     classModel.dateOpening = dateString;
     setClassModel({
-      ...classModel
+      ...classModel,
     });
-    console.log("handleOnchange", classModel);
   }
 
   function onChangeDateClose(date, dateString) {
     classModel.dateClosed = dateString;
     setClassModel({
-      ...classModel
+      ...classModel,
     });
   }
 
@@ -106,7 +106,7 @@ function ManageClassForm (props) {
         .updateClass(idUrl, _classModel)
         .then((res) => {
           console.log("edit success");
-          props.history.push("/classes");
+          props.history.push("/classestest");
         })
         .catch((err) => {
           console.log("err", err);
@@ -116,7 +116,7 @@ function ManageClassForm (props) {
         .createClass(_classModel)
         .then((res) => {
           console.log("create success");
-          props.history.push("/classes");
+          props.history.push("/classestest");
         })
         .catch((err) => {
           console.log("err", err);
@@ -126,14 +126,17 @@ function ManageClassForm (props) {
 
   const handleChangeCheckbox = () => {
     // setContractor({ ...contractor, approved: !contractor.approved })
-  }
+  };
 
   const showForm = () => {
     return (
-      <form className="mt-4" onSubmit={handleSubmit}
+      <form
+        className="mt-4"
+        onSubmit={handleSubmit}
         onKeyPress={(event) => {
           if (event.which === 13) event.preventDefault();
-        }}>
+        }}
+      >
         <div className="form-body">
           <div className="card-body">
             <div className="row pt-3">
@@ -155,29 +158,39 @@ function ManageClassForm (props) {
               </div>
               <div className="col-md-12">
                 <div className="form-group">
-                  <label htmlFor="content">Content</label>
-                  <input
+                  <label htmlFor="class-content">Content</label>
+                  <Input
                     type="text"
                     className="form-control"
-                    id="content"
+                    id="class-content"
+                    name="content"
                     placeholder="Nội dung"
                     value={classModel.content}
                     onChange={handleOnchange}
+                    required
                   />
                 </div>
               </div>
               <div className="col-md-12">
                 <div className="form-group">
                   <label htmlFor="dateOpening">Thời gian bắt đầu</label>
-                  <DatePicker  className="form-control"
-                    id="dateOpening" name="dateOpening" onChange={onChangeDateOpen} format={dateFormat}/>
+                  <DatePicker
+                    className="form-control"
+                    id="dateOpening"
+                    name="dateOpening"
+                    onChange={onChangeDateOpen}
+                  />
                 </div>
               </div>
               <div className="col-md-12">
                 <div className="form-group">
                   <label htmlFor="dateClosed">Thời gian kết thúc</label>
-                  <DatePicker  className="form-control"
-                    id="dateClosed" name="dateClosed" onChange={onChangeDateClose} format={dateFormat}/>
+                  <DatePicker
+                    className="form-control"
+                    id="dateClosed"
+                    name="dateClosed"
+                    onChange={onChangeDateClose}
+                  />
                 </div>
               </div>
             </div>
@@ -188,14 +201,14 @@ function ManageClassForm (props) {
                   <label className="control-label">Loại Lớp</label>
                   <select
                     className="form-control"
-                    name="category"
-                    onChange={handleOnchange}>
-                    {categories.map(x => {
+                    name="categoryID"
+                    value={classModel.categoryID}
+                    onChange={handleOnchange}
+                  >
+                    {categories.map((x) => {
                       return (
                         <React.Fragment key={x._id}>
-                          <option
-                            //  selected={updateUser.regionId == x.id}
-                            value={x._id}>{x.name}</option>
+                          <option value={x._id}>{x.name}</option>
                         </React.Fragment>
                       );
                     })}
@@ -207,14 +220,18 @@ function ManageClassForm (props) {
                   <label className="control-label">Khóa</label>
                   <select
                     className="form-control"
-                    name="course"
-                    onChange={handleOnchange}>
-                    {courses.map(x => {
+                    name="courseID"
+                    value={classModel.courseID}
+                    onChange={handleOnchange}
+                  >
+                    {courses.map((x) => {
                       return (
                         <React.Fragment key={x._id}>
                           <option
-                            //  selected={updateUser.regionId == x.id}
-                            value={x._id}>{x.name}</option>
+                            value={x._id}
+                          >
+                            {x.name}
+                          </option>
                         </React.Fragment>
                       );
                     })}
@@ -223,19 +240,21 @@ function ManageClassForm (props) {
               </div>
               <div className="col-md-12">
                 <div className="form-group">
-                  <Checkbox name="status" onChange={handleOnchange}
-                  // checked={contractor.status}
-                  >
-                  </Checkbox>
+                  <Checkbox
+                    name="status"
+                    onChange={handleOnchange}
+                    // checked={contractor.status}
+                  ></Checkbox>
                   <label className="control-label m-l-10">Ca</label>
                 </div>
               </div>
               <div className="col-md-12">
                 <button
                   className="btn btn-success"
-                  onClick={() => props.history.push("/classes-test")}>
+                  onClick={() => props.history.push("/classes-test")}
+                >
                   {" "}
-                Cancel{" "}
+                  Cancel{" "}
                 </button>
                 <button type="submit" className="btn btn-primary m-l-5">
                   {" "}
