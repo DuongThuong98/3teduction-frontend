@@ -1,16 +1,5 @@
 import React, { Component } from "react";
-import {
-  HashRouter as Router,
-  Link,
-  Route,
-  Redirect,
-  withRouter,
-} from "react-router-dom";
-// import { connect } from 'react-redux';
-import Menu from "../../common-components/Menu/Menu";
-import "./Home.scss";
-import Header from "../../common-components/Header/Header";
-import Rightbar from "../../common-components/Rightbar/Rightbar";
+import { withRouter } from "react-router";
 
 class Home extends Component {
   render() {
@@ -24,7 +13,7 @@ class Home extends Component {
             <div className="d-flex justify-content-end align-items-center">
               <ol className="breadcrumb">
                 <li className="breadcrumb-item">
-                  <a >Home</a>
+                  <a>Home</a>
                 </li>
                 <li className="breadcrumb-item active">Widget Data</li>
               </ol>
@@ -98,10 +87,10 @@ class Home extends Component {
                                   Tình trạng
                                 </label>
                                 <select className="form-control custom-select">
-                                  <option value>--- Tất cả ---</option>
-                                  <option value>Kết thúc</option>
-                                  <option value>Đang diễn ra</option>
-                                  <option value>Đã kết thúc</option>
+                                  <option>--- Tất cả ---</option>
+                                  <option>Kết thúc</option>
+                                  <option>Đang diễn ra</option>
+                                  <option>Đã kết thúc</option>
                                 </select>
                               </div>
                             </div>
@@ -158,8 +147,8 @@ class Home extends Component {
                                     Chọn loại lớp
                                   </label>
                                   <select className="form-control custom-select">
-                                    <option value>Male</option>
-                                    <option value>Female</option>
+                                    <option value="0">Male</option>
+                                    <option value="1">Female</option>
                                   </select>
                                 </div>
                               </div>
@@ -310,5 +299,4 @@ class Home extends Component {
   }
 }
 
-// export default withRouter(Home);
-export default Home;
+export default withRouter(Home);

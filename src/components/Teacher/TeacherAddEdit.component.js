@@ -32,6 +32,7 @@ class TeacherAddEditComponent extends Component {
             <div class="card">
               <div class="card-body">
                 <h4 class="card-title">Create/Edit</h4>
+
                 <form class="mt-4">
                   <div class="form-body">
                     <div class="card-body">
@@ -112,6 +113,7 @@ class TeacherAddEditComponent extends Component {
                     </div>
                   </div>
                 </form>
+                
               </div>
             </div>
           </div>

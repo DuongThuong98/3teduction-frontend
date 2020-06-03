@@ -8,7 +8,7 @@ const api = "https://5e9c7e640fd0b50016f74630.mockapi.io";
 // config interceptors
 const httpClient = axios.create();
 
-httpClient.defaults.baseURL = "https://localhost:5000/";
+httpClient.defaults.baseURL = "http://localhost:5000/";
 
 httpClient.defaults.headers.post["Content-Type"] = "application/json";
 httpClient.interceptors.request.use(function (config) {
@@ -19,7 +19,7 @@ httpClient.interceptors.request.use(function (config) {
 httpClient.interceptors.response.use(
   function (response) {
     if (response.status === 200 && response.data && response.data.message) {
-     toastr.success(response.data.message);
+      toastr.success(response.data.message);
     }
     return response;
   },
@@ -27,7 +27,7 @@ httpClient.interceptors.response.use(
     let errorResponse = error.response;
 
     if (errorResponse.status === 401) {
-     toastr.error(errorResponse.data.message);
+      toastr.error(errorResponse.data.message);
     }
 
     if (errorResponse.status === 400) {
@@ -65,7 +65,7 @@ export const deleteUser = (id) => {
 
 // AUTHENTICATION
 export const login = (acc) => {
-  return httpClient.post("auth/login", acc);
+  return httpClient.post("accounts/signin", acc);
 };
 
 export const getCurrentUser = () => {
@@ -102,4 +102,35 @@ export const newPassword = (setting) => {
     code: setting.code,
   };
   return httpClient.post("api/auth/change-password", pass);
+};
+
+// Class Manage
+export const getAllClasses = () => {
+  return httpClient.get("classes/all");
+};
+
+export const getClassById = (id) => {
+  return httpClient.get(`classes/${id}`);
+};
+
+export const createClass = (classModel) => {
+  return httpClient.post("classes", classModel);
+};
+
+export const updateClass = (id, classModel) => {
+  return httpClient.put(`classes/${id}`, classModel);
+};
+
+export const deleteClass = (id) => {
+  return httpClient.delete(`classes/${id}`);
+};
+
+//Category
+export const getCategoryDropdown = () => {
+  return httpClient.get("categories/support/dropdown");
+};
+
+//Course
+export const getCourseDropdown = () => {
+  return httpClient.get("courses/support/dropdown");
 };
