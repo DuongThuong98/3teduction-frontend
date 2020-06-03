@@ -95,13 +95,15 @@ function ManageClassForm (props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let newClassModel = {
+    let _classModel = {
       ...classModel,
     };
 
+    console.log("_classModel", _classModel);
+
     if (idUrl) {
       api
-        .updateClass(idUrl, newClassModel)
+        .updateClass(idUrl, _classModel)
         .then((res) => {
           console.log("edit success");
           props.history.push("/classes");
@@ -111,7 +113,7 @@ function ManageClassForm (props) {
         });
     } else {
       api
-        .createClass(newClassModel)
+        .createClass(_classModel)
         .then((res) => {
           console.log("create success");
           props.history.push("/classes");

@@ -104,7 +104,6 @@ export const newPassword = (setting) => {
   return httpClient.post("api/auth/change-password", pass);
 };
 
-
 // Class Manage
 export const getAllClasses = () => {
   return httpClient.get("classes/all");
@@ -128,14 +127,10 @@ export const deleteClass = (id) => {
 
 //Category
 export const getCategoryDropdown = () => {
-  return httpClient.get("categories/dropdown");
+  return httpClient.get("categories/all");
 };
-
-
-
-
 
 //Course
 export const getCourseDropdown = () => {
-  return httpClient.get("courses/dropdown");
+  return httpClient.get("courses/all");
 };

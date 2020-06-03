@@ -41,13 +41,7 @@ class ClassComponent extends Component {
                   data-target="#search-form"
                   aria-expanded="false"
                 >
-                  <i
-                    className="fa fa-search-plus"
-                    style={{
-                      fontSize: "20px",
-                      verticalAlign: "middle",
-                    }}
-                  />
+                  <i className="fa fa-search-plus" style={{ fontSize: "20px", verticalAlign: "middle",}}/>
                 </a>
                 <div
                   id="search-form"
@@ -114,8 +108,10 @@ class ClassComponent extends Component {
                         </div>
                       </div>
                     </form>
+                 
                   </div>
                 </div>
+
                 <div className="table-responsive">
                   <div
                     id="add-class"
@@ -198,6 +194,7 @@ class ClassComponent extends Component {
                           </button>
                         </div>
                       </div>
+                   
                     </div>
                   </div>
                   <table
@@ -239,7 +236,7 @@ class ClassComponent extends Component {
                             data-toggle="modal"
                           >
                             <i /> Edit
-                          </button>
+                          </button> 
                           <button id="remove" className="btn btn-warning">
                             <i className="ti-trash" /> Hủy lớp
                           </button>
