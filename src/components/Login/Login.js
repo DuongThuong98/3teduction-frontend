@@ -22,11 +22,11 @@ class Login extends Component {
     };
   }
 
-  componentDidMount() {
-    if (localStorage.getItem("token")) {
-      this.props.history.push("/");
-    }
-  }
+  // componentDidMount() {
+  //   if (localStorage.getItem("token")) {
+  //     this.props.history.push("/");
+  //   }
+  // }
 
   handleChange = (prop) => (event) => {
     this.setState({ [prop]: event.target.value });

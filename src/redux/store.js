@@ -17,7 +17,7 @@ if (process.env.NODE_ENV !== 'production') {
 console.log('in store.js, process env: ', process.env.NODE_ENV)
 
 // @ts-ignore
-export const store = createStore(rootReducer, compose(applyMiddleware(...middlewares),window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()))
+export const store = createStore(rootReducer, compose(applyMiddleware(...middlewares)))
 sagaMiddleWare.run(rootSagas)
 export const persistor = persistStore(store)
 
