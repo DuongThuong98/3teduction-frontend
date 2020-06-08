@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useEffect } from "react";
 import { HashRouter as Router, withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -5,12 +6,23 @@ import { Input, Table, Modal } from "antd";
 import 'antd/dist/antd.css'
 import * as api from "../../../utils/api";
 import * as cssContants from "../../../constants/css.contants";
+import moment from 'moment';
 
-function TableClass(props) {
+function TableClass (props) {
   const [classes, setClasss] = useState([]);
   const [customTable, setTable] = useState(classes);
   const [isShowDeleteModal, setDeleteModal] = useState(false);
   const [idClass, setIdClass] = useState(null);
+
+  const [categories, setCategories] = useState([]);
+  const [courses, setCourses] = useState([]);
+
+  const [searchModel, setSearchModel] = useState({
+    name: "",
+    status: '',
+    categoryID: "",
+    courseID: "",
+  });
 
   useEffect(() => {
     getClasss();
@@ -20,11 +32,42 @@ function TableClass(props) {
     api
       .getAllClasses()
       .then((res) => {
-        setTable(res.data.data);
-        setClasss(res.data.data);
-        console.log("res", res.data.data);
+        const data = res.data.data;
+        console.log(" res", res.data.data);
+        data.map(el => {
+          let dateOpening = moment(new Date(el.dateOpening));
+          el.dateOpening = dateOpening.format("DD/MM/YYYY");
+          let dateClosed = moment(new Date(el.dateClosed));
+          el.dateClosed = dateClosed.format("DD/MM/YYYY")
+        })
+        setTable(data);
+        setClasss(data);
       })
-      .catch((error) => {});
+      .catch((error) => { });
+
+    api
+      .getCategoryDropdown()
+      .then((res) => {
+        let list = res.data.data.map((c) => {
+          return c;
+        });
+        setCategories(list);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+
+    api
+      .getCourseDropdown()
+      .then((res) => {
+        let list = res.data.data.map((c) => {
+          return c;
+        });
+        setCourses(list);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
   };
 
   const deleteClassApi = (id) => {
@@ -33,7 +76,7 @@ function TableClass(props) {
       .then((res) => {
         getClasss();
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const showModal = (id) => {
@@ -66,6 +109,16 @@ function TableClass(props) {
     setTable(results);
   };
 
+  const onClearSearch = () => {
+    let _model = {
+      name: "",
+      status: '',
+      categoryID: "",
+      courseID: "",
+    }
+    setSearchModel(_model);
+  }
+
   const columns = [
     {
       title: "Name",
@@ -74,29 +127,29 @@ function TableClass(props) {
       width: "20%",
     },
     {
-      title: "Status",
-      dataIndex: "status",
-      width: "5%",
-    },
-    {
       title: "Category",
       dataIndex: "categoryName",
       width: "15%",
     },
     {
+      title: "Course",
+      dataIndex: "courseName",
+      width: "20%",
+    },
+    {
       title: "Date Opening",
       dataIndex: "dateOpening",
       width: "15%",
-    }, 
+    },
     {
       title: "Date Closed",
       dataIndex: "dateClosed",
       width: "15%",
-    }, 
+    },
     {
-      title: "Course",
-      dataIndex: "courseName",
-      width: "20%",
+      title: "Status",
+      dataIndex: "status",
+      width: "5%",
     },
     {
       title: "Action",
@@ -108,13 +161,13 @@ function TableClass(props) {
             <div className="container-btn">
               <button
                 className="btn btn-sm btn-success width-60 m-r-2 container-btn__edit"
-                onClick={() => editTable(row._id)}
+                onClick={() => editTable(row.id)}
               >
                 Edit
               </button>
               <button
                 className="btn btn-sm btn-danger width-60 container-btn__delete m-l-10"
-                onClick={() => showModal(row._id)}
+                onClick={() => showModal(row.id)}
               >
                 Delete
               </button>
@@ -128,6 +181,37 @@ function TableClass(props) {
   const onChangeTable = () => {
     console.log("table is changed");
   };
+
+  const handleOnchange = (e) => {
+    let target = e.target;
+    let value = target.type === "checkbox" ? target.checked : target.value;
+
+    setSearchModel({
+      ...searchModel,
+      [target.name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log(searchModel);
+    console.log(classes);
+    let results = [];
+    results = classes.filter((x, idx) => {
+      let cat = searchModel.categoryID;
+      let cou = searchModel.courseID;
+      let nam = searchModel.name;
+
+      if ((cat.trim() && x.categoryName === cat.trim()) || (cou && cou.trim() && x.categoryName === cou.trim()) || (nam && nam.trim() && x.name.includes(nam.trim()))) {
+        return x;
+      }
+      if(cat ==="" && cou==="" && nam ===""){
+        return x;
+      }
+    })
+    setTable(results);
+  }
 
   return (
     <React.Fragment>
@@ -151,10 +235,10 @@ function TableClass(props) {
               <i className="fa fa-plus-circle" /> Create New
             </button> */}
             <Link
-                type="button"
-                className="btn btn-info d-none d-lg-block m-l-15"
-                to="/classestest/add"
-              ><i className="fa fa-plus-circle" /> Create New</Link>
+              type="button"
+              className="btn btn-info d-none d-lg-block m-l-15"
+              to="/classestest/add"
+            ><i className="fa fa-plus-circle" /> Create New</Link>
           </div>
         </div>
       </div>
@@ -169,10 +253,9 @@ function TableClass(props) {
                 className="btn waves-effect waves-light block btn-primary m-l-5"
                 data-toggle="collapse"
                 data-target="#search-form"
-                aria-expanded="false"
-              >
+                aria-expanded="false">
                 <i
-                  className="fa fa-search-plus"
+                  className="fa fa-search"
                   style={{ fontSize: "20px", verticalAlign: "middle" }}
                 />
               </a>
@@ -180,59 +263,71 @@ function TableClass(props) {
                 id="search-form"
                 className="collapse"
                 role="tabpanel"
-                aria-labelledby="headingThree3"
-              >
+                aria-labelledby="headingThree3">
                 <div className="card">
-                  <form action="#">
+                  <form onSubmit={handleSubmit} onKeyPress={(event) => { if (event.which === 13) event.preventDefault(); }}>
                     <div className="form-body">
                       <div className="card-body">
                         <div className="row pt-3">
                           <div className="col-md-4">
                             <div className="form-group">
                               <label className="control-label">Loại lớp</label>
-                              <select className="form-control custom-select">
-                                <option value="0">--- Tất cả ---</option>
-                                <option value="1">Male</option>
-                                <option value="2">Female</option>
+                              <select className="form-control" name="categoryID" value={searchModel.categoryID} onChange={handleOnchange}>
+                                <option value=''>--- Tất cả ---</option>
+                                {categories.map((x) => {
+                                  return (
+                                    <React.Fragment key={x._id}>
+                                      <option value={x.name}>{x.name}</option>
+                                    </React.Fragment>
+                                  );
+                                })}
+                              </select>
+                            </div>
+                          </div>
+                          <div className="col-md-4">
+                            <div className="form-group">
+                              <label className="control-label">Khóa học</label>
+                              <select className="form-control" name="courseID" value={searchModel.courseID} onChange={handleOnchange}>
+                                <option value=''>--- Tất cả ---</option>
+                                {courses.map((x) => {
+                                  return (
+                                    <React.Fragment key={x._id}>
+                                      <option value={x.name}>{x.name}</option>
+                                    </React.Fragment>
+                                  );
+                                })}
                               </select>
                             </div>
                           </div>
                           <div className="col-md-4">
                             <div className="form-group">
                               <label className="control-label">Tên lớp</label>
-                              <input
+                              <input value={searchModel.name} name="name" onChange={handleOnchange}
                                 type="text"
                                 id="firstName"
                                 className="form-control"
-                                placeholder="John doe"
+                                placeholder="Nhập tên lớp"
                               />
                             </div>
                           </div>
-                          <div className="col-md-4">
-                            <div className="form-group">
+                          {/* <div className="col-md-4">
+                            <div >
                               <label className="control-label">
                                 Tình trạng
                               </label>
-                              <select className="form-control custom-select">
-                                <option>--- Tất cả ---</option>
-                                <option>Kết thúc</option>
-                                <option>Đang diễn ra</option>
-                                <option>Đã kết thúc</option>
+                              <select className="form-control custom-select" name="status" value={searchModel.status} onChange={handleOnchange}>
+                                <option >--- Tất cả ---</option>
+                                <option value="0">Active</option>
+                                <option value="1">Inactive</option>
                               </select>
                             </div>
-                          </div>
+                          </div> */}
                           <div className="col-md-4">
                             <div className="form-group">
-                              <label className="control-label" />
-                              <button
-                                type="submit"
-                                className="btn btn-success form-control"
-                                style={{ marginTop: "7px" }}
-                              >
-                                {" "}
-                                <i className="fa fa-search-plus" />
-                                Search
-                              </button>
+                              <div className="button-group">
+                                <button type="submit" className="btn waves-effect waves-light btn-primary">Tìm</button>
+                                <button type="button" className="btn waves-effect waves-light btn-secondary" onClick={() => onClearSearch()}>Hủy</button>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -268,16 +363,11 @@ function TableClass(props) {
         visible={isShowDeleteModal}
         onOk={deleteClass}
         okType={"danger"}
-        onCancel={handleCancel}
-      >
+        onCancel={handleCancel}>
         <p
           // @ts-ignore
-          style={cssContants.firstContent}
-        >
+          style={cssContants.firstContent, cssContants.dangerColor}>
           Do you really want to delete this record?
-        </p>
-        <p style={cssContants.secondContent}>
-          You can recover from unintentional deletions later.
         </p>
       </Modal>
     </React.Fragment>

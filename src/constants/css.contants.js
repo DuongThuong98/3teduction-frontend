@@ -9,3 +9,7 @@ export const secondContent = {
     fontStyle: 'italic',
     fontSize: '1.4rem'
 };
+
+export const dangerColor ={
+    color: 'red'
+}

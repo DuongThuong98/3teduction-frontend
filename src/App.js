@@ -41,7 +41,7 @@ class App extends Component {
       result = routes.map((route, index) => {
         const { auth } = route;
         if (!auth) {
-          if (!token) {
+          if (token) {
             return (
               <Route
                 key={index}

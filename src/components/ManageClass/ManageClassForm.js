@@ -12,11 +12,12 @@ import Select from "react-select";
 
 import * as api from "./../../utils/api";
 import { Checkbox, DatePicker, Input } from "antd";
+import moment from "moment";
 
-function ManageClassForm(props) {
+function ManageClassForm (props) {
   const [classModel, setClassModel] = useState({
     name: "",
-    status: 0,
+    status: '',
     categoryID: "",
     courseID: "",
     dateOpening: "",
@@ -26,7 +27,9 @@ function ManageClassForm(props) {
 
   const [categories, setCategories] = useState([]);
   const [courses, setCourses] = useState([]);
+  const [today, setToday] = useState(new Date());
   const dateFormat = "DD/MM/YYYY";
+  const dateFormatList = ['DD/MM/YYYY'];
 
   useEffect(() => {
     api
@@ -57,9 +60,14 @@ function ManageClassForm(props) {
       api
         .getClassById(idUrl)
         .then((res) => {
-          console.log("class", res);
+          let classData = res.data;
+          let dateOpening = moment(new Date(classData.dateOpening));
+          classData.dateOpening = dateOpening.format("MM/DD/YYYY");
+          let dateClosed = moment(new Date(classData.dateClosed));
+          classData.dateClosed = dateClosed.format("MM/DD/YYYY");
 
-          setClassModel(res.data);
+          setClassModel(classData);
+          console.log("classData", classData);
         })
         .catch((err) => {
           console.log("err", err);
@@ -79,18 +87,22 @@ function ManageClassForm(props) {
     });
   };
 
-  function onChangeDateOpen(date, dateString) {
+  function onChangeDateOpen (date, dateString) {
     classModel.dateOpening = dateString;
     setClassModel({
       ...classModel,
     });
   }
 
-  function onChangeDateClose(date, dateString) {
+  function onChangeDateClose (date, dateString) {
     classModel.dateClosed = dateString;
     setClassModel({
       ...classModel,
     });
+  }
+
+  function isValidDate (str1, str2) {
+    return new Date(str2) > new Date(str1);
   }
 
   const handleSubmit = (e) => {
@@ -99,6 +111,12 @@ function ManageClassForm(props) {
       ...classModel,
     };
 
+    if (_classModel.dateClosed != null && _classModel.dateClosed != null) {
+      if (!isValidDate(_classModel.dateOpening, _classModel.dateClosed)) {
+        return;
+      }
+    }
+
     console.log("_classModel", _classModel);
 
     if (idUrl) {
@@ -106,7 +124,7 @@ function ManageClassForm(props) {
         .updateClass(idUrl, _classModel)
         .then((res) => {
           console.log("edit success");
-          props.history.push("/classestest");
+          props.history.push("/classes-test");
         })
         .catch((err) => {
           console.log("err", err);
@@ -116,7 +134,7 @@ function ManageClassForm(props) {
         .createClass(_classModel)
         .then((res) => {
           console.log("create success");
-          props.history.push("/classestest");
+          props.history.push("/classes-test");
         })
         .catch((err) => {
           console.log("err", err);
@@ -130,13 +148,7 @@ function ManageClassForm(props) {
 
   const showForm = () => {
     return (
-      <form
-        className="mt-4"
-        onSubmit={handleSubmit}
-        onKeyPress={(event) => {
-          if (event.which === 13) event.preventDefault();
-        }}
-      >
+      <form className="mt-4" onSubmit={handleSubmit} onKeyPress={(event) => {if (event.which === 13) event.preventDefault(); }}>
         <div className="form-body">
           <div className="card-body">
             <div className="row pt-3">
@@ -178,7 +190,13 @@ function ManageClassForm(props) {
                     className="form-control"
                     id="dateOpening"
                     name="dateOpening"
-                    onChange={onChangeDateOpen}
+                    value={moment(classModel.dateOpening, dateFormatList[0])} format={dateFormatList}
+                    onChange={(date, dateString) => {
+                      setClassModel({
+                        ...classModel,
+                        dateOpening: dateString
+                      })
+                    }}
                   />
                 </div>
               </div>
@@ -189,7 +207,13 @@ function ManageClassForm(props) {
                     className="form-control"
                     id="dateClosed"
                     name="dateClosed"
-                    onChange={onChangeDateClose}
+                    value={moment(classModel.dateClosed, dateFormatList[0])} format={dateFormatList}
+                    onChange={(date, dateString) => {
+                      setClassModel({
+                        ...classModel,
+                        dateClosed: dateString
+                      })
+                    }}
                   />
                 </div>
               </div>
@@ -243,9 +267,9 @@ function ManageClassForm(props) {
                   <Checkbox
                     name="status"
                     onChange={handleOnchange}
-                    // checked={contractor.status}
+                    checked={classModel.status}
                   ></Checkbox>
-                  <label className="control-label m-l-10">Ca</label>
+                  <label className="control-label m-l-10">Trạng thái</label>
                 </div>
               </div>
               <div className="col-md-12">
