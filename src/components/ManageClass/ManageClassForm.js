@@ -124,7 +124,7 @@ function ManageClassForm (props) {
         .updateClass(idUrl, _classModel)
         .then((res) => {
           console.log("edit success");
-          props.history.push("/classes-test");
+          props.history.push("/classes");
         })
         .catch((err) => {
           console.log("err", err);
@@ -134,7 +134,7 @@ function ManageClassForm (props) {
         .createClass(_classModel)
         .then((res) => {
           console.log("create success");
-          props.history.push("/classes-test");
+          props.history.push("/classes");
         })
         .catch((err) => {
           console.log("err", err);
@@ -246,8 +246,7 @@ function ManageClassForm (props) {
                     className="form-control"
                     name="courseID"
                     value={classModel.courseID}
-                    onChange={handleOnchange}
-                  >
+                    onChange={handleOnchange}>
                     {courses.map((x) => {
                       return (
                         <React.Fragment key={x._id}>
@@ -267,6 +266,7 @@ function ManageClassForm (props) {
                   <Checkbox
                     name="status"
                     onChange={handleOnchange}
+                    // @ts-ignore
                     checked={classModel.status}
                   ></Checkbox>
                   <label className="control-label m-l-10">Trạng thái</label>
@@ -275,7 +275,7 @@ function ManageClassForm (props) {
               <div className="col-md-12">
                 <button
                   className="btn btn-success"
-                  onClick={() => props.history.push("/classes-test")}
+                  onClick={() => props.history.push("/classes")}
                 >
                   {" "}
                   Cancel{" "}

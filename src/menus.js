@@ -30,12 +30,6 @@ const menus = [
     icon: "fab fa-discourse",
   },
   {
-    name: "Class Test",
-    to: "/classes-test",
-    exact: false,
-    icon: "fab fa-discourse",
-  },
-  {
     name: "Course",
     to: "/courses",
     exact: false,

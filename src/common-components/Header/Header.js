@@ -19,7 +19,8 @@ class Header extends Component {
     e.preventDefault();
     localStorage.removeItem("token");
     localStorage.removeItem("expiredTime");
-    // this.props.history.push("/");
+    debugger
+    this.props.history.push("/login");
   };
 
   render() {

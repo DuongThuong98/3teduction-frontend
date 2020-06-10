@@ -41,11 +41,7 @@ class Login extends Component {
         localStorage.setItem("token", res.data.accessToken);
         var decoded = jwt(res.data.accessToken);
 
-        if (decoded.exp >= new Date().getTime() / 1000) {
-          localStorage.setItem("expiredTime", decoded.exp);
-        }
-
-        // this.props.history.push("/");
+        this.props.history.push("/home");
         // this.props.setCurrentUser(res.data);
       })
       .catch((err) => {

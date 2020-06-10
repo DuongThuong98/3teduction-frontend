@@ -5,18 +5,18 @@ import TeacherComponent from "./components/Teacher/Teacher.component";
 import StudentComponent from "./components/Student/Student.component";
 import Home from "./components/Home/Home";
 import AdminComponent from "./components/Admin/Admin.component";
-import ClassComponent from "./components/Class/Class.component";
 import CourseComponent from "./components/Course/Course.component";
 import DocumentComponent from "./components/Document/Document.component";
 import ExerciseComponent from "./components/Exercise/Exercise.component";
 import FeedbackComponent from "./components/Feedback/Feedback.component";
 import TeacherAddEditComponent from "./components/Teacher/TeacherAddEdit.component";
-// import ShiftComponent from "./components/Shift/Shift.component";
 import NotFound from "./components/PageNotFound/PageNotFound";
 import Login from "./components/Login/Login";
 import ManagerTagSkill from './view/ManagerTagSkill/ManagerTagSkill.container'
 import ManageClass from "./components/ManageClass/ManageClass";
 import ManageClassForm from "./components/ManageClass/ManageClassForm";
+import ManageShift from "./components/ManageShift/ManageShift";
+import ManageShiftForm from "./components/ManageShift/ManageShiftForm";
 
 /** @type{import("react-router-config").RouteConfig} */
 const routes = [
@@ -29,6 +29,12 @@ const routes = [
   {
     path: "/",
     exact: true,
+    pageTitle: "Trang chủ",
+    main: () => <Home></Home>,
+  },
+  {
+    path: "/home",
+    exact: false,
     pageTitle: "Trang chủ",
     main: () => <Home></Home>,
   },
@@ -100,6 +106,27 @@ const routes = [
     main: () => <AdminComponent></AdminComponent>,
   },
 
+  
+  //class
+  {
+    path: "/classes",
+    exact: false,
+    pageTitle: "List Class",
+    main: () => <ManageClass></ManageClass>,
+  },
+  {
+    path: "/classes-edit/:id",
+    exact: false,
+    pageTitle: "Edit Class",
+    main: () => <ManageClassForm />,
+  },
+  {
+    path: "/classes-add",
+    exact: true,
+    pageTitle: "Add Class",
+    main: () => <ManageClassForm />,
+  },
+   
   //admin
   {
     path: "/admins",
@@ -118,46 +145,6 @@ const routes = [
     exact: false,
     pageTitle: "Add Admin",
     main: () => <AdminComponent></AdminComponent>,
-  },
-
-  //class
-  {
-    path: "/classes",
-    exact: false,
-    pageTitle: "List Class",
-    main: () => <ClassComponent />,
-  },
-  {
-    path: "/classes/edit/:id",
-    exact: false,
-    pageTitle: "Edit Class",
-    main: () => <ManageClassForm />,
-  },
-  {
-    path: "/classes/add",
-    exact: false,
-    pageTitle: "Add Class",
-    main: () => <ManageClassForm />,
-  },
-
-  //class test
-  {
-    path: "/classes-test",
-    exact: false,
-    pageTitle: "List Class",
-    main: () => <ManageClass></ManageClass>,
-  },
-  {
-    path: "/classestest/edit/:id",
-    exact: false,
-    pageTitle: "Edit Class",
-    main: () => <ManageClassForm />,
-  },
-  {
-    path: "/classestest/add",
-    exact: true,
-    pageTitle: "Add Class",
-    main: () => <ManageClassForm />,
   },
 
   //course
@@ -253,25 +240,25 @@ const routes = [
     pageTitle: "Change password ",
     // main:()=><ProfileChangPasswordComponent></ProfileChangPasswordComponent>
   },
-  //Shift
-  // {
-  //   path: "/shifts",
-  //   exact: false,
-  //   pageTitle: "List Shift",
-  //   main: () => <ShiftComponent />,
-  // },
-  // {
-  //   path: "/shifts/edit/:id",
-  //   exact: false,
-  //   pageTitle: "Edit Shift",
-  //   main: () => <ShiftComponent />,
-  // },
-  // {
-  //   path: "/shifts/add",
-  //   exact: false,
-  //   pageTitle: "Add Shift",
-  //   main: () => <ShiftComponent />,
-  // },
+  // Shift
+  {
+    path: "/shifts",
+    exact: false,
+    pageTitle: "List Shift",
+    main: () => <ManageShift />,
+  },
+  {
+    path: "/shifts-edit/:id",
+    exact: false,
+    pageTitle: "Edit Shift",
+    main: () => <ManageShiftForm />,
+  },
+  {
+    path: "/shifts-add",
+    exact: false,
+    pageTitle: "Add Shift",
+    main: () => <ManageShiftForm />,
+  },
 
   {
     path: "/login",

@@ -2,35 +2,36 @@
 import React, { useState, useEffect } from "react";
 import { HashRouter as Router, withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { Input, Table, Modal } from "antd";
 import 'antd/dist/antd.css'
 import * as api from "../../../utils/api";
 import * as cssContants from "../../../constants/css.contants";
+import { Checkbox, DatePicker, Input, Table, Modal } from "antd";
 import moment from 'moment';
 
-function TableClass (props) {
-  const [classes, setClasss] = useState([]);
-  const [customTable, setTable] = useState(classes);
+function TableShift (props) {
+  const [shifts, setShifts] = useState([]);
+  const [customTable, setTable] = useState(shifts);
   const [isShowDeleteModal, setDeleteModal] = useState(false);
-  const [idClass, setIdClass] = useState(null);
+  const [idShifts, setIdShifts] = useState(null);
 
-  const [categories, setCategories] = useState([]);
-  const [courses, setCourses] = useState([]);
+  const [classes, setClasses] = useState([]);
+  const dateFormat = "DD/MM/YYYY";
+  const dateFormatList = ['DD/MM/YYYY'];
 
   const [searchModel, setSearchModel] = useState({
-    name: "",
+    timeIn: "",
+    timeOut: "",
+    classID: "",
     status: '',
-    categoryID: "",
-    courseID: "",
   });
 
   useEffect(() => {
-    getClasss();
+    getShifts();
   }, []);
 
-  const getClasss = () => {
+  const getShifts = () => {
     api
-      .getAllClasses()
+      .getAllShifts()
       .then((res) => {
         const data = res.data.data;
         console.log(" res", res.data.data);
@@ -41,67 +42,55 @@ function TableClass (props) {
           el.dateClosed = dateClosed.format("DD/MM/YYYY")
         })
         setTable(data);
-        setClasss(data);
+        setShifts(data);
       })
       .catch((error) => { });
 
     api
-      .getCategoryDropdown()
+      .getClassDropdown()
       .then((res) => {
         let list = res.data.data.map((c) => {
           return c;
         });
-        setCategories(list);
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
-
-    api
-      .getCourseDropdown()
-      .then((res) => {
-        let list = res.data.data.map((c) => {
-          return c;
-        });
-        setCourses(list);
+        setClasses(list);
       })
       .catch((err) => {
         console.log("err", err);
       });
   };
 
-  const deleteClassApi = (id) => {
+  const deleteShiftApi = (id) => {
     api
-      .deleteClass(id)
+      .deleteShift(id)
       .then((res) => {
-        getClasss();
+        getShifts();
       })
       .catch((err) => { });
   };
 
   const showModal = (id) => {
     setDeleteModal(true);
-    setIdClass(id);
+    setIdShifts(id);
   };
 
   const handleCancel = () => {
     setDeleteModal(false);
   };
 
-  const deleteClass = () => {
-    deleteClassApi(idClass);
+  const deleteShift = () => {
+    deleteShiftApi(idShifts);
     handleCancel();
     console.log("ok");
   };
 
   const editTable = (id) => {
-    props.history.push(`/classes-edit/${id}`);
+    props.history.push(`/shifts-edit/${id}`);
   };
 
   const onSearchChange = (event) => {
     event.preventDefault();
     let value = event.target.value;
-    let results = classes.filter((x, idx) => {
+    let results = shifts.filter((x, idx) => {
       if (x.name.toLowerCase().includes(value.toLowerCase())) {
         return x;
       }
@@ -121,35 +110,25 @@ function TableClass (props) {
 
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
+      title: "Lớp",
+      dataIndex: "className",
       sorter: (a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1),
+      width: "30%",
+    },
+    {
+      title: "Thời gian bắt đầu",
+      dataIndex: "timeIn",
       width: "20%",
     },
     {
-      title: "Category",
-      dataIndex: "categoryName",
-      width: "15%",
-    },
-    {
-      title: "Course",
-      dataIndex: "courseName",
+      title: "Thời gian kết thúc",
+      dataIndex: "timeOut",
       width: "20%",
-    },
-    {
-      title: "Date Opening",
-      dataIndex: "dateOpening",
-      width: "15%",
-    },
-    {
-      title: "Date Closed",
-      dataIndex: "dateClosed",
-      width: "15%",
     },
     {
       title: "Status",
       dataIndex: "status",
-      width: "5%",
+      width: "20%",
     },
     {
       title: "Action",
@@ -196,9 +175,9 @@ function TableClass (props) {
     e.preventDefault();
 
     console.log(searchModel);
-    console.log(classes);
+    console.log(shifts);
     let results = [];
-    results = classes.filter((x, idx) => {
+    results = shifts.filter((x, idx) => {
       let cat = searchModel.categoryID;
       let cou = searchModel.courseID;
       let nam = searchModel.name;
@@ -206,7 +185,7 @@ function TableClass (props) {
       if ((cat.trim() && x.categoryName === cat.trim()) || (cou && cou.trim() && x.categoryName === cou.trim()) || (nam && nam.trim() && x.name.includes(nam.trim()))) {
         return x;
       }
-      if(cat ==="" && cou==="" && nam ===""){
+      if (cat === "" && cou === "" && nam === "") {
         return x;
       }
     })
@@ -229,7 +208,7 @@ function TableClass (props) {
             </ol>
             {/* <button
               type="button"
-              onClick={() => props.history.push("/classes-test/add")}
+              onClick={() => props.history.push("/shifts-test/add")}
               className="btn btn-info d-none d-lg-block m-l-15"
             >
               <i className="fa fa-plus-circle" /> Create New
@@ -237,7 +216,7 @@ function TableClass (props) {
             <Link
               type="button"
               className="btn btn-info d-none d-lg-block m-l-15"
-              to="/classes-add"
+              to="/shifts-add"
             ><i className="fa fa-plus-circle" /> Create New</Link>
           </div>
         </div>
@@ -269,60 +248,61 @@ function TableClass (props) {
                     <div className="form-body">
                       <div className="card-body">
                         <div className="row pt-3">
-                          <div className="col-md-4">
+                          <div className="col-md-3">
                             <div className="form-group">
-                              <label className="control-label">Loại lớp</label>
-                              <select className="form-control" name="categoryID" value={searchModel.categoryID} onChange={handleOnchange}>
-                                <option value=''>--- Tất cả ---</option>
-                                {categories.map((x) => {
-                                  return (
-                                    <React.Fragment key={x._id}>
-                                      <option value={x.name}>{x.name}</option>
-                                    </React.Fragment>
-                                  );
-                                })}
-                              </select>
-                            </div>
-                          </div>
-                          <div className="col-md-4">
-                            <div className="form-group">
-                              <label className="control-label">Khóa học</label>
-                              <select className="form-control" name="courseID" value={searchModel.courseID} onChange={handleOnchange}>
-                                <option value=''>--- Tất cả ---</option>
-                                {courses.map((x) => {
-                                  return (
-                                    <React.Fragment key={x._id}>
-                                      <option value={x.name}>{x.name}</option>
-                                    </React.Fragment>
-                                  );
-                                })}
-                              </select>
-                            </div>
-                          </div>
-                          <div className="col-md-4">
-                            <div className="form-group">
-                              <label className="control-label">Tên lớp</label>
-                              <input value={searchModel.name} name="name" onChange={handleOnchange}
-                                type="text"
-                                id="firstName"
+                              <label className="control-label">Khóa</label>
+                              <select
                                 className="form-control"
-                                placeholder="Nhập tên lớp"
+                                name="classID"
+                                value={searchModel.classID}
+                                onChange={handleOnchange}>
+                                {classes.map((x) => {
+                                  return (
+                                    <React.Fragment key={x._id}>
+                                      <option
+                                        value={x.name}
+                                      >
+                                        {x.name}
+                                      </option>
+                                    </React.Fragment>
+                                  );
+                                })}
+                              </select>
+                            </div>
+                          </div>
+                          <div className="col-md-3">
+                            <div className="form-group">
+                              <DatePicker
+                                className="form-control"
+                                id="dateOpening"
+                                name="dateOpening"
+                                value={moment(searchModel.timeIn, dateFormatList[0])} format={dateFormatList}
+                                onChange={(date, dateString) => {
+                                  setSearchModel({
+                                    ...searchModel,
+                                    timeIn: dateString
+                                  })
+                                }}
                               />
                             </div>
                           </div>
-                          {/* <div className="col-md-4">
-                            <div >
-                              <label className="control-label">
-                                Tình trạng
-                              </label>
-                              <select className="form-control custom-select" name="status" value={searchModel.status} onChange={handleOnchange}>
-                                <option >--- Tất cả ---</option>
-                                <option value="0">Active</option>
-                                <option value="1">Inactive</option>
-                              </select>
+                          <div className="col-md-3">
+                            <div className="form-group">
+                              <DatePicker
+                                className="form-control"
+                                id="dateOpening"
+                                name="dateOpening"
+                                value={moment(searchModel.timeOut, dateFormatList[0])} format={dateFormatList}
+                                onChange={(date, dateString) => {
+                                  setSearchModel({
+                                    ...searchModel,
+                                    timeOut: dateString
+                                  })
+                                }}
+                              />
                             </div>
-                          </div> */}
-                          <div className="col-md-4">
+                          </div>
+                          <div className="col-md-3">
                             <div className="form-group">
                               <div className="button-group">
                                 <button type="submit" className="btn waves-effect waves-light btn-primary">Tìm</button>
@@ -361,7 +341,7 @@ function TableClass (props) {
       <Modal
         title="Are you sure?"
         visible={isShowDeleteModal}
-        onOk={deleteClass}
+        onOk={deleteShift}
         okType={"danger"}
         onCancel={handleCancel}>
         <p
@@ -374,4 +354,4 @@ function TableClass (props) {
   );
 }
 
-export default connect(null, null)(withRouter(TableClass));
+export default connect(null, null)(withRouter(TableShift));
