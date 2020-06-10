@@ -44,23 +44,27 @@ httpClient.interceptors.response.use(
 
 // User Manage
 export const getListUsers = () => {
-  return httpClient.get("api/users/all");
+  return httpClient.get("users/all");
 };
 
 export const getUser = (id) => {
-  return httpClient.get(`api/users/${id}`);
+  return httpClient.get(`users/${id}`);
 };
 
 export const addUser = (user) => {
-  return httpClient.post("api/users", user);
+  return httpClient.post("users", user);
 };
 
 export const updateUser = (id, user) => {
-  return httpClient.put(`api/users/${id}`, user);
+  return httpClient.put(`users/${id}`, user);
 };
 
 export const deleteUser = (id) => {
   return httpClient.delete(`api/users/${id}`);
+};
+
+export const getUserDropdown = () => {
+  return httpClient.get(`users/support/dropdown`);
 };
 
 // AUTHENTICATION
@@ -156,6 +160,32 @@ export const deleteShift = (id) => {
   return httpClient.delete(`shifts/${id}`);
 };
 
+
+//Document Manage 
+// User Manage
+export const getListDocuments = () => {
+  return httpClient.get("documents/all");
+};
+
+export const getUser = (id) => {
+  return httpClient.get(`documents/${id}`);
+};
+
+export const addDocument = (user) => {
+  return httpClient.post("documents", user);
+};
+
+export const updateDocument = (id, user) => {
+  return httpClient.put(`documents/${id}`, user);
+};
+
+export const deleteDocument = (id) => {
+  return httpClient.delete(`documents/${id}`);
+};
+
+export const getDocumentDropdown = () => {
+  return httpClient.get(`documents/support/dropdown`);
+};
 
 //Category
 export const getCategoryDropdown = () => {
