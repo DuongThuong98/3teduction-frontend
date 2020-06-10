@@ -17,6 +17,8 @@ import ManageClass from "./components/ManageClass/ManageClass";
 import ManageClassForm from "./components/ManageClass/ManageClassForm";
 import ManageShift from "./components/ManageShift/ManageShift";
 import ManageShiftForm from "./components/ManageShift/ManageShiftForm";
+import ManageDocument from "./components/ManageDocument/ManageDocument";
+import ManageDocumentForm from "./components/ManageDocument/ManageDocumentForm";
 
 /** @type{import("react-router-config").RouteConfig} */
 const routes = [
@@ -172,19 +174,19 @@ const routes = [
     path: "/documents",
     exact: false,
     pageTitle: "List Document",
-    main: () => <DocumentComponent></DocumentComponent>,
+    main: () => <ManageDocument/>,
   },
   {
-    path: "/documents/edit/:id",
+    path: "/documents-edit/:id",
     exact: false,
     pageTitle: "Edit Document",
-    main: () => <DocumentComponent></DocumentComponent>,
+    main: () => <ManageDocumentForm/>,
   },
   {
-    path: "/documents/add",
+    path: "/documents-add",
     exact: false,
     pageTitle: "Add Document",
-    main: () => <DocumentComponent></DocumentComponent>,
+    main: () => <ManageDocumentForm/>,
   },
 
   //Exercise

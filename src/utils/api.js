@@ -122,12 +122,12 @@ export const getClassById = (id) => {
   return httpClient.get(`classes/${id}`);
 };
 
-export const createClass = (classModel) => {
-  return httpClient.post("classes", classModel);
+export const createClass = (data) => {
+  return httpClient.post("classes", data);
 };
 
-export const updateClass = (id, classModel) => {
-  return httpClient.put(`classes/${id}`, classModel);
+export const updateClass = (id, data) => {
+  return httpClient.put(`classes/${id}`, data);
 };
 
 export const deleteClass = (id) => {
@@ -148,12 +148,12 @@ export const getShiftById = (id) => {
   return httpClient.get(`shifts/${id}`);
 };
 
-export const createShift = (shiftModel) => {
-  return httpClient.post("shifts", shiftModel);
+export const createShift = (data) => {
+  return httpClient.post("shifts", data);
 };
 
-export const updateShift = (id, shiftModel) => {
-  return httpClient.put(`shifts/${id}`, shiftModel);
+export const updateShift = (id, data) => {
+  return httpClient.put(`shifts/${id}`, data);
 };
 
 export const deleteShift = (id) => {
@@ -163,20 +163,20 @@ export const deleteShift = (id) => {
 
 //Document Manage 
 // User Manage
-export const getListDocuments = () => {
+export const getAllDocuments = () => {
   return httpClient.get("documents/all");
 };
 
-export const getUser = (id) => {
+export const getDocument = (id) => {
   return httpClient.get(`documents/${id}`);
 };
 
-export const addDocument = (user) => {
-  return httpClient.post("documents", user);
+export const createDocument = (data) => {
+  return httpClient.post("documents", data);
 };
 
-export const updateDocument = (id, user) => {
-  return httpClient.put(`documents/${id}`, user);
+export const updateDocument = (id, data) => {
+  return httpClient.put(`documents/${id}`, data);
 };
 
 export const deleteDocument = (id) => {
