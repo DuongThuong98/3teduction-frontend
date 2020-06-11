@@ -1,24 +1,24 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
 import "./App.css";
-import TeacherComponent from "./components/Teacher/Teacher.component";
 import StudentComponent from "./components/Student/Student.component";
 import Home from "./components/Home/Home";
-import AdminComponent from "./components/Admin/Admin.component";
 import CourseComponent from "./components/Course/Course.component";
-import DocumentComponent from "./components/Document/Document.component";
 import ExerciseComponent from "./components/Exercise/Exercise.component";
 import FeedbackComponent from "./components/Feedback/Feedback.component";
-import TeacherAddEditComponent from "./components/Teacher/TeacherAddEdit.component";
 import NotFound from "./components/PageNotFound/PageNotFound";
 import Login from "./components/Login/Login";
-import ManagerTagSkill from './view/ManagerTagSkill/ManagerTagSkill.container'
+import ManagerTagSkill from "./view/ManagerTagSkill/ManagerTagSkill.container";
 import ManageClass from "./components/ManageClass/ManageClass";
 import ManageClassForm from "./components/ManageClass/ManageClassForm";
 import ManageShift from "./components/ManageShift/ManageShift";
 import ManageShiftForm from "./components/ManageShift/ManageShiftForm";
 import ManageDocument from "./components/ManageDocument/ManageDocument";
 import ManageDocumentForm from "./components/ManageDocument/ManageDocumentForm";
+import ManageAdmin from "./components/ManageAdmin/ManageAdmin";
+import ManageAdminForm from "./components/ManageAdmin/ManageAdminForm";
+import ManageTeacher from "./components/ManageTeacher/ManageTeacher";
+import ManageTeacherForm from "./components/ManageTeacher/ManageTeacherForm";
 
 /** @type{import("react-router-config").RouteConfig} */
 const routes = [
@@ -26,7 +26,7 @@ const routes = [
     path: "/test",
     exact: true,
     pageTitle: "Trang chủ",
-    main: () => <ManagerTagSkill/>,
+    main: () => <ManagerTagSkill />,
   },
   {
     path: "/",
@@ -43,29 +43,24 @@ const routes = [
 
   // teacher
   {
-    path: "/teachers/edit/:id",
-    exact: false,
-    pageTitle: "Edit Teacher",
-    main: ({ match, history }) => (
-      <TeacherAddEditComponent
-        match={match}
-        history={history}
-      ></TeacherAddEditComponent>
-    ),
-  },
-  {
-    path: "/teachers/add",
-    exact: false,
-    pageTitle: "Add Teacher",
-    main: ({ history }) => (
-      <TeacherAddEditComponent history={history}></TeacherAddEditComponent>
-    ),
-  },
-  {
     path: "/teachers",
     exact: false,
     pageTitle: "List Teacher",
-    main: () => <TeacherComponent></TeacherComponent>,
+    main: () => <ManageTeacher />,
+  },
+  {
+    path: "/teachers-edit/:id",
+    exact: false,
+    pageTitle: "Edit Teacher",
+    main: ({ match, history }) => (
+      <ManageTeacherForm match={match} history={history} />
+    ),
+  },
+  {
+    path: "/teachers-add",
+    exact: false,
+    pageTitle: "Add Teacher",
+    main: ({ history }) => <ManageTeacherForm history={history} />,
   },
 
   //student
@@ -85,7 +80,7 @@ const routes = [
     path: "/students/add",
     exact: false,
     pageTitle: "Add Student",
-    main: () => <TeacherAddEditComponent></TeacherAddEditComponent>,
+    main: () => <StudentComponent></StudentComponent>,
   },
 
   //admin
@@ -93,22 +88,15 @@ const routes = [
     path: "/admins",
     exact: false,
     pageTitle: "List Admin",
-    main: () => <AdminComponent></AdminComponent>,
-  },
-  {
-    path: "/admins/edit/:id",
-    exact: false,
-    pageTitle: "Edit Admin",
-    main: () => <AdminComponent></AdminComponent>,
+    main: () => <ManageAdmin />,
   },
   {
     path: "/admins/add",
     exact: false,
     pageTitle: "Add Admin",
-    main: () => <AdminComponent></AdminComponent>,
+    main: () => <ManageAdminForm />,
   },
 
-  
   //class
   {
     path: "/classes",
@@ -128,7 +116,7 @@ const routes = [
     pageTitle: "Add Class",
     main: () => <ManageClassForm />,
   },
-   
+
   //admin
   {
     path: "/admins",
@@ -174,19 +162,19 @@ const routes = [
     path: "/documents",
     exact: false,
     pageTitle: "List Document",
-    main: () => <ManageDocument/>,
+    main: () => <ManageDocument />,
   },
   {
     path: "/documents-edit/:id",
     exact: false,
     pageTitle: "Edit Document",
-    main: () => <ManageDocumentForm/>,
+    main: () => <ManageDocumentForm />,
   },
   {
     path: "/documents-add",
     exact: false,
     pageTitle: "Add Document",
-    main: () => <ManageDocumentForm/>,
+    main: () => <ManageDocumentForm />,
   },
 
   //Exercise

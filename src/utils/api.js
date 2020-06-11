@@ -112,7 +112,6 @@ export const validateTokenInfo = (token) => {
   return httpClient.post("accounts/verify-me", token);
 };
 
-
 // Class Manage
 export const getAllClasses = () => {
   return httpClient.get("classes/all");
@@ -138,7 +137,6 @@ export const getClassDropdown = () => {
   return httpClient.get(`classes/support/dropdown`);
 };
 
-
 // Shift Manage
 export const getAllShifts = () => {
   return httpClient.get("shifts/all");
@@ -160,9 +158,7 @@ export const deleteShift = (id) => {
   return httpClient.delete(`shifts/${id}`);
 };
 
-
-//Document Manage 
-// User Manage
+//Document Manage
 export const getAllDocuments = () => {
   return httpClient.get("documents/all");
 };
@@ -192,8 +188,46 @@ export const getCategoryDropdown = () => {
   return httpClient.get("categories/support/dropdown");
 };
 
-
 //Course
 export const getCourseDropdown = () => {
   return httpClient.get("courses/support/dropdown");
+};
+
+// Admin Manage
+export const getAllAdmins = () => {
+  return httpClient.get("admins/all");
+};
+
+export const createAdmin = (data) => {
+  return httpClient.post("admins", data);
+};
+
+export const blockAdmin = (id) => {
+  return httpClient.get(`admins/${id}`);
+};
+
+
+//Teacher Manage
+export const getAllTeachers = () => {
+  return httpClient.get("teachers/all");
+};
+
+export const getTeacher = (id) => {
+  return httpClient.get(`teachers/${id}`);
+};
+
+export const createTeacher = (data) => {
+  return httpClient.post("teachers", data);
+};
+
+export const updateTeacher = (id, data) => {
+  return httpClient.put(`teachers/${id}`, data);
+};
+
+export const deleteTeacher = (id) => {
+  return httpClient.delete(`teachers/${id}`);
+};
+
+export const getTeacherDropdown = () => {
+  return httpClient.get(`teachers/support/dropdown`);
 };
