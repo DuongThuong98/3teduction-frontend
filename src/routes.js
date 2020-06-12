@@ -19,6 +19,8 @@ import ManageAdmin from "./components/ManageAdmin/ManageAdmin";
 import ManageAdminForm from "./components/ManageAdmin/ManageAdminForm";
 import ManageTeacher from "./components/ManageTeacher/ManageTeacher";
 import ManageTeacherForm from "./components/ManageTeacher/ManageTeacherForm";
+import ManageComment from "./components/ManageComment/ManageComment";
+import ManageCommentForm from "./components/ManageComment/ManageCommentForm";
 
 /** @type{import("react-router-config").RouteConfig} */
 const routes = [
@@ -122,19 +124,19 @@ const routes = [
     path: "/admins",
     exact: false,
     pageTitle: "List Admin",
-    main: () => <AdminComponent></AdminComponent>,
+    main: () => <ManageAdmin/>,
   },
   {
     path: "/admins/edit/:id",
     exact: false,
     pageTitle: "Edit Admin",
-    main: () => <AdminComponent></AdminComponent>,
+    main: () => <ManageAdminForm/>,
   },
   {
     path: "/admins/add",
     exact: false,
     pageTitle: "Add Admin",
-    main: () => <AdminComponent></AdminComponent>,
+    main: () => <ManageAdminForm/>,
   },
 
   //course
@@ -248,6 +250,19 @@ const routes = [
     exact: false,
     pageTitle: "Add Shift",
     main: () => <ManageShiftForm />,
+  },
+   // Comment
+   {
+    path: "/comments",
+    exact: false,
+    pageTitle: "List Comment",
+    main: () => <ManageComment />,
+  },
+  {
+    path: "/comments-view/:id",
+    exact: false,
+    pageTitle: "View Comment",
+    main: () => <ManageCommentForm />,
   },
 
   {

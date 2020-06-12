@@ -8,104 +8,104 @@ import * as api from "../../../utils/api";
 import * as cssContants from "../../../constants/css.contants";
 import moment from "moment";
 
-function TableTeacher(props) {
-  const [teachers, setTeachers] = useState([]);
-  const [customTable, setTable] = useState(teachers);
+function TableComment(props) {
+  const [comments, setComments] = useState([]);
+  const [customTable, setTable] = useState(comments);
   const [isShowModal, setModal] = useState(false);
   const [isShowModalDelete, setModalDelete] = useState(false);
-  const [idTeacher, setIdTeacher] = useState(null);
+  const [idComment, setIdComment] = useState(null);
 
   useEffect(() => {
-    getTeachers();
+    getComments();
   }, []);
 
-  const getTeachers = () => {
+  const getComments = () => {
     api
-      .getAllTeachers()
+      .getAllComments()
       .then((res) => {
         const data = res.data.data;
         data.map((el) => {
-          let bd = moment(new Date(el.birthdate));
-          el.birthdate = bd.format("DD/MM/YYYY");
+          let bd = moment(new Date(el.datePosted));
+          el.datePosted = bd.format("DD/MM/YYYY");
         });
         setTable(data);
-        setTeachers(data);
+        setComments(data);
       })
       .catch((error) => {});
   };
 
   const showModal = (id) => {
     setModal(true);
-    setIdTeacher(id);
+    setIdComment(id);
   };
 
   const handleCancel = () => {
     setModal(false);
   };
 
-  const blockTeacher = () => {
-    blockTeacherApi(idTeacher);
+  const blockComment = () => {
+    blockCommentApi(idComment);
     handleCancel();
   };
 
-  const blockTeacherApi = (id) => {
+  const blockCommentApi = (id) => {
     api
-      .blockTeacher(id)
+      .blockComment(id)
       .then((res) => {
-        getTeachers();
+        getComments();
       })
       .catch((err) => {});
   };
 
-  const deleteTeacherApi = (id) => {
+  const deleteCommentApi = (id) => {
     api
-      .deleteTeacher(id)
+      .deleteComment(id)
       .then((res) => {
-        getTeachers();
+        getComments();
       })
       .catch((err) => {});
   };
 
   const showModalDelete = (id) => {
     setModalDelete(true);
-    setIdTeacher(id);
+    setIdComment(id);
   };
 
   const handleCancelDelete = () => {
     setModalDelete(false);
   };
 
-  const deleteTeacher = () => {
-    deleteTeacherApi(idTeacher);
+  const deleteComment = () => {
+    deleteCommentApi(idComment);
     handleCancel();
   };
 
   const editTable = (id) => {
-    props.history.push(`/teachers-edit/${id}`);
+    props.history.push(`/teachers-view/${id}`);
   };
 
   const columns = [
     {
-      title: "Tên hiển thị",
-      dataIndex: "displayname",
+      title: "Tiêu đề",
+      dataIndex: "title",
       sorter: (a, b) =>
         a.displayname.toLowerCase() > b.displayname.toLowerCase() ? 1 : -1,
       width: "20%",
     },
     {
-      title: "Email",
-      dataIndex: "email",
-      width: "20%",
+      title: "Nội dung",
+      dataIndex: "content",
+      width: "45%",
     },
     {
-      title: "Điện thoại",
-      dataIndex: "phone",
-      width: "10%",
+      title: "Lượt thích",
+      dataIndex: "like",
+      width: "5%",
     },
     {
-      title: "Ngày sinh",
-      dataIndex: "birthdate",
-      width: "10%",
+      title: "Người bình luận",
+      dataIndex: "authorName",
+      width: "15%",
     },
     {
       title: "Blocked",
@@ -113,19 +113,9 @@ function TableTeacher(props) {
       width: "5%",
     },
     {
-      title: "Giới tính",
-      dataIndex: "gender",
-      width: "5%",
-    },
-    {
-      title: "Địa chỉ",
-      dataIndex: "address",
-      width: "15%",
-    },
-    {
       title: "Action",
       key: "action",
-      width: "15%",
+      width: "10%",
       render: (row) => {
         return (
           <React.Fragment>
@@ -134,13 +124,13 @@ function TableTeacher(props) {
                 className="btn btn-sm btn-success width-60 m-r-2 container-btn__edit"
                 onClick={() => editTable(row.id)}
               >
-                Edit
+                View
               </button>
               <button
                 className="btn btn-sm btn-warning width-60 container-btn__delete m-l-10"
                 onClick={() => showModal(row.id)}
               >
-                Block Teacher
+                Block Comment
               </button>
               <button
                 className="btn btn-sm btn-danger width-60 container-btn__delete m-l-10"
@@ -171,13 +161,6 @@ function TableTeacher(props) {
               </li>
               <li className="breadcrumb-item active">Widget Data</li>
             </ol>
-            <Link
-              type="button"
-              className="btn btn-info d-none d-lg-block m-l-15"
-              to="/teachers-add"
-            >
-              <i className="fa fa-plus-circle" /> Create New
-            </Link>
           </div>
         </div>
       </div>
@@ -213,22 +196,24 @@ function TableTeacher(props) {
       <Modal
         title="Are you sure?"
         visible={isShowModal}
-        onOk={blockTeacher}
+        onOk={blockComment}
         okType={"danger"}
         onCancel={handleCancel}
       >
-        <p>Do you really want to block teacher?</p>
+        <p>Do you really want to block comment?</p>
       </Modal>
 
       <Modal
         title="Are you sure?"
         visible={isShowModalDelete}
-        onOk={deleteTeacher }
+        onOk={deleteComment}
         okType={"danger"}
-        onCancel={handleCancelDelete}>
+        onCancel={handleCancelDelete}
+      >
         <p
           // @ts-ignore
-          style={cssContants.firstContent, cssContants.dangerColor}>
+          style={(cssContants.firstContent, cssContants.dangerColor)}
+        >
           Do you really want to delete this record?
         </p>
       </Modal>
@@ -236,4 +221,4 @@ function TableTeacher(props) {
   );
 }
 
-export default connect(null, null)(withRouter(TableTeacher));
+export default connect(null, null)(withRouter(TableComment));

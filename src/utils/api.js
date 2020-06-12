@@ -206,7 +206,6 @@ export const blockAdmin = (id) => {
   return httpClient.get(`admins/${id}`);
 };
 
-
 //Teacher Manage
 export const getAllTeachers = () => {
   return httpClient.get("teachers/all");
@@ -228,6 +227,27 @@ export const deleteTeacher = (id) => {
   return httpClient.delete(`teachers/${id}`);
 };
 
+export const blockTeacher = (id) => {
+  return httpClient.get(`teachers/block/${id}`);
+};
+
 export const getTeacherDropdown = () => {
   return httpClient.get(`teachers/support/dropdown`);
+};
+
+//Comment Manage
+export const getAllComments = () => {
+  return httpClient.get("comments/all");
+};
+
+export const viewComment = (id) => {
+  return httpClient.get(`comments/${id}`);
+};
+
+export const blockComment = (id, data) => {
+  return httpClient.put(`comments/${id}`, data);
+};
+
+export const deleteComment = (id) => {
+  return httpClient.delete(`comments/${id}`);
 };
