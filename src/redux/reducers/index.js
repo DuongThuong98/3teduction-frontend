@@ -6,6 +6,7 @@ import teachers from "./teacher/teacher";
 import itemEditing from "./teacher/itemEditing";
 import major from '../major/major.reducers';
 import tag from '../tag/tag.reducers';
+import assignment from './assignment.reducer';
 
 const appReducers = combineReducers({
     teachers,
@@ -13,7 +14,8 @@ const appReducers = combineReducers({
     user,
     toastr: toastrReducer,
     major,
-    tag
+    tag,
+    assignment
 });
 
 export default appReducers;
