@@ -1,8 +1,7 @@
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
-import './ManagerTagSkill.scss'
-
+import './ManageAssignment.scss'
 import React, { useEffect, useState } from 'react'
 import { Table, Tag, Divider, Button, Modal } from 'antd'
 import ModalSkill from './ModalAssignment/ModalAssignment.component'
@@ -94,16 +93,28 @@ const ManagerTagSkill = ({
 
   const columns = [
     {
-      title: 'Tên kĩ năng',
+      title: 'Opened By',
       dataIndex: 'name',
       key: 'name',
     },
     {
-      title: 'Ngành học',
-      dataIndex: 'major',
-      key: 'major',
-      render: (_id, row) => <Tag color="cyan">{row.majorId.name}</Tag>,
+      title: 'Nội dung',
+      dataIndex: 'content',
+      key: 'content',
     },
+    {
+      title: 'File',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      render: (_id, row) => <Tag color="cyan">{row.status}</Tag>,
+    },
+    
+
     {
       title: 'Thao tác',
       dataIndex: 'action',

@@ -54,6 +54,12 @@ const ModelSKill = ({ visible, handleOk, handleCancel, loading, form, options, t
             rules: [{ required: true, message: 'Vui lòng nhập tên kĩ năng', whitespace: true }],
           })(<Input />)}
         </Form.Item>
+        <Form.Item label="Nhập tên kĩ năng" hasFeedback>
+          {getFieldDecorator('name', {
+            initialValue: data ? data.name : '',
+            rules: [{ required: true, message: 'Vui lòng nhập tên kĩ năng', whitespace: true }],
+          })(<Input />)}
+        </Form.Item>
         <Form.Item label="Chọn ngành học" hasFeedback>
           {getFieldDecorator('majorId', {
             initialValue: Option.initialValue || (data ? data.majorId._id : ''),

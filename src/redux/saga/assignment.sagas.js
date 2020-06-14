@@ -11,12 +11,12 @@ import {
   deleteTagSuccess,
   deleteTagFailure,
 } from '../actions/assignment.action'
-import TagService from '../../services/tag.service'
+import AssignmentService from '../../services/assignment.service'
 
 // Get all
 function* getAll(action) {
   try {
-    const data = yield TagService.getAll(action.payload.data)
+    const data = yield AssignmentService.getAll(action.payload.data)
     yield put(getAllSuccess(data))
   } catch (err) {
     yield put(getAllFailure(err.message))
@@ -30,7 +30,7 @@ function* getAllSaga() {
 // Create tag
 function* createTag(action) {
   try {
-    const data = yield TagService.createTag(action.payload.data)
+    const data = yield AssignmentService.createTag(action.payload.data)
     message.success(data.message)
     yield put(createTagSuccess(data))
   } catch (err) {
@@ -46,7 +46,7 @@ function* createTagSaga() {
 // edit tag
 function* editTag(action) {
   try {
-    const data = yield TagService.editTag(action.payload.data)
+    const data = yield AssignmentService.editTag(action.payload.data)
     message.success(data.message)
     yield put(editTagSuccess(data))
   } catch (err) {
@@ -62,7 +62,7 @@ function* editTagSaga() {
 // delete tag
 function* deleteTag(action) {
   try {
-    const data = yield TagService.deleteTag(action.payload.data)
+    const data = yield AssignmentService.deleteTag(action.payload.data)
     message.success(data.message)
     yield put(deleteTagSuccess(data))
   } catch (err) {

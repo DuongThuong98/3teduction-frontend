@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import TagType from './tag.types'
+import TagType from '../constant/assignment.types'
 
 const INITIAL_STATE = {
   data: [],

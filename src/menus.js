@@ -54,6 +54,12 @@ const menus = [
     icon: " fas fa-box",
   },
   {
+    name: "Assignment",
+    to: "/assignments",
+    exact: false,
+    icon: " fas fa-box",
+  },
+  {
     name: "Feedback",
     to: "/Feedbacks",
     exact: false,

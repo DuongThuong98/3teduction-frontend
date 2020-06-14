@@ -21,6 +21,7 @@ import ManageTeacher from "./components/ManageTeacher/ManageTeacher";
 import ManageTeacherForm from "./components/ManageTeacher/ManageTeacherForm";
 import ManageComment from "./components/ManageComment/ManageComment";
 import ManageCommentForm from "./components/ManageComment/ManageCommentForm";
+import ManageAssignment from './components/ManageAssignment/ManageAssignment.container'
 
 /** @type{import("react-router-config").RouteConfig} */
 const routes = [
@@ -198,7 +199,13 @@ const routes = [
     pageTitle: "Add Exercise",
     main: () => <ExerciseComponent></ExerciseComponent>,
   },
-
+  //Assignment
+{
+  path: "/assignments",
+  exact: false,
+  pageTitle: "List Exercise",
+  main: () => <ManageAssignment></ManageAssignment>,
+},
   //feedback
   {
     path: "/feedbacks",
