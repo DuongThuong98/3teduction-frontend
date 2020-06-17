@@ -4,7 +4,7 @@
 import './ManageAssignment.scss'
 import React, { useEffect, useState } from 'react'
 import { Table, Tag, Divider, Button, Modal } from 'antd'
-import ModalSkill from './ModalAssignment/ModalAssignment.component'
+import ModalSkill from './ModalAssignment/ModalMockingTest.component'
 import CustomPagination from '../Pagination/Pagination.component'
 
 const { confirm } = Modal

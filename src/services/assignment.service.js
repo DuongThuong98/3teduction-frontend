@@ -91,7 +91,7 @@ export default class AssignmentService {
   }
 
   static deleteTag = tag => {
-    const api = `${apiUrl}/assignments`
+    const api = `${apiUrl}/assignments/${tag._id}`
     let status = 400
 
     // eslint-disable-next-line no-undef
