@@ -3,113 +3,96 @@ import React, { useState, useEffect } from "react";
 import { HashRouter as Router, withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Input, Table, Modal } from "antd";
-import "antd/dist/antd.css";
+import 'antd/dist/antd.css'
 import * as api from "../../../utils/api";
 import * as cssContants from "../../../constants/css.contants";
-import moment from "moment";
+import moment from 'moment';
 
-function TableComment(props) {
-  const [comments, setComments] = useState([]);
-  const [customTable, setTable] = useState(comments);
-  const [isShowModal, setModal] = useState(false);
-  const [isShowModalDelete, setModalDelete] = useState(false);
-  const [idComment, setIdComment] = useState(null);
+function TableAbsence (props) {
+  const [absences, setAbsences] = useState([]);
+  const [customTable, setTable] = useState(absences);
+  const [isShowDeleteModal, setDeleteModal] = useState(false);
+  const [idAbsence, setIdAbsence] = useState(null);
 
   useEffect(() => {
-    getComments();
+    getAbsences();
   }, []);
 
-  const getComments = () => {
-    api
-      .getAllComments()
+  const getAbsences = () => {
+    api.getAllAbsencees()
       .then((res) => {
         const data = res.data.data;
-        data.map((el) => {
-          let bd = moment(new Date(el.datePosted));
-          el.datePosted = bd.format("DD/MM/YYYY");
-        });
+        data.map(el => {
+          let dateFrom = moment(new Date(el.dateFrom));
+          el.dateFrom = dateFrom.format("DD/MM/YYYY");
+          let dateTo = moment(new Date(el.dateTo));
+          el.dateTo = dateTo.format("DD/MM/YYYY")
+        })
         setTable(data);
-        setComments(data);
+        setAbsences(data);
       })
-      .catch((error) => {});
+      .catch((error) => { });
+
+  };
+
+  const deleteAbsenceApi = (id) => {
+    api
+      .deleteAbsence(id)
+      .then((res) => {
+        getAbsences();
+      })
+      .catch((err) => { });
   };
 
   const showModal = (id) => {
-    setModal(true);
-    setIdComment(id);
+    setDeleteModal(true);
+    setIdAbsence(id);
   };
 
   const handleCancel = () => {
-    setModal(false);
+    setDeleteModal(false);
   };
 
-  const blockComment = () => {
-    blockCommentApi(idComment);
+  const deleteAbsence = () => {
+    deleteAbsenceApi(idAbsence);
     handleCancel();
-  };
-
-  const blockCommentApi = (id) => {
-    api
-      .blockComment(id)
-      .then((res) => {
-        getComments();
-      })
-      .catch((err) => {});
-  };
-
-  const deleteCommentApi = (id) => {
-    api
-      .deleteComment(id)
-      .then((res) => {
-        getComments();
-      })
-      .catch((err) => {});
-  };
-
-  const showModalDelete = (id) => {
-    setModalDelete(true);
-    setIdComment(id);
-  };
-
-  const handleCancelDelete = () => {
-    setModalDelete(false);
-  };
-
-  const deleteComment = () => {
-    deleteCommentApi(idComment);
-    handleCancel();
+    console.log("ok");
   };
 
   const editTable = (id) => {
-    props.history.push(`/teachers-view/${id}`);
+    props.history.push(`/absences-edit/${id}`);
   };
 
   const columns = [
     {
-      title: "Tiêu đề",
-      dataIndex: "title",
-      sorter: (a, b) =>
-        a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1,
-      width: "20%",
+      title: "Lí do",
+      dataIndex: "reason",
+      sorter: (a, b) => (a.reason.toLowerCase() > b.reason.toLowerCase() ? 1 : -1),
+      width: "25%",
     },
     {
-      title: "Nội dung",
-      dataIndex: "content",
-      width: "45%",
-    },
-    {
-      title: "Lượt thích",
-      dataIndex: "like",
-      width: "5%",
-    },
-    {
-      title: "Người bình luận",
-      dataIndex: "authorName",
+      title: "Ngày bắt đầu",
+      dataIndex: "dateFrom",
       width: "15%",
     },
     {
-      title: "Blocked",
-      dataIndex: "isBlock",
+      title: "Ngày kết thúc",
+      dataIndex: "dateTo",
+      width: "15%",
+    },
+    {
+      title: "Hoc sinh",
+      dataIndex: "studentID",
+      width: "15%",
+    },
+    {
+      title: "Lớp",
+      dataIndex: "classID",
+      width: "15%",
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
       width: "5%",
     },
     {
@@ -124,17 +107,11 @@ function TableComment(props) {
                 className="btn btn-sm btn-success width-60 m-r-2 container-btn__edit"
                 onClick={() => editTable(row.id)}
               >
-                View
-              </button>
-              <button
-                className="btn btn-sm btn-warning width-60 container-btn__delete m-l-10"
-                onClick={() => showModal(row.id)}
-              >
-                Block Comment
+                Edit
               </button>
               <button
                 className="btn btn-sm btn-danger width-60 container-btn__delete m-l-10"
-                onClick={() => showModalDelete(row.id)}
+                onClick={() => showModal(row.id)}
               >
                 Delete
               </button>
@@ -145,7 +122,19 @@ function TableComment(props) {
     },
   ];
 
-  const onChangeTable = () => {};
+  const onChangeTable = () => {
+    console.log("table is changed");
+  };
+
+  const handleOnchange = (e) => {
+    let target = e.target;
+    let value = target.type === "checkbox" ? target.checked : target.value;
+
+    setSearchModel({
+      ...searchModel,
+      [target.name]: value,
+    });
+  };
 
   return (
     <React.Fragment>
@@ -161,6 +150,11 @@ function TableComment(props) {
               </li>
               <li className="breadcrumb-item active">Widget Data</li>
             </ol>
+            <Link
+              type="button"
+              className="btn btn-info d-none d-lg-block m-l-15"
+              to="/absences-add"
+            ><i className="fa fa-plus-circle" /> Create New</Link>
           </div>
         </div>
       </div>
@@ -170,11 +164,20 @@ function TableComment(props) {
           <div className="card">
             <div className="card-body">
               <h4 className="card-title">Tabel name</h4>
-              <div className="table-responsive">
+              <a
+                type="button"
+                className="btn waves-effect waves-light block btn-primary m-l-5"
+                data-toggle="collapse"
+                data-target="#search-form"
+                aria-expanded="false">
+                <i
+                  className="fa fa-search"
+                  style={{ fontSize: "20px", verticalAlign: "middle" }}
+                />
+              </a>
+             <div className="table-responsive">
                 <div
-                  id="demo-foo-addrow"
-                  className="table m-t-30 table-hover no-wrap contact-list"
-                >
+                  id="demo-foo-addrow" className="table m-t-30 table-hover no-wrap contact-list">
                   <Table
                     bordered
                     columns={columns}
@@ -193,27 +196,16 @@ function TableComment(props) {
           </div>
         </div>
       </div>
-      <Modal
-        title="Are you sure?"
-        visible={isShowModal}
-        onOk={blockComment}
-        okType={"danger"}
-        onCancel={handleCancel}
-      >
-        <p>Do you really want to block comment?</p>
-      </Modal>
 
       <Modal
         title="Are you sure?"
-        visible={isShowModalDelete}
-        onOk={deleteComment}
+        visible={isShowDeleteModal}
+        onOk={deleteAbsence}
         okType={"danger"}
-        onCancel={handleCancelDelete}
-      >
+        onCancel={handleCancel}>
         <p
           // @ts-ignore
-          style={(cssContants.firstContent, cssContants.dangerColor)}
-        >
+          style={cssContants.firstContent, cssContants.dangerColor}>
           Do you really want to delete this record?
         </p>
       </Modal>
@@ -221,4 +213,4 @@ function TableComment(props) {
   );
 }
 
-export default connect(null, null)(withRouter(TableComment));
+export default connect(null, null)(withRouter(TableAbsence));

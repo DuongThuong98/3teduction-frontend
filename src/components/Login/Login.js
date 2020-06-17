@@ -39,8 +39,6 @@ class Login extends Component {
       .login(JSON.stringify({ email: email, password: password }))
       .then((res) => {
         localStorage.setItem("token", res.data.accessToken);
-        var decoded = jwt(res.data.accessToken);
-
         this.props.history.push("/home");
         // this.props.setCurrentUser(res.data);
       })

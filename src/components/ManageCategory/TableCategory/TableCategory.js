@@ -8,108 +8,90 @@ import * as api from "../../../utils/api";
 import * as cssContants from "../../../constants/css.contants";
 import moment from "moment";
 
-function TableComment(props) {
-  const [comments, setComments] = useState([]);
+function TableCategory(props) {
+  const [comments, setCategorys] = useState([]);
   const [customTable, setTable] = useState(comments);
   const [isShowModal, setModal] = useState(false);
   const [isShowModalDelete, setModalDelete] = useState(false);
-  const [idComment, setIdComment] = useState(null);
+  const [idCategory, setIdCategory] = useState(null);
 
   useEffect(() => {
-    getComments();
+    getCategories();
   }, []);
 
-  const getComments = () => {
+  const getCategories = () => {
     api
-      .getAllComments()
+      .getAllCategories()
       .then((res) => {
         const data = res.data.data;
-        data.map((el) => {
-          let bd = moment(new Date(el.datePosted));
-          el.datePosted = bd.format("DD/MM/YYYY");
-        });
         setTable(data);
-        setComments(data);
+        setCategorys(data);
       })
       .catch((error) => {});
   };
 
   const showModal = (id) => {
     setModal(true);
-    setIdComment(id);
+    setIdCategory(id);
   };
 
   const handleCancel = () => {
     setModal(false);
   };
 
-  const blockComment = () => {
-    blockCommentApi(idComment);
-    handleCancel();
-  };
-
-  const blockCommentApi = (id) => {
+  const deleteCategoryApi = (id) => {
     api
-      .blockComment(id)
+      .deleteCategory(id)
       .then((res) => {
-        getComments();
-      })
-      .catch((err) => {});
-  };
-
-  const deleteCommentApi = (id) => {
-    api
-      .deleteComment(id)
-      .then((res) => {
-        getComments();
+        getCategories();
       })
       .catch((err) => {});
   };
 
   const showModalDelete = (id) => {
     setModalDelete(true);
-    setIdComment(id);
+    setIdCategory(id);
   };
 
   const handleCancelDelete = () => {
     setModalDelete(false);
   };
 
-  const deleteComment = () => {
-    deleteCommentApi(idComment);
+  const deleteCategory = () => {
+    deleteCategoryApi(idCategory);
     handleCancel();
   };
 
   const editTable = (id) => {
-    props.history.push(`/teachers-view/${id}`);
+    props.history.push(`/categoties-view/${id}`);
   };
 
   const columns = [
     {
-      title: "Tiêu đề",
-      dataIndex: "title",
+      title: "Tên",
+      dataIndex: "name",
       sorter: (a, b) =>
-        a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1,
+        a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1,
       width: "20%",
     },
     {
-      title: "Nội dung",
-      dataIndex: "content",
-      width: "45%",
+      title: "Icons",
+      dataIndex: "icons",
+      width: "25%",
     },
     {
-      title: "Lượt thích",
-      dataIndex: "like",
-      width: "5%",
+      title: "Loại",
+      dataIndex: "typeID",
+      width: "25%",
     },
     {
-      title: "Người bình luận",
-      dataIndex: "authorName",
+      title: "Cấp",
+      dataIndex: "level",
       width: "15%",
     },
     {
-      title: "Blocked",
-      dataIndex: "isBlock",
+      title: "Trạng thái",
+      dataIndex: "status",
       width: "5%",
     },
     {
@@ -125,12 +107,6 @@ function TableComment(props) {
                 onClick={() => editTable(row.id)}
               >
                 View
-              </button>
-              <button
-                className="btn btn-sm btn-warning width-60 container-btn__delete m-l-10"
-                onClick={() => showModal(row.id)}
-              >
-                Block Comment
               </button>
               <button
                 className="btn btn-sm btn-danger width-60 container-btn__delete m-l-10"
@@ -195,18 +171,8 @@ function TableComment(props) {
       </div>
       <Modal
         title="Are you sure?"
-        visible={isShowModal}
-        onOk={blockComment}
-        okType={"danger"}
-        onCancel={handleCancel}
-      >
-        <p>Do you really want to block comment?</p>
-      </Modal>
-
-      <Modal
-        title="Are you sure?"
         visible={isShowModalDelete}
-        onOk={deleteComment}
+        onOk={deleteCategory}
         okType={"danger"}
         onCancel={handleCancelDelete}
       >
@@ -221,4 +187,4 @@ function TableComment(props) {
   );
 }
 
-export default connect(null, null)(withRouter(TableComment));
+export default connect(null, null)(withRouter(TableCategory));

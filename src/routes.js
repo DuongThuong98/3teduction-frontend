@@ -5,7 +5,6 @@ import StudentComponent from "./components/Student/Student.component";
 import Home from "./components/Home/Home";
 import CourseComponent from "./components/Course/Course.component";
 import ExerciseComponent from "./components/Exercise/Exercise.component";
-import FeedbackComponent from "./components/Feedback/Feedback.component";
 import NotFound from "./components/PageNotFound/PageNotFound";
 import Login from "./components/Login/Login";
 import ManagerTagSkill from "./view/ManagerTagSkill/ManagerTagSkill.container";
@@ -21,6 +20,9 @@ import ManageTeacher from "./components/ManageTeacher/ManageTeacher";
 import ManageTeacherForm from "./components/ManageTeacher/ManageTeacherForm";
 import ManageComment from "./components/ManageComment/ManageComment";
 import ManageCommentForm from "./components/ManageComment/ManageCommentForm";
+import ManageCategory from "./components/ManageCategory/ManageCategory";
+import ManageCategoryForm from "./components/ManageCategory/ManageCategoryForm";
+import ManageFeedback from "./components/ManageFeedback/ManageFeedback";
 
 /** @type{import("react-router-config").RouteConfig} */
 const routes = [
@@ -93,7 +95,7 @@ const routes = [
     main: () => <ManageAdmin />,
   },
   {
-    path: "/admins/add",
+    path: "/admins-add",
     exact: false,
     pageTitle: "Add Admin",
     main: () => <ManageAdminForm />,
@@ -199,24 +201,13 @@ const routes = [
     main: () => <ExerciseComponent></ExerciseComponent>,
   },
 
-  //feedback
+  //feedback: Feedback do not have route or menu, it has list to view/delete
+  //and is added in form at livestream study page
   {
     path: "/feedbacks",
     exact: false,
     pageTitle: "List Feedback",
-    main: () => <FeedbackComponent></FeedbackComponent>,
-  },
-  {
-    path: "/feedbacks/edit/:id",
-    exact: false,
-    pageTitle: "Edit Feedback",
-    main: () => <FeedbackComponent></FeedbackComponent>,
-  },
-  {
-    path: "/feedbacks/add",
-    exact: false,
-    pageTitle: "Add Feedback",
-    main: () => <FeedbackComponent></FeedbackComponent>,
+    main: () => <ManageFeedback/>,
   },
 
   //profile
@@ -272,6 +263,46 @@ const routes = [
     main: Login,
     auth: true,
   },
+   // Shift
+   {
+    path: "/categories",
+    exact: false,
+    pageTitle: "List Category",
+    main: () => <ManageCategory />,
+  },
+  {
+    path: "/categories-edit/:id",
+    exact: false,
+    pageTitle: "Edit Category",
+    main: () => <ManageCategoryForm />,
+  },
+  {
+    path: "/categories-add",
+    exact: false,
+    pageTitle: "Add Category",
+    main: () => <ManageCategoryForm />,
+  },
+
+    // Absence
+    {
+      path: "/absences",
+      exact: false,
+      pageTitle: "List Category",
+      main: () => <ManageCategory />,
+    },
+    {
+      path: "/absences-edit/:id",
+      exact: false,
+      pageTitle: "Edit Category",
+      main: () => <ManageCategoryForm />,
+    },
+    {
+      path: "/absences-add",
+      exact: false,
+      pageTitle: "Add Category",
+      main: () => <ManageCategoryForm />,
+    },
+
   //not found
   {
     path: "",

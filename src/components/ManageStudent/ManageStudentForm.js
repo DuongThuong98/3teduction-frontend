@@ -14,7 +14,7 @@ import * as api from "../../utils/api";
 import { Checkbox, DatePicker, Input, Radio } from "antd";
 import moment from "moment";
 
-function ManageAdminForm (props) {
+function ManageStudentForm (props) {
   const [model, setModel] = useState({
     displayName: "",
     email: '',
@@ -44,7 +44,7 @@ function ManageAdminForm (props) {
 
   const onChange =(e) =>{
     let target = e.target;
-    let value = target.value;
+    let value = target.type;
 
     setModel({
       ...model,
@@ -58,10 +58,10 @@ function ManageAdminForm (props) {
     let _model = {
       ...model,
     };
-      api.createAdmin(_model)
+      api.createStudent(_model)
         .then((res) => {
           console.log("create success");
-          props.history.push("/admins");
+          props.history.push("/students");
         })
         .catch((err) => {
           console.log("err", err);
@@ -74,6 +74,7 @@ function ManageAdminForm (props) {
         <div className="form-body">
           <div className="card-body">
             <div className="row pt-3">
+              <h4 className="card-title">Thông tin cơ bản</h4>
               <div className="col-md-6">
                 <div className="form-group">
                   <label htmlFor="name">Tên hiển thị</label>
@@ -168,14 +169,14 @@ function ManageAdminForm (props) {
               <div className="col-md-12">
                 <div className="form-group">
                 <Radio.Group onChange={onChange} name="gender">
-                  <Radio value="Nam">Nam</Radio>
-                  <Radio value="Nữ">Nữ</Radio>
+                  <Radio value={0}>Nam</Radio>
+                  <Radio value={1}>Nữ</Radio>
                </Radio.Group>
                 </div>
               </div>
               <div className="col-md-12">
                 <button className="btn btn-success"
-                  onClick={() => props.history.push("/admins")}>
+                  onClick={() => props.history.push("/students")}>
                   {" "}
                   Cancel{" "}
                 </button>
@@ -203,7 +204,7 @@ function ManageAdminForm (props) {
                 <li className="breadcrumb-item">
                   <a>Home</a>
                 </li>
-                <li className="breadcrumb-item active">Admin</li>
+                <li className="breadcrumb-item active">Student</li>
               </ol>
             </div>
           </div>
@@ -231,4 +232,4 @@ function ManageAdminForm (props) {
   );
 }
 
-export default connect(null, null)(withRouter(ManageAdminForm));
+export default connect(null, null)(withRouter(ManageStudentForm));

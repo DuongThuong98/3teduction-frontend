@@ -18,8 +18,6 @@ class Header extends Component {
   logOut = (e) => {
     e.preventDefault();
     localStorage.removeItem("token");
-    localStorage.removeItem("expiredTime");
-    debugger
     this.props.history.push("/login");
   };
 
