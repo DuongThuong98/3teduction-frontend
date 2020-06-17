@@ -22,6 +22,7 @@ import ManageTeacherForm from "./components/ManageTeacher/ManageTeacherForm";
 import ManageComment from "./components/ManageComment/ManageComment";
 import ManageCommentForm from "./components/ManageComment/ManageCommentForm";
 import ManageAssignment from './components/ManageAssignment/ManageAssignment.container'
+import ManageMockingTest from './components/ManageMockingTest/ManageMockingTest.container'
 
 /** @type{import("react-router-config").RouteConfig} */
 const routes = [
@@ -179,7 +180,13 @@ const routes = [
     pageTitle: "Add Document",
     main: () => <ManageDocumentForm />,
   },
-
+  //Mocking test
+  {
+    path: "/mocking-tests",
+    exact: false,
+    pageTitle: "Mocking Test",
+    main: () => <ManageMockingTest/>,
+  },
   //Exercise
   {
     path: "/exercises",

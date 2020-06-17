@@ -3,7 +3,7 @@
 import { connect } from 'react-redux'
 import { getAllTag, createTag, editTag, deleteTag } from '../../redux/actions/mockingTest.action'
 import { getAllMajor } from '../../redux/actions/major.action'
-import ManagerTagSkill from './ManageMockingTestcomponent'
+import ManageMockingTest from './ManageMockingTestcomponent'
 
 const mapStateToProps = state => ({
   data: state.mockingTest.data,
@@ -20,6 +20,6 @@ const mapDispatchToProps = dispatch => ({
   deleteTag: data => dispatch(deleteTag(data)),
 })
 
-const ManagerTagSkillContainer = connect(mapStateToProps, mapDispatchToProps)(ManagerTagSkill)
+const ManageMockingTestContainer = connect(mapStateToProps, mapDispatchToProps)(ManageMockingTest)
 
-export default ManagerTagSkillContainer
+export default ManageMockingTestContainer

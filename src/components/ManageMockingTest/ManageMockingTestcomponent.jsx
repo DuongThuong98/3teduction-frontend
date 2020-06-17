@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
-import './ManageAssignment.scss'
+import './ManageMockingTest.scss'
 import React, { useEffect, useState } from 'react'
 import { Table, Tag, Divider, Button, Modal } from 'antd'
 import ModalSkill from './ModalAssignment/ModalMockingTest.component'
@@ -10,7 +10,7 @@ import CustomPagination from '../Pagination/Pagination.component'
 const { confirm } = Modal
 
 // eslint-disable-next-line react/prop-types
-const ManagerTagSkill = ({
+const ManageMockingTest = ({
   data,
   dataMajor,
   loadingData,
@@ -185,4 +185,4 @@ const ManagerTagSkill = ({
   )
 }
 
-export default ManagerTagSkill
+export default ManageMockingTest

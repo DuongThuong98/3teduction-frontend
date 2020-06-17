@@ -3,7 +3,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
-import './ModalAssignment.scss'
+import './ModalMockingTest.scss'
 
 import React from 'react'
 import { Modal, Button, Select, Form, Input } from 'antd'
