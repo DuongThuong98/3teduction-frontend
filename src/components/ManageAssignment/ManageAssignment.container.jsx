@@ -6,10 +6,10 @@ import { getAllMajor } from '../../redux/actions/major.action'
 import ManagerTagSkill from './ManageAssignment.component'
 
 const mapStateToProps = state => ({
-  data: state.tag.data,
+  data: state.assignment.data,
   dataMajor: state.major.data,
   loadingData: state.major.loading,
-  length: state.tag.length,
+  length: state.assignment.length,
 })
 
 const mapDispatchToProps = dispatch => ({

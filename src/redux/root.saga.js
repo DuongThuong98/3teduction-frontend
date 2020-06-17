@@ -9,6 +9,6 @@ export default function* rootSagas() {
     call(tagSaga),
     call(majorSaga),
     call(assignmentSaga),
-    call(major),
+    // call(major),
   ])
 }

@@ -16,7 +16,9 @@ import AssignmentService from '../../services/assignment.service'
 // Get all
 function* getAll(action) {
   try {
+    console.log('Saga get all: ' + action.type)
     const data = yield AssignmentService.getAll(action.payload.data)
+    console.log('saga data: '+ data)
     yield put(getAllSuccess(data))
   } catch (err) {
     yield put(getAllFailure(err.message))
@@ -24,7 +26,7 @@ function* getAll(action) {
 }
 
 function* getAllSaga() {
-  yield takeLatest(TagType.GET_ALL_TAG, getAll)
+  yield takeLatest(TagType.GET_ALL_ASSIGNMENT, getAll)
 }
 
 // Create tag
@@ -40,7 +42,7 @@ function* createTag(action) {
 }
 
 function* createTagSaga() {
-  yield takeLatest(TagType.CREATE_TAG, createTag)
+  yield takeLatest(TagType.CREATE_ASSIGNMENT, createTag)
 }
 
 // edit tag
@@ -56,7 +58,7 @@ function* editTag(action) {
 }
 
 function* editTagSaga() {
-  yield takeLatest(TagType.EDIT_TAG, editTag)
+  yield takeLatest(TagType.EDIT_ASSIGNMENT, editTag)
 }
 
 // delete tag
@@ -72,7 +74,7 @@ function* deleteTag(action) {
 }
 
 function* deleteTagSaga() {
-  yield takeLatest(TagType.DELETE_TAG, deleteTag)
+  yield takeLatest(TagType.DELETE_ASSIGNMENT, deleteTag)
 }
 
 export default function* tagSaga() {

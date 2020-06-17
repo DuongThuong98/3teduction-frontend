@@ -17,7 +17,7 @@ const formItemLayout = {
   },
   wrapperCol: {
     xs: { span: 24 },
-    sm: { span: 12 },
+    sm: { span: 24 },
   },
 }
 
@@ -48,19 +48,25 @@ const ModelSKill = ({ visible, handleOk, handleCancel, loading, form, options, t
       ]}
     >
       <Form {...formItemLayout}>
-        <Form.Item label="Nhập tên kĩ năng" hasFeedback>
+        <Form.Item label="Nhập tên bài tập" hasFeedback>
           {getFieldDecorator('name', {
             initialValue: data ? data.name : '',
             rules: [{ required: true, message: 'Vui lòng nhập tên kĩ năng', whitespace: true }],
           })(<Input />)}
         </Form.Item>
-        <Form.Item label="Nhập tên kĩ năng" hasFeedback>
-          {getFieldDecorator('name', {
-            initialValue: data ? data.name : '',
+        <Form.Item label="Nhập nội dung bài tập" hasFeedback>
+          {getFieldDecorator('content', {
+            initialValue: data ? data.content : '',
             rules: [{ required: true, message: 'Vui lòng nhập tên kĩ năng', whitespace: true }],
           })(<Input />)}
         </Form.Item>
-        <Form.Item label="Chọn ngành học" hasFeedback>
+        {/* <Form.Item label="Nhập tên kĩ năng" hasFeedback>
+          {getFieldDecorator('deadline', {
+            initialValue: data ? data.deadline : '',
+            rules: [{  message: 'Vui lòng nhập tên kĩ năng', whitespace: true }],
+          })(<Input />)}
+        </Form.Item> */}
+        {/* <Form.Item label="Chọn ngành học" hasFeedback>
           {getFieldDecorator('majorId', {
             initialValue: Option.initialValue || (data ? data.majorId._id : ''),
             rules: [{ required: true, message: 'Vui lòng chọn ngành học' }],
@@ -75,7 +81,7 @@ const ModelSKill = ({ visible, handleOk, handleCancel, loading, form, options, t
                 : null}
             </Select>
           )}
-        </Form.Item>
+        </Form.Item> */}
       </Form>
     </Modal>
   )

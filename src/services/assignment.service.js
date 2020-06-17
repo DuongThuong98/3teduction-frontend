@@ -2,9 +2,10 @@
 
 const apiUrl = 'http://localhost:8080'
 
-export default class TagService {
+export default class AssignmentService {
   static getAll = data => {
     const { limit, offset } = data
+    console.log('assign service')
     const api = `${apiUrl}/assignments/${limit}/${offset}`
     let status = 400
 
@@ -17,10 +18,12 @@ export default class TagService {
     })
       .then(response => {
         status = response.status
+        console.log(status)
         return response.json()
       })
       .then(result => {
         if (status === 200) {
+          console.log(result)
           return result
         }
         throw new Error(result.message)
@@ -31,7 +34,7 @@ export default class TagService {
   }
 
   static createTag = tag => {
-    const api = `${apiUrl}/admin/tag`
+    const api = `${apiUrl}/assignments/`
     let status = 400
 
     // eslint-disable-next-line no-undef
@@ -48,6 +51,7 @@ export default class TagService {
       })
       .then(result => {
         if (status === 200) {
+          console.log(result)
           return result
         }
 
@@ -59,7 +63,7 @@ export default class TagService {
   }
 
   static editTag = tag => {
-    const api = `${apiUrl}/admin/tag`
+    const api = `${apiUrl}/assignments/${tag._id}`
     let status = 400
 
     // eslint-disable-next-line no-undef
@@ -87,7 +91,7 @@ export default class TagService {
   }
 
   static deleteTag = tag => {
-    const api = `${apiUrl}/admin/tag`
+    const api = `${apiUrl}/assignments`
     let status = 400
 
     // eslint-disable-next-line no-undef

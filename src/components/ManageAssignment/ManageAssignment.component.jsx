@@ -31,6 +31,8 @@ const ManagerTagSkill = ({
 
   useEffect(() => {
     getAllMajor()
+    setTimeout(()=>console.log("abc"),3000)
+    setTimeout(()=> console.log('react data: '+ data),3000)
     getAllTag({ limit: pageSize, page: 1 })
   }, [getAllTag, getAllMajor, pageSize])
 
@@ -108,10 +110,15 @@ const ManagerTagSkill = ({
       key: 'name',
     },
     {
+      title: 'Deadline',
+      dataIndex: 'deadline',
+      key: 'deadline',
+    },
+    {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      render: (_id, row) => <Tag color="cyan">{row.status}</Tag>,
+      render: (_id, row) => <Tag color="cyan">{row.status === true? "Hoan thanh" : "Chua hoan thanh"}</Tag>,
     },
     
 

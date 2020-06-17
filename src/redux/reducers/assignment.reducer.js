@@ -10,16 +10,17 @@ const INITIAL_STATE = {
 
 const TagReducers = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case TagType.GET_ALL_TAG:
-    case TagType.CREATE_TAG:
-    case TagType.EDIT_TAG:
-    case TagType.DELETE_TAG: {
+    case TagType.GET_ALL_ASSIGNMENT:
+    case TagType.CREATE_ASSIGNMENT:
+    case TagType.EDIT_ASSIGNMENT:
+    case TagType.DELETE_ASSIGNMENT: {
       return {
         ...state,
         loading: true,
       }
     }
-    case TagType.GET_ALL_SUCCESS_TAG: {
+    case TagType.GET_ALL_SUCCESS_ASSIGNMENT: {
+      console.log('reducer: ' + action.payload.data[0])
       return {
         ...state,
         loading: false,
@@ -27,14 +28,14 @@ const TagReducers = (state = INITIAL_STATE, action) => {
         length: action.payload.length,
       }
     }
-    case TagType.CREATE_SUCCESS_TAG: {
+    case TagType.CREATE_SUCCESS_ASSIGNMENT: {
       return {
         ...state,
         loading: false,
         data: state.data.concat(action.payload.data),
       }
     }
-    case TagType.EDIT_SUCCESS_TAG: {
+    case TagType.EDIT_SUCCESS_ASSIGNMENT: {
       return {
         ...state,
         loading: false,
@@ -43,17 +44,17 @@ const TagReducers = (state = INITIAL_STATE, action) => {
         ),
       }
     }
-    case TagType.DELETE_SUCCESS_TAG: {
+    case TagType.DELETE_SUCCESS_ASSIGNMENT: {
       return {
         ...state,
         loading: false,
         data: state.data.filter(item => item._id.toString() !== action.payload.data._id.toString()),
       }
     }
-    case TagType.GET_ALL_FAILURE_TAG:
-    case TagType.CREATE_FAILURE_TAG:
-    case TagType.EDIT_FAILURE_TAG:
-    case TagType.DELETE_FAILURE_TAG: {
+    case TagType.GET_ALL_FAILURE_ASSIGNMENT:
+    case TagType.CREATE_FAILURE_ASSIGNMENT:
+    case TagType.EDIT_FAILURE_ASSIGNMENT:
+    case TagType.DELETE_FAILURE_ASSIGNMENT: {
       return {
         ...state,
         loading: false,
