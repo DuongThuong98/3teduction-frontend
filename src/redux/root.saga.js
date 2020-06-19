@@ -4,13 +4,15 @@ import majorSaga from './major/major.sagas'
 import assignmentSaga from './saga/assignment.sagas'
 import major from './saga/major.sagas'
 import mockingTest from './saga/mockingTest.sagas'
+import response from './saga/response.sagas'
 
 export default function* rootSagas() {
   yield all([
     call(tagSaga),
     call(majorSaga),
     call(assignmentSaga),
-    call(mockingTest)
+    call(mockingTest),
+    call(response)
     // call(major),
   ])
 }
