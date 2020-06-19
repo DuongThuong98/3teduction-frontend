@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
-import './ManageMockingTest.scss'
+import './ManageResponse.scss'
 import React, { useEffect, useState } from 'react'
 import { Table, Tag, Divider, Button, Modal } from 'antd'
-import ModalSkill from './ModalAssignment/ModalMockingTest.component'
+import ModalSkill from './ModalResponse/ModalResponse.component'
 import CustomPagination from '../Pagination/Pagination.component'
 
 const { confirm } = Modal

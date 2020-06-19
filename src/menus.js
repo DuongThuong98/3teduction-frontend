@@ -48,7 +48,7 @@ const menus = [
     icon: "fas fa-book",
   },
   {
-    name: "Document",
+    name: "Mocking Test",
     to: "/mocking-tests",
     exact: false,
     icon: "fas fa-book",

@@ -6,7 +6,7 @@ export default class AssignmentService {
   static getAll = data => {
     const { limit, offset } = data
     console.log('assign service')
-    const api = `${apiUrl}/assignments/${limit}/${offset}`
+    const api = `${apiUrl}/mocking-tests/${limit}/${offset}`
     let status = 400
 
     // eslint-disable-next-line no-undef
