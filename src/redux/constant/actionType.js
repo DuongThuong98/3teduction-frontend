@@ -7,25 +7,16 @@ export const LOADING = "LOADING";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const GET_CURRENT_USER = "GET_CURRENT_USER";
 export const UPDATE_CURRENT_USER = "UPDATE_CURRENT_USER";
+
 export const SIGN_IN = "SIGN_IN";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
+export const LOGIN_REQUEST = "LOGIN_REQUEST";
 
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
 
-// Data User
-export const GET_USERS = "GET_USERS";
-export const GET_USER = "GET_USER";
-export const ADD_USERS = "ADD_USERS";
-export const EDIT_USERS = "EDIT_USERS";
-export const DELETE_USER = "DELETE_USER";
-export const GET_REGIONS = "GET_REGIONS";
-export const GET_STATUS = "GET_STATUS";
-
-export const GET_TEACHERS = "GET_TEACHERS";
-export const ADD_TEACHER = "ADD_TEACHER";
-export const UPDATE_TEACHER = "UPDATE_TEACHER";
-export const DELETE_TEACHER = "DELETE_TEACHER";
-export const GET_TEACHER_BY_ID = "GET_TEACHER_BY_ID";
+export const SUCCESS = "SUCCESS";
+export const ERROR = "ERROR";
+export const CLEAR = "CLEAR";
