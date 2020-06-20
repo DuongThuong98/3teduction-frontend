@@ -73,7 +73,7 @@ export const login = (acc) => {
 };
 
 export const getCurrentUser = () => {
-  return httpClient.get("api/auth/profile");
+  return httpClient.get("api/auth/me");
 };
 
 export const updateProfile = (profile) => {
