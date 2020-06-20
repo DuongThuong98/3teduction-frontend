@@ -23,6 +23,8 @@ import ManageComment from "./components/ManageComment/ManageComment";
 import ManageCommentForm from "./components/ManageComment/ManageCommentForm";
 import ManageAssignment from './components/ManageAssignment/ManageAssignment.container'
 import ManageMockingTest from './components/ManageMockingTest/ManageMockingTest.container'
+import ManageResponse from './components/ManageResponse/ManageResponse.container'
+
 
 /** @type{import("react-router-config").RouteConfig} */
 const routes = [
@@ -232,7 +234,13 @@ const routes = [
     pageTitle: "Add Feedback",
     main: () => <FeedbackComponent></FeedbackComponent>,
   },
-
+  //response
+  {
+    path: "/responses",
+    exact: false,
+    pageTitle: "Response",
+    main: () => <ManageResponse></ManageResponse>,
+  },
   //profile
   {
     path: "/my-profile",
