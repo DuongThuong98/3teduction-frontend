@@ -6,7 +6,7 @@ export default class AssignmentService {
   static getAll = data => {
     const { limit, offset } = data
     console.log('assign service')
-    const api = `${apiUrl}/mocking-tests/${limit}/${offset}`
+    const api = `${apiUrl}/responses/${limit}/${offset}`
     let status = 400
 
     // eslint-disable-next-line no-undef
@@ -34,7 +34,7 @@ export default class AssignmentService {
   }
 
   static createTag = tag => {
-    const api = `${apiUrl}/mocking-tests/`
+    const api = `${apiUrl}/responses/`
     let status = 400
 
     // eslint-disable-next-line no-undef
@@ -63,7 +63,7 @@ export default class AssignmentService {
   }
 
   static editTag = tag => {
-    const api = `${apiUrl}/mocking-tests/${tag._id}`
+    const api = `${apiUrl}/responses/${tag._id}`
     let status = 400
 
     // eslint-disable-next-line no-undef
@@ -91,7 +91,7 @@ export default class AssignmentService {
   }
 
   static deleteTag = tag => {
-    const api = `${apiUrl}/mocking-tests/${tag._id}`
+    const api = `${apiUrl}/responses/${tag._id}`
     let status = 400
 
     // eslint-disable-next-line no-undef

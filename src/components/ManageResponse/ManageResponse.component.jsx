@@ -93,14 +93,14 @@ const ManageMockingTest = ({
 
   const columns = [
     {
-      title: 'File',
-      dataIndex: 'name',
-      key: 'name',
+      title: 'Content',
+      dataIndex: 'content',
+      key: 'content',
     },
     {
-      title: 'Nội dung',
-      dataIndex: 'contents',
-      key: 'contents',
+      title: 'Tittle',
+      dataIndex: 'title',
+      key: 'title',
     },
     // {
     //   title: 'File',

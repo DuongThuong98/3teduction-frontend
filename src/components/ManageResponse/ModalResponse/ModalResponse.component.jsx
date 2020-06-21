@@ -49,14 +49,14 @@ const ModelSKill = ({ visible, handleOk, handleCancel, loading, form, options, t
     >
       <Form {...formItemLayout}>
         <Form.Item label="Nhập tên bài tập" hasFeedback>
-          {getFieldDecorator('name', {
-            initialValue: data ? data.name : '',
+          {getFieldDecorator('content', {
+            initialValue: data ? data.content : '',
             rules: [{ required: true, message: 'Vui lòng nhập tên kĩ năng', whitespace: true }],
           })(<Input />)}
         </Form.Item>
         <Form.Item label="Nhập nội dung bài tập" hasFeedback>
-          {getFieldDecorator('contents', {
-            initialValue: data ? data.contents : '',
+          {getFieldDecorator('title', {
+            initialValue: data ? data.title : '',
             rules: [{ required: true, message: 'Vui lòng nhập tên kĩ năng', whitespace: true }],
           })(<Input />)}
         </Form.Item>
