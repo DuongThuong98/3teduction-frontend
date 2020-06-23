@@ -7,7 +7,7 @@ import rootSagas from './root.saga'
 import thunk from "redux-thunk";
 
 const sagaMiddleWare = createSagaMiddleware()
-const middlewares = [sagaMiddleWare,thunk]
+const middlewares = [sagaMiddleWare, thunk]
 
 if (process.env.NODE_ENV !== 'production') {
   // @ts-ignore
@@ -17,7 +17,8 @@ if (process.env.NODE_ENV !== 'production') {
 console.log('in store.js, process env: ', process.env.NODE_ENV)
 
 // @ts-ignore
-export const store = createStore(rootReducer, compose(applyMiddleware(...middlewares)))
+export const store = createStore(rootReducer, compose(applyMiddleware(...middlewares), window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f))
+
 sagaMiddleWare.run(rootSagas)
 export const persistor = persistStore(store)
 

@@ -137,6 +137,11 @@ export const getClassDropdown = () => {
   return httpClient.get(`classes/support/dropdown`);
 };
 
+export const getAllClassesInDay = () => {
+  return httpClient.get(`classes-in-day`);
+};
+
+
 // Shift Manage
 export const getAllShifts = () => {
   return httpClient.get("shifts/all");

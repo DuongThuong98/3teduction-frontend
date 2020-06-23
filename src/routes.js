@@ -3,7 +3,8 @@ import React, { Component } from "react";
 import "./App.css";
 import StudentComponent from "./components/Student/Student.component";
 import Home from "./components/Home/Home";
-import CourseComponent from "./components/Course/Course.component";
+import LearningClass from "./components/LearningClass/LearningClass";
+import LearningClassDetail from "./components/LearningClass/LearningClassDetail";
 import ExerciseComponent from "./components/Exercise/Exercise.component";
 import FeedbackComponent from "./components/Feedback/Feedback.component";
 import NotFound from "./components/PageNotFound/PageNotFound";
@@ -21,6 +22,7 @@ import ManageTeacher from "./components/ManageTeacher/ManageTeacher";
 import ManageTeacherForm from "./components/ManageTeacher/ManageTeacherForm";
 import ManageComment from "./components/ManageComment/ManageComment";
 import ManageCommentForm from "./components/ManageComment/ManageCommentForm";
+import TeachingClass from "./components/TeachingClass/TeachingClass";
 
 /** @type{import("react-router-config").RouteConfig} */
 const routes = [
@@ -99,7 +101,7 @@ const routes = [
     main: () => <ManageAdminForm />,
   },
 
-  //class
+  //class-is used for manage
   {
     path: "/classes",
     exact: false,
@@ -119,46 +121,47 @@ const routes = [
     main: () => <ManageClassForm />,
   },
 
+  // class is used for learning 
+  {
+    path: "/l-classes",
+    exact: false,
+    pageTitle: "List Learning Class",
+    main: () => <LearningClass />,
+  },
+  {
+    path: "/l-classes-detail/:id",
+    exact: false,
+    pageTitle: "Learning Class",
+    main: () => <LearningClassDetail />,
+  },
+
+  // class is used for teaching 
+  {
+    path: "/t-classes",
+    exact: false,
+    pageTitle: "List Teaching Class",
+    main: () => <TeachingClass />,
+  },
+
   //admin
   {
     path: "/admins",
     exact: false,
     pageTitle: "List Admin",
-    main: () => <ManageAdmin/>,
+    main: () => <ManageAdmin />,
   },
   {
     path: "/admins/edit/:id",
     exact: false,
     pageTitle: "Edit Admin",
-    main: () => <ManageAdminForm/>,
+    main: () => <ManageAdminForm />,
   },
   {
     path: "/admins/add",
     exact: false,
     pageTitle: "Add Admin",
-    main: () => <ManageAdminForm/>,
+    main: () => <ManageAdminForm />,
   },
-
-  //course
-  {
-    path: "/courses",
-    exact: false,
-    pageTitle: "List Course",
-    main: () => <CourseComponent></CourseComponent>,
-  },
-  {
-    path: "/courses/edit/:id",
-    exact: false,
-    pageTitle: "Edit Course",
-    main: () => <CourseComponent></CourseComponent>,
-  },
-  {
-    path: "/courses/add",
-    exact: false,
-    pageTitle: "Add Course",
-    main: () => <CourseComponent></CourseComponent>,
-  },
-
   //Document
   {
     path: "/documents",
@@ -251,8 +254,8 @@ const routes = [
     pageTitle: "Add Shift",
     main: () => <ManageShiftForm />,
   },
-   // Comment
-   {
+  // Comment
+  {
     path: "/comments",
     exact: false,
     pageTitle: "List Comment",

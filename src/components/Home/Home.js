@@ -5,7 +5,7 @@ import io from "socket.io-client";
 
 const socket = io.connect("http://localhost:8080");
 
-function Home() {
+function Home () {
   const [state, setState] = useState({ message: "", name: "" });
   const [chat, setChat] = useState([]);
 
@@ -30,8 +30,6 @@ function Home() {
   };
 
   const renderChat = () => {
-    console.log(chat);
-
     return chat.map(({ name, message }, index) => (
       <div key={index}>
         <h3>

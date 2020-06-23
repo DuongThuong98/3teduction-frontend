@@ -14,17 +14,20 @@ import * as actions from "./../../redux/actions/actionUser";
 import jwt from "jwt-decode";
 import "./Header.scss";
 
-function Header(props) {
+function Header (props) {
   const { user } = props;
+  var _user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {};
+  const displayName = _user.username;
 
   const logOut = (e) => {
-    console.log(props);
     e.preventDefault();
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     props.history.push("/login");
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+  }, []);
 
   return (
     <div>
@@ -262,7 +265,7 @@ function Header(props) {
                 >
                   <img src="images/users/1.jpg" alt="user" />{" "}
                   <span className="hidden-md-down">
-                    {user.username}
+                    {displayName}
                     <i className="fa fa-angle-down" />
                   </span>{" "}
                 </a>
@@ -296,13 +299,14 @@ function Header(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  const { user } = state;
-  return { user };
-};
+const mapStateToProps = (state) => ({
+  // debugger
+  user: state.user.user
+
+});
 
 const mapDispatchToProps = (dispatch) => ({
-  getCurrentUser: () => dispatch(actions.getCurrentUser()),
+  //getCurrentUser: () => dispatch(actions.getCurrentUser()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

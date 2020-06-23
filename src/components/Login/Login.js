@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useEffect, Component } from "react";
 import {
   HashRouter as Router,
@@ -12,7 +13,7 @@ import * as api from "./../../utils/api";
 import * as actions from "./../../redux/actions/actionUser";
 import jwt from "jwt-decode";
 
-function Login(props) {
+function Login (props) {
   const [showPassword, setShowPassword] = useState({
     isShow: false,
   });
@@ -45,12 +46,12 @@ function Login(props) {
 
   const login = (event) => {
     event.preventDefault();
-    const { history } = props;
-    history.push("/home");
     api
       .login(user)
       .then((res) => {
+
         localStorage.setItem("token", res.data.accessToken);
+        localStorage.setItem("user", JSON.stringify(res.data));
         props.setCurrentUser(res.data);
         props.history.push("/home");
       })
@@ -107,11 +108,12 @@ function Login(props) {
                     <div className="d-flex no-block align-items-center">
                       <div className="custom-control custom-checkbox">
                         <input
+                          name="rememberMe"
                           type="checkbox"
                           className="custom-control-input"
-                          id="customCheck1"
+                          id="rememberMe"
                         />
-                        <label className="custom-control-label">
+                        <label htmlFor="rememberMe" className="custom-control-label">
                           Remember me
                         </label>
                       </div>
@@ -183,7 +185,7 @@ function Login(props) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (props) => dispatch(actions.setCurrentUser(props)),
+  setCurrentUser: (user) => dispatch(actions.setCurrentUser(user)),
 });
 
 export default connect(null, mapDispatchToProps)(withRouter(Login));
