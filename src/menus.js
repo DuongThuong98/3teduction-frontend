@@ -36,8 +36,8 @@ const menus = [
     icon: "fab fa-discourse",
   },
   {
-    name: "Course",
-    to: "/courses",
+    name: "Learning Class",
+    to: "/l-classes",
     exact: false,
     icon: "fas fa-align-justify",
   },

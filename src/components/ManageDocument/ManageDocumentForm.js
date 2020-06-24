@@ -101,7 +101,6 @@ function ManageDocumentForm (props) {
     // }
 
     console.log("_documentModel", _documentModel);
-    debugger
     if (idUrl) {
       api
         .updateDocument(idUrl, _documentModel)

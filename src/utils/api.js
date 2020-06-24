@@ -73,7 +73,7 @@ export const login = (acc) => {
 };
 
 export const getCurrentUser = () => {
-  return httpClient.get("api/auth/profile");
+  return httpClient.get("api/auth/me");
 };
 
 export const updateProfile = (profile) => {
@@ -136,6 +136,11 @@ export const deleteClass = (id) => {
 export const getClassDropdown = () => {
   return httpClient.get(`classes/support/dropdown`);
 };
+
+export const getAllClassesInDay = () => {
+  return httpClient.get(`classes-in-day`);
+};
+
 
 // Shift Manage
 export const getAllShifts = () => {

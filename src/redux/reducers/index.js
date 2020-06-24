@@ -8,8 +8,6 @@ import major from '../major/major.reducers';
 import tag from '../tag/tag.reducers';
 
 const appReducers = combineReducers({
-    teachers,
-    itemEditing,
     user,
     toastr: toastrReducer,
     major,
