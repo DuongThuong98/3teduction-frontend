@@ -228,11 +228,9 @@ function ManageTeacherForm (props) {
               <div className="col-md-12">
                 <button className="btn btn-success"
                   onClick={() => props.history.push("/teachers")}>
-                  {" "}
-                  Cancel{" "}
+                  Cancel
                 </button>
                 <button type="submit" className="btn btn-primary m-l-5">
-                  {" "}
                   {idUrl != null ? "Update" : "Create"}
                 </button>
               </div>

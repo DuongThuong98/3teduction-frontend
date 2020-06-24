@@ -25,6 +25,7 @@ import ManageCategoryForm from "./components/ManageCategory/ManageCategoryForm";
 import ManageFeedback from "./components/ManageFeedback/ManageFeedback";
 import TeachingClass from "./components/TeachingClass/TeachingClass";
 import ManageStudent from "./components/ManageStudent/ManageStudent";
+import ManageStudentForm from "./components/ManageStudent/ManageStudentForm";
 
 /** @type{import("react-router-config").RouteConfig} */
 const routes = [
@@ -74,19 +75,19 @@ const routes = [
     path: "/students",
     exact: false,
     pageTitle: "List Student",
-    main: () => <ManageStudent />
+    main: () => <ManageStudent />,
   },
   {
     path: "/students-edit/:id",
     exact: false,
     pageTitle: "Edit Student",
-    main: () => <StudentComponent></StudentComponent>,
+    main: () => <ManageStudentForm />,
   },
   {
-    path: "/students/add",
+    path: "/students-add",
     exact: false,
     pageTitle: "Add Student",
-    main: () => <StudentComponent></StudentComponent>,
+    main: () => <ManageStudentForm />,
   },
 
   //admin
@@ -123,7 +124,7 @@ const routes = [
     main: () => <ManageClassForm />,
   },
 
-  // class is used for learning 
+  // class is used for learning
   {
     path: "/l-classes",
     exact: false,
@@ -137,7 +138,7 @@ const routes = [
     main: () => <LearningClassDetail />,
   },
 
-  // class is used for teaching 
+  // class is used for teaching
   {
     path: "/t-classes",
     exact: false,

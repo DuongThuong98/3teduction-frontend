@@ -14,22 +14,35 @@ import * as api from "../../utils/api";
 import { Checkbox, DatePicker, Input, Radio } from "antd";
 import moment from "moment";
 
-function ManageStudentForm (props) {
+function ManageStudentForm(props) {
   const [model, setModel] = useState({
     displayName: "",
-    email: '',
+    email: "",
     password: "",
     phone: "",
     birthdate: "",
     address: "",
     gender: "",
-    confirmPassword:"", 
+    confirmPassword: "",
+    isBlock: false,
   });
 
   const dateFormat = "DD/MM/YYYY";
-  const dateFormatList = ['DD/MM/YYYY'];
+  const dateFormatList = ["DD/MM/YYYY"];
+  const idUrl = props.match.params.id;
 
   useEffect(() => {
+    if (idUrl) {
+      api
+        .getStudent(idUrl)
+        .then((res) => {
+          let _data = res.data;
+          setModel(_data);
+        })
+        .catch((err) => {
+          console.log("err", err);
+        });
+    }
   }, []);
 
   const handleOnchange = (e) => {
@@ -42,7 +55,7 @@ function ManageStudentForm (props) {
     });
   };
 
-  const onChange =(e) =>{
+  const onChange = (e) => {
     let target = e.target;
     let value = target.type;
 
@@ -50,15 +63,26 @@ function ManageStudentForm (props) {
       ...model,
       [target.name]: value,
     });
-  }
-
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     let _model = {
       ...model,
     };
-      api.createStudent(_model)
+    if (idUrl) {
+      api
+        .updateStudent(idUrl, _model)
+        .then((res) => {
+          console.log("edit success");
+          props.history.push("/students");
+        })
+        .catch((err) => {
+          console.log("err", err);
+        });
+    } else {
+      api
+        .createStudent(_model)
         .then((res) => {
           console.log("create success");
           props.history.push("/students");
@@ -66,16 +90,23 @@ function ManageStudentForm (props) {
         .catch((err) => {
           console.log("err", err);
         });
+    }
   };
 
   const showForm = () => {
     return (
-      <form className="mt-4" onSubmit={handleSubmit} onKeyPress={(event) => {if (event.which === 13) event.preventDefault(); }}>
+      <form
+        className="mt-4"
+        onSubmit={handleSubmit}
+        onKeyPress={(event) => {
+          if (event.which === 13) event.preventDefault();
+        }}
+      >
         <div className="form-body">
           <div className="card-body">
             <div className="row pt-3">
               <h4 className="card-title">Thông tin cơ bản</h4>
-              <div className="col-md-6">
+              <div className="col-md-12">
                 <div className="form-group">
                   <label htmlFor="name">Tên hiển thị</label>
                   <input
@@ -105,36 +136,43 @@ function ManageStudentForm (props) {
                   />
                 </div>
               </div>
-              <div className="col-md-6">
-                <div className="form-group">
-                  <label htmlFor="password">Mật khẩu</label>
-                  <Input
-                    type="password"
-                    className="form-control"
-                    id="password"
-                    name="password"
-                    placeholder="Mật khẩu"
-                    value={model.password}
-                    onChange={handleOnchange}
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="form-group">
-                  <label htmlFor="confirmPassword">Xác nhận Mật khẩu</label>
-                  <Input
-                    type="confirmPassword"
-                    className="form-control"
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    placeholder="Mật khẩu"
-                    value={model.confirmPassword}
-                    onChange={handleOnchange}
-                    required
-                  />
-                </div>
-              </div>
+              {idUrl == null ? (
+                <React.Fragment>
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label htmlFor="password">Mật khẩu</label>
+                      <Input
+                        type="password"
+                        className="form-control"
+                        id="password"
+                        name="password"
+                        placeholder="Mật khẩu"
+                        value={model.password}
+                        onChange={handleOnchange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label htmlFor="confirmPassword">Xác nhận Mật khẩu</label>
+                      <Input
+                        type="confirmPassword"
+                        className="form-control"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        placeholder="Mật khẩu"
+                        value={model.confirmPassword}
+                        onChange={handleOnchange}
+                        required
+                      />
+                    </div>
+                  </div>
+                </React.Fragment>
+              ) : (
+                " "
+              )}
+
               <div className="col-md-6">
                 <div className="form-group">
                   <label htmlFor="birthdate">Ngày sinh</label>
@@ -142,12 +180,13 @@ function ManageStudentForm (props) {
                     className="form-control"
                     id="birthdate"
                     name="birthdate"
-                    value={moment(model.birthdate, dateFormatList[0])} format={dateFormatList}
+                    value={moment(model.birthdate, dateFormatList[0])}
+                    format={dateFormatList}
                     onChange={(date, dateString) => {
                       setModel({
                         ...model,
-                        birthdate: dateString
-                      })
+                        birthdate: dateString,
+                      });
                     }}
                   />
                 </div>
@@ -160,28 +199,52 @@ function ManageStudentForm (props) {
                     className="form-control"
                     id="address"
                     name="address"
-                    placeholder="Mật khẩu"
+                    placeholder="Địa chỉ"
                     value={model.address}
                     onChange={handleOnchange}
                   />
                 </div>
               </div>
+
+              {idUrl != null ? (
+                <React.Fragment>
+                  <div className="col-md-12">
+                    <div className="form-group">
+                      <Checkbox
+                        name="isBlock"
+                        onChange={handleOnchange}
+                        // @ts-ignore
+                        checked={model.isBlock}
+                      ></Checkbox>
+                      <label className="control-label m-l-10">Block</label>
+                    </div>
+                  </div>
+                </React.Fragment>
+              ) : (
+                ""
+              )}
+
               <div className="col-md-12">
                 <div className="form-group">
-                <Radio.Group onChange={onChange} name="gender">
-                  <Radio value={0}>Nam</Radio>
-                  <Radio value={1}>Nữ</Radio>
-               </Radio.Group>
+                  <Radio.Group
+                    onChange={onChange}
+                    value={model.gender}
+                    name="gender"
+                  >
+                    <Radio value="Nam">Nam</Radio>
+                    <Radio value="Nữ">Nữ</Radio>
+                  </Radio.Group>
                 </div>
               </div>
               <div className="col-md-12">
-                <button className="btn btn-success"
-                  onClick={() => props.history.push("/students")}>
-                  {" "}
-                  Cancel{" "}
+                <button
+                  className="btn btn-success"
+                  onClick={() => props.history.push("/students")}
+                >
+                  Cancel
                 </button>
                 <button type="submit" className="btn btn-primary m-l-5">
-                 Create
+                  {idUrl != null ? "Update" : "Create"}
                 </button>
               </div>
             </div>

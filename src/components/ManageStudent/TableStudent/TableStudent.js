@@ -27,9 +27,9 @@ function TableStudent(props) {
         data.map((el) => {
           let bd = moment(new Date(el.birthdate));
           el.birthdate = bd.format("DD/MM/YYYY");
-          if(el.dateExpire){
+          if (el.dateExpire) {
             let dateExpire = moment(new Date(el.dateExpire));
-            el.dateExpire = bd.format("DD/MM/YYYY");
+            el.dateExpire = dateExpire.format("DD/MM/YYYY");
           }
         });
         setTable(data);
@@ -53,14 +53,18 @@ function TableStudent(props) {
   };
 
   const blockStudentApi = (id) => {
-    api.blockStudent(id).then((res) => {
+    api
+      .blockStudent(id)
+      .then((res) => {
         getStudents();
       })
       .catch((err) => {});
   };
 
   const deleteStudentApi = (id) => {
-    api.deleteStudent(id).then((res) => {
+    api
+      .deleteStudent(id)
+      .then((res) => {
         getStudents();
       })
       .catch((err) => {});
@@ -77,7 +81,7 @@ function TableStudent(props) {
 
   const deleteStudent = () => {
     deleteStudentApi(idStudent);
-    handleCancel();
+    handleCancelDelete();
   };
 
   const editTable = (id) => {
@@ -132,15 +136,19 @@ function TableStudent(props) {
             <div className="container-btn">
               <button
                 className="btn btn-sm btn-success width-60 m-r-2 container-btn__edit"
-                onClick={() => editTable(row.id)}>Edit
+                onClick={() => editTable(row.id)}
+              >
+                Edit
               </button>
               <button
                 className="btn btn-sm btn-warning width-60 container-btn__delete m-l-10"
-                onClick={() => showModal(row.id)}> 
-              </button>
+                onClick={() => showModal(row.id)}
+              ></button>
               <button
                 className="btn btn-sm btn-danger width-60 container-btn__delete m-l-10"
-                onClick={() => showModalDelete(row.id)}>Delete
+                onClick={() => showModalDelete(row.id)}
+              >
+                Delete
               </button>
             </div>
           </React.Fragment>
@@ -209,19 +217,22 @@ function TableStudent(props) {
         visible={isShowModal}
         onOk={blockStudent}
         okType={"danger"}
-        onCancel={handleCancel}>
+        onCancel={handleCancel}
+      >
         <p>Do you really want to block teacher?</p>
       </Modal>
 
       <Modal
         title="Are you sure?"
         visible={isShowModalDelete}
-        onOk={deleteStudent }
+        onOk={deleteStudent}
         okType={"danger"}
-        onCancel={handleCancelDelete}>
+        onCancel={handleCancelDelete}
+      >
         <p
           // @ts-ignore
-          style={cssContants.firstContent, cssContants.dangerColor}>
+          style={(cssContants.firstContent, cssContants.dangerColor)}
+        >
           Do you really want to delete this record?
         </p>
       </Modal>
