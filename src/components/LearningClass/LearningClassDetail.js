@@ -16,20 +16,48 @@ import moment from "moment";
 
 function LearningClassDetail (props) {
   const [model, setModel] = useState({
-    displayName: "",
-    email: '',
-    password: "",
-    phone: "",
-    birthdate: "",
-    address: "",
-    gender: "",
-    confirmPassword: "",
+    className: "",
+    teacherName: '',
+    studentList: "",
   });
 
+  const calculateTimeLeft = () => {
+    const difference = +new Date("2020-06-25 11:00:00") - +new Date();
+    let timeLeft = {};
+
+    if (difference > 0) {
+      timeLeft = {
+        phút: Math.floor((difference / 1000 / 60) % 60),
+        giây: Math.floor((difference / 1000) % 60)
+      };
+    }
+
+    return timeLeft;
+  };
+
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
 
   useEffect(() => {
+    setTimeout(() => {
+      debugger
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
   }, []);
+
+  const timerComponents = [];
+
+  Object.keys(timeLeft).forEach(interval => {
+    if (!timeLeft[interval]) {
+      return;
+    }
+
+    timerComponents.push(
+      <span>
+        {timeLeft[interval]} {interval}{" "}
+      </span>
+    );
+  });
 
   return (
     <div className="text-left">
@@ -45,7 +73,7 @@ function LearningClassDetail (props) {
             <div className="col-lg-4 col-xlg-3 col-md-5">
               <div className="card">
                 <div className="box bg-info text-center">
-                  <h4 className="font-light text-white">Thời gian : <span> 06:40</span></h4>
+                  <h4 className="font-light text-white">Thời gian còn lại : <span> {timerComponents.length ? timerComponents : <span>Hết giờ!</span>}</span></h4>
                 </div>
               </div>
             </div>
