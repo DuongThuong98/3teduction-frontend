@@ -148,7 +148,7 @@ function ManageClassForm (props) {
 
   const showForm = () => {
     return (
-      <form className="mt-4" onSubmit={handleSubmit} onKeyPress={(event) => {if (event.which === 13) event.preventDefault(); }}>
+      <form className="mt-4" onSubmit={handleSubmit} onKeyPress={(event) => { if (event.which === 13) event.preventDefault(); }}>
         <div className="form-body">
           <div className="card-body">
             <div className="row pt-3">
@@ -282,7 +282,7 @@ function ManageClassForm (props) {
                 </button>
                 <button type="submit" className="btn btn-primary m-l-5">
                   {" "}
-                  {idUrl ? "Update" : "Create"}
+                  {idUrl != null ? "Update" : "Create"}
                 </button>
               </div>
             </div>

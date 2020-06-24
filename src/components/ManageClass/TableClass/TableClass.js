@@ -206,7 +206,7 @@ function TableClass (props) {
       if ((cat.trim() && x.categoryName === cat.trim()) || (cou && cou.trim() && x.categoryName === cou.trim()) || (nam && nam.trim() && x.name.includes(nam.trim()))) {
         return x;
       }
-      if(cat ==="" && cou==="" && nam ===""){
+      if (cat === "" && cou === "" && nam === "") {
         return x;
       }
     })
@@ -263,7 +263,7 @@ function TableClass (props) {
                 id="search-form"
                 className="collapse"
                 role="tabpanel"
-                aria-labelledby="headingThree3">
+                labelled="headingThree3">
                 <div className="card">
                   <form onSubmit={handleSubmit} onKeyPress={(event) => { if (event.which === 13) event.preventDefault(); }}>
                     <div className="form-body">

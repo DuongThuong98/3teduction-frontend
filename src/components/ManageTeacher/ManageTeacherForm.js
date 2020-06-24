@@ -23,13 +23,27 @@ function ManageTeacherForm (props) {
     birthdate: "",
     address: "",
     gender: "",
-    confirmPassword:"", 
+    confirmPassword: "",
+    isBlock: false
   });
 
   const dateFormat = "DD/MM/YYYY";
   const dateFormatList = ['DD/MM/YYYY'];
+  const idUrl = props.match.params.id;
+
 
   useEffect(() => {
+
+    if (idUrl) {
+      api.getTeacher(idUrl)
+        .then((res) => {
+          let _data = res.data;
+          setModel(_data)
+        })
+        .catch((err) => {
+          console.log("err", err);
+        });
+    }
   }, []);
 
   const handleOnchange = (e) => {
@@ -42,10 +56,9 @@ function ManageTeacherForm (props) {
     });
   };
 
-  const onChange =(e) =>{
+  const onChange = (e) => {
     let target = e.target;
-    let value = target.type;
-
+    let value = target.value;
     setModel({
       ...model,
       [target.name]: value,
@@ -58,6 +71,16 @@ function ManageTeacherForm (props) {
     let _model = {
       ...model,
     };
+    if (idUrl) {
+      api.updateTeacher(idUrl, _model)
+        .then((res) => {
+          console.log("edit success");
+          props.history.push("/teachers");
+        })
+        .catch((err) => {
+          console.log("err", err);
+        });
+    } else {
       api.createTeacher(_model)
         .then((res) => {
           console.log("create success");
@@ -66,16 +89,17 @@ function ManageTeacherForm (props) {
         .catch((err) => {
           console.log("err", err);
         });
+    }
   };
 
   const showForm = () => {
     return (
-      <form className="mt-4" onSubmit={handleSubmit} onKeyPress={(event) => {if (event.which === 13) event.preventDefault(); }}>
+      <form className="mt-4" onSubmit={handleSubmit} onKeyPress={(event) => { if (event.which === 13) event.preventDefault(); }}>
         <div className="form-body">
           <div className="card-body">
             <div className="row pt-3">
               <h4 className="card-title">Thông tin cơ bản</h4>
-              <div className="col-md-6">
+              <div className="col-md-12">
                 <div className="form-group">
                   <label htmlFor="name">Tên hiển thị</label>
                   <input
@@ -87,6 +111,7 @@ function ManageTeacherForm (props) {
                     value={model.displayName}
                     onChange={handleOnchange}
                     required
+                    disabled={idUrl ? true : false}
                   />
                 </div>
               </div>
@@ -102,39 +127,48 @@ function ManageTeacherForm (props) {
                     value={model.email}
                     onChange={handleOnchange}
                     required
+                    disabled={idUrl ? true : false}
                   />
                 </div>
               </div>
-              <div className="col-md-6">
-                <div className="form-group">
-                  <label htmlFor="password">Mật khẩu</label>
-                  <Input
-                    type="password"
-                    className="form-control"
-                    id="password"
-                    name="password"
-                    placeholder="Mật khẩu"
-                    value={model.password}
-                    onChange={handleOnchange}
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="form-group">
-                  <label htmlFor="confirmPassword">Xác nhận Mật khẩu</label>
-                  <Input
-                    type="confirmPassword"
-                    className="form-control"
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    placeholder="Mật khẩu"
-                    value={model.confirmPassword}
-                    onChange={handleOnchange}
-                    required
-                  />
-                </div>
-              </div>
+              {idUrl == null
+                ?
+                <React.Fragment>
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label htmlFor="password">Mật khẩu</label>
+                      <Input
+                        type="password"
+                        className="form-control"
+                        id="password"
+                        name="password"
+                        placeholder="Mật khẩu"
+                        value={model.password}
+                        onChange={handleOnchange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label htmlFor="confirmPassword">Xác nhận Mật khẩu</label>
+                      <Input
+                        type="confirmPassword"
+                        className="form-control"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        placeholder="Mật khẩu"
+                        value={model.confirmPassword}
+                        onChange={handleOnchange}
+                        required
+                      />
+                    </div>
+                  </div>
+                </React.Fragment>
+                : " "
+              }
+
+
               <div className="col-md-6">
                 <div className="form-group">
                   <label htmlFor="birthdate">Ngày sinh</label>
@@ -160,18 +194,35 @@ function ManageTeacherForm (props) {
                     className="form-control"
                     id="address"
                     name="address"
-                    placeholder="Mật khẩu"
+                    placeholder="Địa chỉ"
                     value={model.address}
                     onChange={handleOnchange}
                   />
                 </div>
               </div>
+              {idUrl != null
+                ?
+                <React.Fragment>
+                  <div className="col-md-12">
+                    <div className="form-group">
+                      <Checkbox
+                        name="isBlock"
+                        onChange={handleOnchange}
+                        // @ts-ignore
+                        checked={model.isBlock}
+                      ></Checkbox>
+                      <label className="control-label m-l-10">Block</label>
+                    </div>
+                  </div>
+                </React.Fragment>
+                : ""
+              }
               <div className="col-md-12">
                 <div className="form-group">
-                <Radio.Group onChange={onChange} name="gender">
-                  <Radio value={0}>Nam</Radio>
-                  <Radio value={1}>Nữ</Radio>
-               </Radio.Group>
+                  <Radio.Group onChange={onChange} value={model.gender} name="gender">
+                    <Radio value="Nam">Nam</Radio>
+                    <Radio value="Nữ">Nữ</Radio>
+                  </Radio.Group>
                 </div>
               </div>
               <div className="col-md-12">
@@ -181,7 +232,8 @@ function ManageTeacherForm (props) {
                   Cancel{" "}
                 </button>
                 <button type="submit" className="btn btn-primary m-l-5">
-                 Create
+                  {" "}
+                  {idUrl != null ? "Update" : "Create"}
                 </button>
               </div>
             </div>

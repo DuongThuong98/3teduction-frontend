@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
 import "./App.css";
-import StudentComponent from "./components/Student/Student.component";
 import Home from "./components/Home/Home";
 import LearningClass from "./components/LearningClass/LearningClass";
 import LearningClassDetail from "./components/LearningClass/LearningClassDetail";
@@ -25,6 +24,7 @@ import ManageCategory from "./components/ManageCategory/ManageCategory";
 import ManageCategoryForm from "./components/ManageCategory/ManageCategoryForm";
 import ManageFeedback from "./components/ManageFeedback/ManageFeedback";
 import TeachingClass from "./components/TeachingClass/TeachingClass";
+import ManageStudent from "./components/ManageStudent/ManageStudent";
 
 /** @type{import("react-router-config").RouteConfig} */
 const routes = [
@@ -74,10 +74,10 @@ const routes = [
     path: "/students",
     exact: false,
     pageTitle: "List Student",
-    main: () => <StudentComponent></StudentComponent>,
+    main: () => <ManageStudent />
   },
   {
-    path: "/students/edit/:id",
+    path: "/students-edit/:id",
     exact: false,
     pageTitle: "Edit Student",
     main: () => <StudentComponent></StudentComponent>,

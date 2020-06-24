@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Prompt } from "react-router-dom";
 
 class ExerciseComponent extends Component {
-  render() {
+  render () {
     return (
       <div className="Contact">
         <div class="row page-titles">
