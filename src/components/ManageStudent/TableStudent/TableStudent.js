@@ -8,7 +8,7 @@ import * as api from "../../../utils/api";
 import * as cssContants from "../../../constants/css.contants";
 import moment from "moment";
 
-function TableStudent(props) {
+function TableStudent (props) {
   const [students, setStudents] = useState([]);
   const [customTable, setTable] = useState(students);
   const [isShowModal, setModal] = useState(false);
@@ -35,7 +35,7 @@ function TableStudent(props) {
         setTable(data);
         setStudents(data);
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   const showModal = (id) => {
@@ -58,7 +58,7 @@ function TableStudent(props) {
       .then((res) => {
         getStudents();
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const deleteStudentApi = (id) => {
@@ -67,7 +67,7 @@ function TableStudent(props) {
       .then((res) => {
         getStudents();
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const showModalDelete = (id) => {
@@ -113,7 +113,7 @@ function TableStudent(props) {
     },
     {
       title: "Blocked",
-      dataIndex: "isBlock",
+      dataIndex: "isBlocked",
       width: "5%",
     },
     {
@@ -143,7 +143,7 @@ function TableStudent(props) {
               <button
                 className="btn btn-sm btn-warning width-60 container-btn__delete m-l-10"
                 onClick={() => showModal(row.id)}
-              ></button>
+              >Block</button>
               <button
                 className="btn btn-sm btn-danger width-60 container-btn__delete m-l-10"
                 onClick={() => showModalDelete(row.id)}
@@ -157,7 +157,7 @@ function TableStudent(props) {
     },
   ];
 
-  const onChangeTable = () => {};
+  const onChangeTable = () => { };
 
   return (
     <React.Fragment>

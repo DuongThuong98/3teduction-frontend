@@ -238,6 +238,10 @@ export const deleteStudent = (id) => {
   return httpClient.delete(`students/${id}`);
 };
 
+export const blockStudent = (id) => {
+  return httpClient.get(`students/block/${id}`);
+};
+
 //Course
 export const getCourseDropdown = () => {
   return httpClient.get("courses/support/dropdown");

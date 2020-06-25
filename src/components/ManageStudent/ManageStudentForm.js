@@ -14,7 +14,7 @@ import * as api from "../../utils/api";
 import { Checkbox, DatePicker, Input, Radio } from "antd";
 import moment from "moment";
 
-function ManageStudentForm(props) {
+function ManageStudentForm (props) {
   const [model, setModel] = useState({
     displayName: "",
     email: "",
@@ -57,13 +57,12 @@ function ManageStudentForm(props) {
 
   const onChange = (e) => {
     let target = e.target;
-    let value = target.type;
-
+    let value = target.value;
     setModel({
       ...model,
       [target.name]: value,
     });
-  };
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -170,8 +169,8 @@ function ManageStudentForm(props) {
                   </div>
                 </React.Fragment>
               ) : (
-                " "
-              )}
+                  " "
+                )}
 
               <div className="col-md-6">
                 <div className="form-group">
@@ -221,8 +220,8 @@ function ManageStudentForm(props) {
                   </div>
                 </React.Fragment>
               ) : (
-                ""
-              )}
+                  ""
+                )}
 
               <div className="col-md-12">
                 <div className="form-group">
