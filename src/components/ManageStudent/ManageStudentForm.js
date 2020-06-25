@@ -14,31 +14,30 @@ import * as api from "../../utils/api";
 import { Checkbox, DatePicker, Input, Radio } from "antd";
 import moment from "moment";
 
-function ManageTeacherForm (props) {
+function ManageStudentForm (props) {
   const [model, setModel] = useState({
     displayName: "",
-    email: '',
+    email: "",
     password: "",
     phone: "",
     birthdate: "",
     address: "",
     gender: "",
     confirmPassword: "",
-    isBlock: false
+    isBlock: false,
   });
 
   const dateFormat = "DD/MM/YYYY";
-  const dateFormatList = ['DD/MM/YYYY'];
+  const dateFormatList = ["DD/MM/YYYY"];
   const idUrl = props.match.params.id;
 
-
   useEffect(() => {
-
     if (idUrl) {
-      api.getTeacher(idUrl)
+      api
+        .getStudent(idUrl)
         .then((res) => {
           let _data = res.data;
-          setModel(_data)
+          setModel(_data);
         })
         .catch((err) => {
           console.log("err", err);
@@ -65,26 +64,27 @@ function ManageTeacherForm (props) {
     });
   }
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     let _model = {
       ...model,
     };
     if (idUrl) {
-      api.updateTeacher(idUrl, _model)
+      api
+        .updateStudent(idUrl, _model)
         .then((res) => {
           console.log("edit success");
-          props.history.push("/teachers");
+          props.history.push("/students");
         })
         .catch((err) => {
           console.log("err", err);
         });
     } else {
-      api.createTeacher(_model)
+      api
+        .createStudent(_model)
         .then((res) => {
           console.log("create success");
-          props.history.push("/teachers");
+          props.history.push("/students");
         })
         .catch((err) => {
           console.log("err", err);
@@ -94,7 +94,13 @@ function ManageTeacherForm (props) {
 
   const showForm = () => {
     return (
-      <form className="mt-4" onSubmit={handleSubmit} onKeyPress={(event) => { if (event.which === 13) event.preventDefault(); }}>
+      <form
+        className="mt-4"
+        onSubmit={handleSubmit}
+        onKeyPress={(event) => {
+          if (event.which === 13) event.preventDefault();
+        }}
+      >
         <div className="form-body">
           <div className="card-body">
             <div className="row pt-3">
@@ -111,7 +117,6 @@ function ManageTeacherForm (props) {
                     value={model.displayName}
                     onChange={handleOnchange}
                     required
-                    disabled={idUrl ? true : false}
                   />
                 </div>
               </div>
@@ -127,12 +132,10 @@ function ManageTeacherForm (props) {
                     value={model.email}
                     onChange={handleOnchange}
                     required
-                    disabled={idUrl ? true : false}
                   />
                 </div>
               </div>
-              {idUrl == null
-                ?
+              {idUrl == null ? (
                 <React.Fragment>
                   <div className="col-md-6">
                     <div className="form-group">
@@ -165,9 +168,9 @@ function ManageTeacherForm (props) {
                     </div>
                   </div>
                 </React.Fragment>
-                : " "
-              }
-
+              ) : (
+                  " "
+                )}
 
               <div className="col-md-6">
                 <div className="form-group">
@@ -176,12 +179,13 @@ function ManageTeacherForm (props) {
                     className="form-control"
                     id="birthdate"
                     name="birthdate"
-                    value={moment(model.birthdate, dateFormatList[0])} format={dateFormatList}
+                    value={moment(model.birthdate, dateFormatList[0])}
+                    format={dateFormatList}
                     onChange={(date, dateString) => {
                       setModel({
                         ...model,
-                        birthdate: dateString
-                      })
+                        birthdate: dateString,
+                      });
                     }}
                   />
                 </div>
@@ -200,8 +204,8 @@ function ManageTeacherForm (props) {
                   />
                 </div>
               </div>
-              {idUrl != null
-                ?
+
+              {idUrl != null ? (
                 <React.Fragment>
                   <div className="col-md-12">
                     <div className="form-group">
@@ -215,19 +219,27 @@ function ManageTeacherForm (props) {
                     </div>
                   </div>
                 </React.Fragment>
-                : ""
-              }
+              ) : (
+                  ""
+                )}
+
               <div className="col-md-12">
                 <div className="form-group">
-                  <Radio.Group onChange={onChange} value={model.gender} name="gender">
+                  <Radio.Group
+                    onChange={onChange}
+                    value={model.gender}
+                    name="gender"
+                  >
                     <Radio value="Nam">Nam</Radio>
                     <Radio value="Nữ">Nữ</Radio>
                   </Radio.Group>
                 </div>
               </div>
               <div className="col-md-12">
-                <button className="btn btn-success"
-                  onClick={() => props.history.push("/teachers")}>
+                <button
+                  className="btn btn-success"
+                  onClick={() => props.history.push("/students")}
+                >
                   Cancel
                 </button>
                 <button type="submit" className="btn btn-primary m-l-5">
@@ -254,7 +266,7 @@ function ManageTeacherForm (props) {
                 <li className="breadcrumb-item">
                   <a>Home</a>
                 </li>
-                <li className="breadcrumb-item active">Teacher</li>
+                <li className="breadcrumb-item active">Student</li>
               </ol>
             </div>
           </div>
@@ -282,4 +294,4 @@ function ManageTeacherForm (props) {
   );
 }
 
-export default connect(null, null)(withRouter(ManageTeacherForm));
+export default connect(null, null)(withRouter(ManageStudentForm));

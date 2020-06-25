@@ -14,21 +14,16 @@ import * as api from "./../../utils/api";
 import { Checkbox, DatePicker, Input } from "antd";
 import moment from "moment";
 
-function ManageClassForm (props) {
-  const [classModel, setClassModel] = useState({
-    name: "",
+function ManageAbsenceForm (props) {
+  const [absenceModel, setAbsenceModel] = useState({
+    reason: "",
     status: '',
-    categoryID: "",
-    courseID: "",
-    dateOpening: "",
-    dateClosed: "",
-    content: "",
+    classID: "",
+    dateFrom: "",
+    dateTo: "",
   });
 
-  const [categories, setCategories] = useState([]);
-  const [courses, setCourses] = useState([]);
-  const [today, setToday] = useState(new Date());
-  const dateFormat = "DD/MM/YYYY";
+  const [classes, setClasses] = useState([]);
   const dateFormatList = ['DD/MM/YYYY'];
 
   useEffect(() => {
@@ -38,7 +33,7 @@ function ManageClassForm (props) {
         let list = res.data.data.map((c) => {
           return c;
         });
-        setCategories(list);
+        setClasses(list);
       })
       .catch((err) => {
         console.log("err", err);
@@ -50,7 +45,7 @@ function ManageClassForm (props) {
         let list = res.data.data.map((c) => {
           return c;
         });
-        setCourses(list);
+        setClasses(list);
       })
       .catch((err) => {
         console.log("err", err);
@@ -58,16 +53,15 @@ function ManageClassForm (props) {
 
     if (idUrl) {
       api
-        .getClassById(idUrl)
+        .getAbsence(idUrl)
         .then((res) => {
-          let classData = res.data;
-          let dateOpening = moment(new Date(classData.dateOpening));
-          classData.dateOpening = dateOpening.format("MM/DD/YYYY");
-          let dateClosed = moment(new Date(classData.dateClosed));
-          classData.dateClosed = dateClosed.format("MM/DD/YYYY");
+          let absenceData = res.data;
+          let dateTo = moment(new Date(absenceData.dateTo));
+          absenceData.dateTo = dateTo.format("MM/DD/YYYY");
+          let dateFrom = moment(new Date(absenceData.dateFrom));
+          absenceData.dateFrom = dateFrom.format("MM/DD/YYYY");
 
-          setClassModel(classData);
-          console.log("classData", classData);
+          setAbsenceModel(absenceData);
         })
         .catch((err) => {
           console.log("err", err);
@@ -81,25 +75,11 @@ function ManageClassForm (props) {
     let target = e.target;
     let value = target.type === "checkbox" ? target.checked : target.value;
 
-    setClassModel({
-      ...classModel,
+    setAbsenceModel({
+      ...absenceModel,
       [target.name]: value,
     });
   };
-
-  function onChangeDateOpen (date, dateString) {
-    classModel.dateOpening = dateString;
-    setClassModel({
-      ...classModel,
-    });
-  }
-
-  function onChangeDateClose (date, dateString) {
-    classModel.dateClosed = dateString;
-    setClassModel({
-      ...classModel,
-    });
-  }
 
   function isValidDate (str1, str2) {
     return new Date(str2) > new Date(str1);
@@ -107,34 +87,34 @@ function ManageClassForm (props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let _classModel = {
-      ...classModel,
+    let _absenceModel = {
+      ...absenceModel,
     };
 
-    if (_classModel.dateClosed != null && _classModel.dateClosed != null) {
-      if (!isValidDate(_classModel.dateOpening, _classModel.dateClosed)) {
+    if (_absenceModel.dateTo != null && _absenceModel.dateFrom != null) {
+      if (!isValidDate(_absenceModel.dateFrom, _absenceModel.dateTo)) {
         return;
       }
     }
 
-    console.log("_classModel", _classModel);
+    console.log("_absenceModel", _absenceModel);
 
     if (idUrl) {
       api
-        .updateClass(idUrl, _classModel)
+        .updateAbsence(idUrl, _absenceModel)
         .then((res) => {
           console.log("edit success");
-          props.history.push("/classes");
+          props.history.push("/absences");
         })
         .catch((err) => {
           console.log("err", err);
         });
     } else {
       api
-        .createClass(_classModel)
+        .createAbsence(_absenceModel)
         .then((res) => {
           console.log("create success");
-          props.history.push("/classes");
+          props.history.push("/absences");
         })
         .catch((err) => {
           console.log("err", err);
@@ -142,76 +122,57 @@ function ManageClassForm (props) {
     }
   };
 
-  const handleChangeCheckbox = () => {
-    // setContractor({ ...contractor, approved: !contractor.approved })
-  };
-
   const showForm = () => {
     return (
-      <form className="mt-4" onSubmit={handleSubmit} onKeyPress={(event) => { if (event.which === 13) event.preventDefault(); }}>
+      <form className="mt-4" onSubmit={handleSubmit} onKeyPress={(event) => {if (event.which === 13) event.preventDefault(); }}>
         <div className="form-body">
           <div className="card-body">
             <div className="row pt-3">
               <h4 className="card-title">Thông tin cơ bản</h4>
               <div className="col-md-12">
                 <div className="form-group">
-                  <label htmlFor="name">Tên</label>
+                  <label htmlFor="reason">Tên</label>
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Class name"
-                    id="name"
-                    name="name"
-                    value={classModel.name}
+                    placeholder="Absence reason"
+                    id="reason"
+                    name="reason"
+                    value={absenceModel.reason}
                     onChange={handleOnchange}
                     required
                   />
                 </div>
               </div>
-              <div className="col-md-12">
+              <div className="col-md-6">
                 <div className="form-group">
-                  <label htmlFor="class-content">Content</label>
-                  <Input
-                    type="text"
-                    className="form-control"
-                    id="class-content"
-                    name="content"
-                    placeholder="Nội dung"
-                    value={classModel.content}
-                    onChange={handleOnchange}
-                    required
-                  />
-                </div>
-              </div>
-              <div className="col-md-12">
-                <div className="form-group">
-                  <label htmlFor="dateOpening">Thời gian bắt đầu</label>
+                  <label htmlFor="dateFrom">Thời gian bắt đầu</label>
                   <DatePicker
                     className="form-control"
-                    id="dateOpening"
-                    name="dateOpening"
-                    value={moment(classModel.dateOpening, dateFormatList[0])} format={dateFormatList}
+                    id="dateFrom"
+                    name="dateFrom"
+                    value={moment(absenceModel.dateFrom, dateFormatList[0])} format={dateFormatList}
                     onChange={(date, dateString) => {
-                      setClassModel({
-                        ...classModel,
-                        dateOpening: dateString
+                      setAbsenceModel({
+                        ...absenceModel,
+                        dateFrom: dateString
                       })
                     }}
                   />
                 </div>
               </div>
-              <div className="col-md-12">
+              <div className="col-md-6">
                 <div className="form-group">
-                  <label htmlFor="dateClosed">Thời gian kết thúc</label>
+                  <label htmlFor="dateTo">Thời gian kết thúc</label>
                   <DatePicker
                     className="form-control"
-                    id="dateClosed"
-                    name="dateClosed"
-                    value={moment(classModel.dateClosed, dateFormatList[0])} format={dateFormatList}
+                    id="dateTo"
+                    name="dateTo"
+                    value={moment(absenceModel.dateTo, dateFormatList[0])} format={dateFormatList}
                     onChange={(date, dateString) => {
-                      setClassModel({
-                        ...classModel,
-                        dateClosed: dateString
+                      setAbsenceModel({
+                        ...absenceModel,
+                        dateTo: dateString
                       })
                     }}
                   />
@@ -225,36 +186,14 @@ function ManageClassForm (props) {
                   <label className="control-label">Loại Lớp</label>
                   <select
                     className="form-control"
-                    name="categoryID"
-                    value={classModel.categoryID}
+                    name="classID"
+                    value={absenceModel.classID}
                     onChange={handleOnchange}
                   >
-                    {categories.map((x) => {
+                    {classes.map((x) => {
                       return (
                         <React.Fragment key={x._id}>
                           <option value={x._id}>{x.name}</option>
-                        </React.Fragment>
-                      );
-                    })}
-                  </select>
-                </div>
-              </div>
-              <div className="col-md-12">
-                <div className="form-group">
-                  <label className="control-label">Khóa</label>
-                  <select
-                    className="form-control"
-                    name="courseID"
-                    value={classModel.courseID}
-                    onChange={handleOnchange}>
-                    {courses.map((x) => {
-                      return (
-                        <React.Fragment key={x._id}>
-                          <option
-                            value={x._id}
-                          >
-                            {x.name}
-                          </option>
                         </React.Fragment>
                       );
                     })}
@@ -267,22 +206,22 @@ function ManageClassForm (props) {
                     name="status"
                     onChange={handleOnchange}
                     // @ts-ignore
-                    checked={classModel.status}
+                    checked={absenceModel.status}
                   ></Checkbox>
-                  <label className="control-label m-l-10">Trạng thái</label>
+                  <label className="control-label m-l-10">Đã duyệt</label>
                 </div>
               </div>
               <div className="col-md-12">
                 <button
                   className="btn btn-success"
-                  onClick={() => props.history.push("/classes")}
+                  onClick={() => props.history.push("/absencees")}
                 >
                   {" "}
                   Cancel{" "}
                 </button>
                 <button type="submit" className="btn btn-primary m-l-5">
                   {" "}
-                  {idUrl != null ? "Update" : "Create"}
+                  {idUrl ? "Update" : "Create"}
                 </button>
               </div>
             </div>
@@ -340,4 +279,4 @@ function ManageClassForm (props) {
   );
 }
 
-export default connect(null, null)(withRouter(ManageClassForm));
+export default connect(null, null)(withRouter(ManageAbsenceForm));

@@ -9,9 +9,9 @@ import {
 // import { connect } from 'react-redux';
 
 class AddTeacher extends Component {
-  render() {
+  render () {
     return (
-        <div>
+      <div>
         {/* <div className="preloader">
           <div className="loader">
             <div className="loader__figure" />
@@ -94,7 +94,7 @@ class AddTeacher extends Component {
                     <a className="nav-link dropdown-toggle waves-effect waves-dark" href id={2} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i className="icon-note" />
                       <div className="notify"> <span className="heartbit" /> <span className="point" /> </div>
                     </a>
-                    <div className="dropdown-menu mailbox dropdown-menu-right animated bounceInDown" aria-labelledby={2}>
+                    <div className="dropdown-menu mailbox dropdown-menu-right animated bounceInDown" labelled={2}>
                       <ul>
                         <li>
                           <div className="drop-title">You have 4 new messages</div>
@@ -171,7 +171,7 @@ class AddTeacher extends Component {
                                   </button>
                                 </h5>
                               </div>
-                              <div id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                              <div id="collapseOne" className="collapse show" labelled="headingOne" data-parent="#accordionExample">
                                 <div className="card-body">
                                   Anim pariatur cliche reprehenderit, enim eiusmod high.
                                 </div>
@@ -185,7 +185,7 @@ class AddTeacher extends Component {
                                   </button>
                                 </h5>
                               </div>
-                              <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                              <div id="collapseTwo" className="collapse" labelled="headingTwo" data-parent="#accordionExample">
                                 <div className="card-body">
                                   Anim pariatur cliche reprehenderit, enim eiusmod high.
                                 </div>
@@ -199,7 +199,7 @@ class AddTeacher extends Component {
                                   </button>
                                 </h5>
                               </div>
-                              <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                              <div id="collapseThree" className="collapse" labelled="headingThree" data-parent="#accordionExample">
                                 <div className="card-body">
                                   Anim pariatur cliche reprehenderit, enim eiusmod high.
                                 </div>

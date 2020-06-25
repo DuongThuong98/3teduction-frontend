@@ -8,114 +8,128 @@ import * as api from "../../../utils/api";
 import * as cssContants from "../../../constants/css.contants";
 import moment from "moment";
 
-function TableComment(props) {
-  const [comments, setComments] = useState([]);
-  const [customTable, setTable] = useState(comments);
+function TableStudent (props) {
+  const [students, setStudents] = useState([]);
+  const [customTable, setTable] = useState(students);
   const [isShowModal, setModal] = useState(false);
   const [isShowModalDelete, setModalDelete] = useState(false);
-  const [idComment, setIdComment] = useState(null);
+  const [idStudent, setIdStudent] = useState(null);
 
   useEffect(() => {
-    getComments();
+    getStudents();
   }, []);
 
-  const getComments = () => {
+  const getStudents = () => {
     api
-      .getAllComments()
+      .getAllStudents()
       .then((res) => {
         const data = res.data.data;
         data.map((el) => {
-          let bd = moment(new Date(el.datePosted));
-          el.datePosted = bd.format("DD/MM/YYYY");
+          let bd = moment(new Date(el.birthdate));
+          el.birthdate = bd.format("DD/MM/YYYY");
+          if (el.dateExpire) {
+            let dateExpire = moment(new Date(el.dateExpire));
+            el.dateExpire = dateExpire.format("DD/MM/YYYY");
+          }
         });
         setTable(data);
-        setComments(data);
+        setStudents(data);
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   const showModal = (id) => {
     setModal(true);
-    setIdComment(id);
+    setIdStudent(id);
   };
 
   const handleCancel = () => {
     setModal(false);
   };
 
-  const blockComment = () => {
-    blockCommentApi(idComment);
+  const blockStudent = () => {
+    blockStudentApi(idStudent);
     handleCancel();
   };
 
-  const blockCommentApi = (id) => {
+  const blockStudentApi = (id) => {
     api
-      .blockComment(id)
+      .blockStudent(id)
       .then((res) => {
-        getComments();
+        getStudents();
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
-  const deleteCommentApi = (id) => {
+  const deleteStudentApi = (id) => {
     api
-      .deleteComment(id)
+      .deleteStudent(id)
       .then((res) => {
-        getComments();
+        getStudents();
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const showModalDelete = (id) => {
     setModalDelete(true);
-    setIdComment(id);
+    setIdStudent(id);
   };
 
   const handleCancelDelete = () => {
     setModalDelete(false);
   };
 
-  const deleteComment = () => {
-    deleteCommentApi(idComment);
-    handleCancel();
+  const deleteStudent = () => {
+    deleteStudentApi(idStudent);
+    handleCancelDelete();
   };
 
   const editTable = (id) => {
-    props.history.push(`/teachers-view/${id}`);
+    props.history.push(`/students-edit/${id}`);
   };
 
   const columns = [
     {
-      title: "Tiêu đề",
-      dataIndex: "title",
+      title: "Tên hiển thị",
+      dataIndex: "displayName",
       sorter: (a, b) =>
-        a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1,
+        a.displayName.toLowerCase() > b.displayName.toLowerCase() ? 1 : -1,
       width: "20%",
     },
     {
-      title: "Nội dung",
-      dataIndex: "content",
-      width: "45%",
+      title: "Email",
+      dataIndex: "email",
+      width: "10%",
     },
     {
-      title: "Lượt thích",
-      dataIndex: "like",
-      width: "5%",
+      title: "Điện thoại",
+      dataIndex: "phone",
+      width: "10%",
     },
     {
-      title: "Người bình luận",
-      dataIndex: "authorName",
-      width: "15%",
+      title: "Ngày sinh",
+      dataIndex: "birthdate",
+      width: "10%",
     },
     {
       title: "Blocked",
-      dataIndex: "isBlock",
+      dataIndex: "isBlocked",
       width: "5%",
+    },
+    {
+      title: "Giới tính",
+      dataIndex: "gender",
+      width: "5%",
+    },
+    {
+      title: "Ngày hết hạn",
+      dataIndex: "dateExpire",
+      width: "15%",
     },
     {
       title: "Action",
       key: "action",
-      width: "10%",
+      width: "20%",
       render: (row) => {
         return (
           <React.Fragment>
@@ -124,14 +138,12 @@ function TableComment(props) {
                 className="btn btn-sm btn-success width-60 m-r-2 container-btn__edit"
                 onClick={() => editTable(row.id)}
               >
-                View
+                Edit
               </button>
               <button
                 className="btn btn-sm btn-warning width-60 container-btn__delete m-l-10"
                 onClick={() => showModal(row.id)}
-              >
-                Block Comment
-              </button>
+              >Block</button>
               <button
                 className="btn btn-sm btn-danger width-60 container-btn__delete m-l-10"
                 onClick={() => showModalDelete(row.id)}
@@ -145,7 +157,7 @@ function TableComment(props) {
     },
   ];
 
-  const onChangeTable = () => {};
+  const onChangeTable = () => { };
 
   return (
     <React.Fragment>
@@ -161,6 +173,13 @@ function TableComment(props) {
               </li>
               <li className="breadcrumb-item active">Widget Data</li>
             </ol>
+            <Link
+              type="button"
+              className="btn btn-info d-none d-lg-block m-l-15"
+              to="/students-add"
+            >
+              <i className="fa fa-plus-circle" /> Create New
+            </Link>
           </div>
         </div>
       </div>
@@ -196,17 +215,17 @@ function TableComment(props) {
       <Modal
         title="Are you sure?"
         visible={isShowModal}
-        onOk={blockComment}
+        onOk={blockStudent}
         okType={"danger"}
         onCancel={handleCancel}
       >
-        <p>Do you really want to block comment?</p>
+        <p>Do you really want to block teacher?</p>
       </Modal>
 
       <Modal
         title="Are you sure?"
         visible={isShowModalDelete}
-        onOk={deleteComment}
+        onOk={deleteStudent}
         okType={"danger"}
         onCancel={handleCancelDelete}
       >
@@ -221,4 +240,4 @@ function TableComment(props) {
   );
 }
 
-export default connect(null, null)(withRouter(TableComment));
+export default connect(null, null)(withRouter(TableStudent));

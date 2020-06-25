@@ -3,23 +3,23 @@ import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router";
 import io from "socket.io-client";
 
-const socket = io.connect("http://localhost:8080");
+//const socket = io.connect("http://localhost:8080");
 
 function Home () {
   const [state, setState] = useState({ message: "", name: "" });
   const [chat, setChat] = useState([]);
 
   useEffect(() => {
-    socket.on("message", ({ name, message }) => {
-      setChat((chat) => [...chat, { name, message }]);
-    });
+    // socket.on("message", ({ name, message }) => {
+    //   setChat((chat) => [...chat, { name, message }]);
+    // });
   }, []);
 
   const onMessageSubmit = (e) => {
     e.preventDefault();
-    const { name, message } = state;
-    socket.emit("message", { name, message });
-    setState({ message: "", name });
+    // const { name, message } = state;
+    // socket.emit("message", { name, message });
+    // setState({ message: "", name });
   };
 
   const onTextChange = (e) => {

@@ -242,7 +242,7 @@ function TableShift (props) {
                 id="search-form"
                 className="collapse"
                 role="tabpanel"
-                aria-labelledby="headingThree3">
+                labelled="headingThree3">
                 <div className="card">
                   <form onSubmit={handleSubmit} onKeyPress={(event) => { if (event.which === 13) event.preventDefault(); }}>
                     <div className="form-body">

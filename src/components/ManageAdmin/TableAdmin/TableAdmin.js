@@ -49,8 +49,8 @@ function TableAdmin (props) {
   const columns = [
     {
       title: "Tên hiển thị",
-      dataIndex: "displayname",
-      sorter: (a, b) => (a.displayname.toLowerCase() > b.displayname.toLowerCase() ? 1 : -1),
+      dataIndex: "displayName",
+      sorter: (a, b) => (a.displayName.toLowerCase() > b.displayName.toLowerCase() ? 1 : -1),
       width: "20%",
     },
     {
