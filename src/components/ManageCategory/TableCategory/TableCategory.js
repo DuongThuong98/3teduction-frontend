@@ -8,7 +8,7 @@ import * as api from "../../../utils/api";
 import * as cssContants from "../../../constants/css.contants";
 import moment from "moment";
 
-function TableCategory(props) {
+function TableCategory (props) {
   const [comments, setCategorys] = useState([]);
   const [customTable, setTable] = useState(comments);
   const [isShowModal, setModal] = useState(false);
@@ -27,7 +27,7 @@ function TableCategory(props) {
         setTable(data);
         setCategorys(data);
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   const showModal = (id) => {
@@ -45,7 +45,7 @@ function TableCategory(props) {
       .then((res) => {
         getCategories();
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const showModalDelete = (id) => {
@@ -63,7 +63,7 @@ function TableCategory(props) {
   };
 
   const editTable = (id) => {
-    props.history.push(`/categoties-view/${id}`);
+    props.history.push(`/categories-edit/${id}`);
   };
 
   const columns = [
@@ -104,13 +104,13 @@ function TableCategory(props) {
             <div className="container-btn">
               <button
                 className="btn btn-sm btn-success width-60 m-r-2 container-btn__edit"
-                onClick={() => editTable(row.id)}
+                onClick={() => editTable(row._id)}
               >
                 View
               </button>
               <button
                 className="btn btn-sm btn-danger width-60 container-btn__delete m-l-10"
-                onClick={() => showModalDelete(row.id)}
+                onClick={() => showModalDelete(row._id)}
               >
                 Delete
               </button>
@@ -121,7 +121,7 @@ function TableCategory(props) {
     },
   ];
 
-  const onChangeTable = () => {};
+  const onChangeTable = () => { };
 
   return (
     <React.Fragment>

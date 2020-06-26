@@ -13,16 +13,27 @@ import * as api from "../../utils/api";
 import { Checkbox, DatePicker, Input, Radio } from "antd";
 import moment from "moment";
 
-function ManageCategoryForm(props) {
+function ManageCategoryForm (props) {
   const [model, setModel] = useState({
     name: "",
     icons: "",
     level: "",
-    status: "",
+    status: false,
     typeID: "",
   });
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (idUrl) {
+      api.getCategory(idUrl)
+        .then((res) => {
+          let _data = res.data.data;
+          setModel(_data);
+        })
+        .catch((err) => {
+          console.log("err", err);
+        });
+    }
+  }, []);
 
   const idUrl = props.match.params.id;
 
@@ -67,7 +78,7 @@ function ManageCategoryForm(props) {
 
   const showForm = () => {
     return (
-      <form className="mt-4" onSubmit={handleSubmit} onKeyPress={(event) => {if (event.which === 13) event.preventDefault(); }}>
+      <form className="mt-4" onSubmit={handleSubmit} onKeyPress={(event) => { if (event.which === 13) event.preventDefault(); }}>
         <div className="form-body">
           <div className="card-body">
             <div className="row pt-3">
@@ -106,7 +117,7 @@ function ManageCategoryForm(props) {
             <div className="row pt-3">
               <h4 className="card-title">Chọn lớp</h4>
               <div className="col-md-12">
-              <div className="form-group">
+                <div className="form-group">
                   <label htmlFor="level">Content</label>
                   <Input
                     type="number"
@@ -128,10 +139,10 @@ function ManageCategoryForm(props) {
                     name="typeID"
                     value={model.typeID}
                     onChange={handleOnchange}>
-                        <React.Fragment>
-                          <option value="news"> News</option>
-                          <option value="mocktest"> MockTest</option>
-                        </React.Fragment>
+                    <React.Fragment>
+                      <option value="news"> News</option>
+                      <option value="mocktest"> MockTest</option>
+                    </React.Fragment>
                   </select>
                 </div>
               </div>
