@@ -86,18 +86,11 @@ function ManageAbsenceForm (props) {
   }
 
   const handleSubmit = (e) => {
+    debugger
     e.preventDefault();
     let _absenceModel = {
       ...absenceModel,
     };
-
-    if (_absenceModel.dateTo != null && _absenceModel.dateFrom != null) {
-      if (!isValidDate(_absenceModel.dateFrom, _absenceModel.dateTo)) {
-        return;
-      }
-    }
-
-    console.log("_absenceModel", _absenceModel);
 
     if (idUrl) {
       api
@@ -124,18 +117,18 @@ function ManageAbsenceForm (props) {
 
   const showForm = () => {
     return (
-      <form className="mt-4" onSubmit={handleSubmit} onKeyPress={(event) => {if (event.which === 13) event.preventDefault(); }}>
+      <form className="mt-4" onSubmit={handleSubmit} onKeyPress={(event) => { if (event.which === 13) event.preventDefault(); }}>
         <div className="form-body">
           <div className="card-body">
             <div className="row pt-3">
               <h4 className="card-title">Thông tin cơ bản</h4>
               <div className="col-md-12">
                 <div className="form-group">
-                  <label htmlFor="reason">Tên</label>
+                  <label htmlFor="reason">Lí do</label>
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Absence reason"
+                    placeholder="Lí do"
                     id="reason"
                     name="reason"
                     value={absenceModel.reason}
@@ -146,7 +139,7 @@ function ManageAbsenceForm (props) {
               </div>
               <div className="col-md-6">
                 <div className="form-group">
-                  <label htmlFor="dateFrom">Thời gian bắt đầu</label>
+                  <label htmlFor="dateFrom">Thời gian bắt đầu nghỉ</label>
                   <DatePicker
                     className="form-control"
                     id="dateFrom"
@@ -163,7 +156,7 @@ function ManageAbsenceForm (props) {
               </div>
               <div className="col-md-6">
                 <div className="form-group">
-                  <label htmlFor="dateTo">Thời gian kết thúc</label>
+                  <label htmlFor="dateTo">Thời gian kết thúc nghỉ</label>
                   <DatePicker
                     className="form-control"
                     id="dateTo"
@@ -190,6 +183,7 @@ function ManageAbsenceForm (props) {
                     value={absenceModel.classID}
                     onChange={handleOnchange}
                   >
+                    <option value='' disabled>Chọn lớp</option>
                     {classes.map((x) => {
                       return (
                         <React.Fragment key={x._id}>
@@ -200,7 +194,7 @@ function ManageAbsenceForm (props) {
                   </select>
                 </div>
               </div>
-              <div className="col-md-12">
+              {/* <div className="col-md-12">
                 <div className="form-group">
                   <Checkbox
                     name="status"
@@ -210,7 +204,7 @@ function ManageAbsenceForm (props) {
                   ></Checkbox>
                   <label className="control-label m-l-10">Đã duyệt</label>
                 </div>
-              </div>
+              </div> */}
               <div className="col-md-12">
                 <button
                   className="btn btn-success"

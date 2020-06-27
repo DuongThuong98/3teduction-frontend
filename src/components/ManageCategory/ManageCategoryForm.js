@@ -100,7 +100,7 @@ function ManageCategoryForm (props) {
               </div>
               <div className="col-md-12">
                 <div className="form-group">
-                  <label htmlFor="icons">Content</label>
+                  <label htmlFor="icons">Icon</label>
                   <Input
                     type="text"
                     className="form-control"
@@ -115,10 +115,10 @@ function ManageCategoryForm (props) {
               </div>
             </div>
             <div className="row pt-3">
-              <h4 className="card-title">Chọn lớp</h4>
+              <h4 className="card-title"></h4>
               <div className="col-md-12">
                 <div className="form-group">
-                  <label htmlFor="level">Content</label>
+                  <label htmlFor="level">Level</label>
                   <Input
                     type="number"
                     className="form-control"

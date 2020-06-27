@@ -11,6 +11,7 @@ import moment from 'moment';
 function TableAbsence (props) {
   const [absences, setAbsences] = useState([]);
   const [customTable, setTable] = useState(absences);
+  const [isShowConfirmModal, setConfirmModal] = useState(false);
   const [isShowDeleteModal, setDeleteModal] = useState(false);
   const [idAbsence, setIdAbsence] = useState(null);
 
@@ -19,7 +20,7 @@ function TableAbsence (props) {
   }, []);
 
   const getAbsences = () => {
-    api.getAllAbsencees()
+    api.getAllAbsences()
       .then((res) => {
         const data = res.data.data;
         data.map(el => {
@@ -36,8 +37,7 @@ function TableAbsence (props) {
   };
 
   const deleteAbsenceApi = (id) => {
-    api
-      .deleteAbsence(id)
+    api.deleteAbsence(id)
       .then((res) => {
         getAbsences();
       })
@@ -63,6 +63,28 @@ function TableAbsence (props) {
     props.history.push(`/absences-edit/${id}`);
   };
 
+  const showModalConfirm = (id) => {
+    setConfirmModal(true);
+    setIdAbsence(id);
+  };
+
+  const handleCancelConfirm = () => {
+    setConfirmModal(false);
+  };
+
+  const confirmAbsence = () => {
+    confirmAbsenceApi(idAbsence);
+    handleCancelConfirm();
+  };
+
+  const confirmAbsenceApi = (id) => {
+    api.confirmAbsence(id)
+      .then((res) => {
+        getAbsences();
+      })
+      .catch((err) => { });
+  };
+
   const columns = [
     {
       title: "Lí do",
@@ -82,17 +104,17 @@ function TableAbsence (props) {
     },
     {
       title: "Hoc sinh",
-      dataIndex: "studentID",
+      dataIndex: "AbsenceName",
       width: "15%",
     },
     {
       title: "Lớp",
-      dataIndex: "classID",
+      dataIndex: "className",
       width: "15%",
     },
     {
       title: "Status",
-      dataIndex: "status",
+      dataIndex: "statusName",
       width: "5%",
     },
     {
@@ -105,35 +127,25 @@ function TableAbsence (props) {
             <div className="container-btn">
               <button
                 className="btn btn-sm btn-success width-60 m-r-2 container-btn__edit"
-                onClick={() => editTable(row.id)}
-              >
-                Edit
+                onClick={() => editTable(row.id)}>Edit
               </button>
+              {(row.status === false) ? (
+                < button className="btn btn-sm btn-warning width-60 container-btn__delete m-l-10"
+                  onClick={() => showModalConfirm(row.id)}>Confirm</button>
+              ) : ""
+              }
               <button
                 className="btn btn-sm btn-danger width-60 container-btn__delete m-l-10"
-                onClick={() => showModal(row.id)}
-              >
-                Delete
+                onClick={() => showModal(row.id)}>Delete
               </button>
             </div>
-          </React.Fragment>
+          </React.Fragment >
         );
       },
     },
   ];
 
   const onChangeTable = () => {
-    console.log("table is changed");
-  };
-
-  const handleOnchange = (e) => {
-    let target = e.target;
-    let value = target.type === "checkbox" ? target.checked : target.value;
-
-    setSearchModel({
-      ...searchModel,
-      [target.name]: value,
-    });
   };
 
   return (
@@ -175,7 +187,7 @@ function TableAbsence (props) {
                   style={{ fontSize: "20px", verticalAlign: "middle" }}
                 />
               </a>
-             <div className="table-responsive">
+              <div className="table-responsive">
                 <div
                   id="demo-foo-addrow" className="table m-t-30 table-hover no-wrap contact-list">
                   <Table
@@ -196,6 +208,17 @@ function TableAbsence (props) {
           </div>
         </div>
       </div>
+
+      <Modal
+        title="Are you sure?"
+        visible={isShowConfirmModal}
+        onOk={confirmAbsence}
+        okType={"danger"}
+        onCancel={handleCancelConfirm}
+      >
+        <p>Do you really want to confirm absence?</p>
+      </Modal>
+
 
       <Modal
         title="Are you sure?"

@@ -26,6 +26,8 @@ import ManageFeedback from "./components/ManageFeedback/ManageFeedback";
 import TeachingClass from "./components/TeachingClass/TeachingClass";
 import ManageStudent from "./components/ManageStudent/ManageStudent";
 import ManageStudentForm from "./components/ManageStudent/ManageStudentForm";
+import ManageAbsence from "./components/ManageAbsence/ManageAbsence";
+import ManageAbsenceForm from "./components/ManageAbsence/ManageAbsenceForm";
 
 /** @type{import("react-router-config").RouteConfig} */
 const routes = [
@@ -291,20 +293,20 @@ const routes = [
   {
     path: "/absences",
     exact: false,
-    pageTitle: "List Category",
-    main: () => <ManageCategory />,
+    pageTitle: "List Absence",
+    main: () => <ManageAbsence />,
   },
   {
     path: "/absences-edit/:id",
     exact: false,
-    pageTitle: "Edit Category",
-    main: () => <ManageCategoryForm />,
+    pageTitle: "Edit Absence",
+    main: () => <ManageAbsenceForm />,
   },
   {
     path: "/absences-add",
     exact: false,
-    pageTitle: "Add Category",
-    main: () => <ManageCategoryForm />,
+    pageTitle: "Add Absence",
+    main: () => <ManageAbsenceForm />,
   },
 
   //not found
