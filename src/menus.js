@@ -30,8 +30,14 @@ const menus = [
     icon: "fab fa-discourse",
   },
   {
-    name: "Course",
-    to: "/courses",
+    name: "Categories",
+    to: "/categories",
+    exact: false,
+    icon: "fab fa-discourse",
+  },
+  {
+    name: "Learning Class",
+    to: "/l-classes",
     exact: false,
     icon: "fas fa-align-justify",
   },
@@ -67,7 +73,7 @@ const menus = [
   },
   {
     name: "Feedback",
-    to: "/Feedbacks",
+    to: "/feedbacks",
     exact: false,
     icon: "fas fa-text-width",
   },
@@ -88,6 +94,12 @@ const menus = [
     to: "/schedule",
     exact: false,
     icon: "fas fa-calendar-alt",
+  },
+  {
+    name: "Absence",
+    to: "/absences",
+    exact: false,
+    icon: "fas fa-cog",
   },
   {
     name: "Setting",

@@ -11,8 +11,6 @@ import mockingTest from './mockingTest.reducer';
 import response from './response.reducer'
 
 const appReducers = combineReducers({
-    teachers,
-    itemEditing,
     user,
     toastr: toastrReducer,
     major,

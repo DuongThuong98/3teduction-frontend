@@ -1,11 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
 import "./App.css";
-import StudentComponent from "./components/Student/Student.component";
 import Home from "./components/Home/Home";
-import CourseComponent from "./components/Course/Course.component";
+import LearningClass from "./components/LearningClass/LearningClass";
+import LearningClassDetail from "./components/LearningClass/LearningClassDetail";
 import ExerciseComponent from "./components/Exercise/Exercise.component";
-import FeedbackComponent from "./components/Feedback/Feedback.component";
 import NotFound from "./components/PageNotFound/PageNotFound";
 import Login from "./components/Login/Login";
 import ManagerTagSkill from "./view/ManagerTagSkill/ManagerTagSkill.container";
@@ -25,6 +24,14 @@ import ManageAssignment from './components/ManageAssignment/ManageAssignment.con
 import ManageMockingTest from './components/ManageMockingTest/ManageMockingTest.container'
 import ManageResponse from './components/ManageResponse/ManageResponse.container'
 
+import ManageCategory from "./components/ManageCategory/ManageCategory";
+import ManageCategoryForm from "./components/ManageCategory/ManageCategoryForm";
+import ManageFeedback from "./components/ManageFeedback/ManageFeedback";
+import TeachingClass from "./components/TeachingClass/TeachingClass";
+import ManageStudent from "./components/ManageStudent/ManageStudent";
+import ManageStudentForm from "./components/ManageStudent/ManageStudentForm";
+import ManageAbsence from "./components/ManageAbsence/ManageAbsence";
+import ManageAbsenceForm from "./components/ManageAbsence/ManageAbsenceForm";
 
 /** @type{import("react-router-config").RouteConfig} */
 const routes = [
@@ -74,19 +81,19 @@ const routes = [
     path: "/students",
     exact: false,
     pageTitle: "List Student",
-    main: () => <StudentComponent></StudentComponent>,
+    main: () => <ManageStudent />,
   },
   {
-    path: "/students/edit/:id",
+    path: "/students-edit/:id",
     exact: false,
     pageTitle: "Edit Student",
-    main: () => <StudentComponent></StudentComponent>,
+    main: () => <ManageStudentForm />,
   },
   {
-    path: "/students/add",
+    path: "/students-add",
     exact: false,
     pageTitle: "Add Student",
-    main: () => <StudentComponent></StudentComponent>,
+    main: () => <ManageStudentForm />,
   },
 
   //admin
@@ -97,13 +104,13 @@ const routes = [
     main: () => <ManageAdmin />,
   },
   {
-    path: "/admins/add",
+    path: "/admins-add",
     exact: false,
     pageTitle: "Add Admin",
     main: () => <ManageAdminForm />,
   },
 
-  //class
+  //class-is used for manage
   {
     path: "/classes",
     exact: false,
@@ -123,46 +130,47 @@ const routes = [
     main: () => <ManageClassForm />,
   },
 
+  // class is used for learning
+  {
+    path: "/l-classes",
+    exact: false,
+    pageTitle: "List Learning Class",
+    main: () => <LearningClass />,
+  },
+  {
+    path: "/l-classes-detail/:id",
+    exact: false,
+    pageTitle: "Learning Class",
+    main: () => <LearningClassDetail />,
+  },
+
+  // class is used for teaching
+  {
+    path: "/t-classes",
+    exact: false,
+    pageTitle: "List Teaching Class",
+    main: () => <TeachingClass />,
+  },
+
   //admin
   {
     path: "/admins",
     exact: false,
     pageTitle: "List Admin",
-    main: () => <ManageAdmin/>,
+    main: () => <ManageAdmin />,
   },
   {
     path: "/admins/edit/:id",
     exact: false,
     pageTitle: "Edit Admin",
-    main: () => <ManageAdminForm/>,
+    main: () => <ManageAdminForm />,
   },
   {
     path: "/admins/add",
     exact: false,
     pageTitle: "Add Admin",
-    main: () => <ManageAdminForm/>,
+    main: () => <ManageAdminForm />,
   },
-
-  //course
-  {
-    path: "/courses",
-    exact: false,
-    pageTitle: "List Course",
-    main: () => <CourseComponent></CourseComponent>,
-  },
-  {
-    path: "/courses/edit/:id",
-    exact: false,
-    pageTitle: "Edit Course",
-    main: () => <CourseComponent></CourseComponent>,
-  },
-  {
-    path: "/courses/add",
-    exact: false,
-    pageTitle: "Add Course",
-    main: () => <CourseComponent></CourseComponent>,
-  },
-
   //Document
   {
     path: "/documents",
@@ -215,24 +223,14 @@ const routes = [
   pageTitle: "List Exercise",
   main: () => <ManageAssignment></ManageAssignment>,
 },
-  //feedback
+
+  //feedback: Feedback do not have route or menu, it has list to view/delete
+  //and is added in form at livestream study page
   {
     path: "/feedbacks",
     exact: false,
     pageTitle: "List Feedback",
-    main: () => <FeedbackComponent></FeedbackComponent>,
-  },
-  {
-    path: "/feedbacks/edit/:id",
-    exact: false,
-    pageTitle: "Edit Feedback",
-    main: () => <FeedbackComponent></FeedbackComponent>,
-  },
-  {
-    path: "/feedbacks/add",
-    exact: false,
-    pageTitle: "Add Feedback",
-    main: () => <FeedbackComponent></FeedbackComponent>,
+    main: () => <ManageFeedback />,
   },
   //response
   {
@@ -273,8 +271,8 @@ const routes = [
     pageTitle: "Add Shift",
     main: () => <ManageShiftForm />,
   },
-   // Comment
-   {
+  // Comment
+  {
     path: "/comments",
     exact: false,
     pageTitle: "List Comment",
@@ -294,6 +292,46 @@ const routes = [
     main: Login,
     auth: true,
   },
+  // Shift
+  {
+    path: "/categories",
+    exact: false,
+    pageTitle: "List Category",
+    main: () => <ManageCategory />,
+  },
+  {
+    path: "/categories-edit/:id",
+    exact: false,
+    pageTitle: "Edit Category",
+    main: () => <ManageCategoryForm />,
+  },
+  {
+    path: "/categories-add",
+    exact: false,
+    pageTitle: "Add Category",
+    main: () => <ManageCategoryForm />,
+  },
+
+  // Absence
+  {
+    path: "/absences",
+    exact: false,
+    pageTitle: "List Absence",
+    main: () => <ManageAbsence />,
+  },
+  {
+    path: "/absences-edit/:id",
+    exact: false,
+    pageTitle: "Edit Absence",
+    main: () => <ManageAbsenceForm />,
+  },
+  {
+    path: "/absences-add",
+    exact: false,
+    pageTitle: "Add Absence",
+    main: () => <ManageAbsenceForm />,
+  },
+
   //not found
   {
     path: "",

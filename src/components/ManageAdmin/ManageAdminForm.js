@@ -44,7 +44,7 @@ function ManageAdminForm (props) {
 
   const onChange =(e) =>{
     let target = e.target;
-    let value = target.type;
+    let value = target.value;
 
     setModel({
       ...model,
@@ -74,7 +74,6 @@ function ManageAdminForm (props) {
         <div className="form-body">
           <div className="card-body">
             <div className="row pt-3">
-              <h4 className="card-title">Thông tin cơ bản</h4>
               <div className="col-md-6">
                 <div className="form-group">
                   <label htmlFor="name">Tên hiển thị</label>
@@ -168,9 +167,9 @@ function ManageAdminForm (props) {
               </div>
               <div className="col-md-12">
                 <div className="form-group">
-                <Radio.Group onChange={this.onChange} name="gender">
-                  <Radio value={0}>Nam</Radio>
-                  <Radio value={1}>Nữ</Radio>
+                <Radio.Group onChange={onChange} name="gender">
+                  <Radio value="Nam">Nam</Radio>
+                  <Radio value="Nữ">Nữ</Radio>
                </Radio.Group>
                 </div>
               </div>

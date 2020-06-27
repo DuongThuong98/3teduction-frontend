@@ -7,7 +7,7 @@ import rootSagas from './root.saga'
 import thunk from "redux-thunk";
 
 const sagaMiddleWare = createSagaMiddleware()
-const middlewares = [sagaMiddleWare,thunk]
+const middlewares = [sagaMiddleWare, thunk]
 
 if (process.env.NODE_ENV !== 'production') {
   // @ts-ignore

@@ -8,7 +8,7 @@ import * as api from "../../../utils/api";
 import * as cssContants from "../../../constants/css.contants";
 import moment from "moment";
 
-function TableTeacher(props) {
+function TableTeacher (props) {
   const [teachers, setTeachers] = useState([]);
   const [customTable, setTable] = useState(teachers);
   const [isShowModal, setModal] = useState(false);
@@ -31,7 +31,7 @@ function TableTeacher(props) {
         setTable(data);
         setTeachers(data);
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   const showModal = (id) => {
@@ -54,7 +54,7 @@ function TableTeacher(props) {
       .then((res) => {
         getTeachers();
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const deleteTeacherApi = (id) => {
@@ -63,7 +63,7 @@ function TableTeacher(props) {
       .then((res) => {
         getTeachers();
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const showModalDelete = (id) => {
@@ -77,7 +77,7 @@ function TableTeacher(props) {
 
   const deleteTeacher = () => {
     deleteTeacherApi(idTeacher);
-    handleCancel();
+    handleCancelDelete();
   };
 
   const editTable = (id) => {
@@ -87,9 +87,9 @@ function TableTeacher(props) {
   const columns = [
     {
       title: "Tên hiển thị",
-      dataIndex: "displayname",
+      dataIndex: "displayName",
       sorter: (a, b) =>
-        a.displayname.toLowerCase() > b.displayname.toLowerCase() ? 1 : -1,
+        a.displayName.toLowerCase() > b.displayName.toLowerCase() ? 1 : -1,
       width: "20%",
     },
     {
@@ -109,7 +109,7 @@ function TableTeacher(props) {
     },
     {
       title: "Blocked",
-      dataIndex: "isBlock",
+      dataIndex: "isBlocked",
       width: "5%",
     },
     {
@@ -155,7 +155,7 @@ function TableTeacher(props) {
     },
   ];
 
-  const onChangeTable = () => {};
+  const onChangeTable = () => { };
 
   return (
     <React.Fragment>
@@ -223,7 +223,7 @@ function TableTeacher(props) {
       <Modal
         title="Are you sure?"
         visible={isShowModalDelete}
-        onOk={deleteTeacher }
+        onOk={deleteTeacher}
         okType={"danger"}
         onCancel={handleCancelDelete}>
         <p

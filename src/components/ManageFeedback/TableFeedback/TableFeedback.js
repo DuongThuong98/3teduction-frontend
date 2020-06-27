@@ -6,82 +6,62 @@ import { Input, Table, Modal } from "antd";
 import "antd/dist/antd.css";
 import * as api from "../../../utils/api";
 import * as cssContants from "../../../constants/css.contants";
-import moment from "moment";
 
-function TableComment(props) {
-  const [comments, setComments] = useState([]);
-  const [customTable, setTable] = useState(comments);
+function TableFeedback(props) {
+  const [feedbacks, setFeedbacks] = useState([]);
+  const [customTable, setTable] = useState(feedbacks);
   const [isShowModal, setModal] = useState(false);
-  const [isShowModalDelete, setModalDelete] = useState(false);
-  const [idComment, setIdComment] = useState(null);
+  const [idFeedback, setIdFeedback] = useState(null);
 
   useEffect(() => {
-    getComments();
+    getFeedbacks();
   }, []);
 
-  const getComments = () => {
+  const getFeedbacks = () => {
     api
-      .getAllComments()
+      .getAllFeedbacks()
       .then((res) => {
         const data = res.data.data;
-        data.map((el) => {
-          let bd = moment(new Date(el.datePosted));
-          el.datePosted = bd.format("DD/MM/YYYY");
-        });
         setTable(data);
-        setComments(data);
+        setFeedbacks(data);
       })
       .catch((error) => {});
   };
 
   const showModal = (id) => {
     setModal(true);
-    setIdComment(id);
+    setIdFeedback(id);
   };
 
   const handleCancel = () => {
     setModal(false);
   };
 
-  const blockComment = () => {
-    blockCommentApi(idComment);
-    handleCancel();
-  };
-
-  const blockCommentApi = (id) => {
+  const deleteFeedbackApi = (id) => {
     api
-      .blockComment(id)
+      .deleteFeedback(id)
       .then((res) => {
-        getComments();
-      })
-      .catch((err) => {});
-  };
-
-  const deleteCommentApi = (id) => {
-    api
-      .deleteComment(id)
-      .then((res) => {
-        getComments();
+        getFeedbacks();
       })
       .catch((err) => {});
   };
 
   const showModalDelete = (id) => {
-    setModalDelete(true);
-    setIdComment(id);
+    setModal(true);
+    setIdFeedback(id);
   };
 
   const handleCancelDelete = () => {
-    setModalDelete(false);
+    setModal(false);
   };
 
-  const deleteComment = () => {
-    deleteCommentApi(idComment);
+  const deleteFeedback = () => {
+    deleteFeedbackApi(idFeedback);
     handleCancel();
   };
 
   const editTable = (id) => {
-    props.history.push(`/teachers-view/${id}`);
+    props.history.push(`/feedbacks-view/${id}`);
   };
 
   const columns = [
@@ -98,19 +78,24 @@ function TableComment(props) {
       width: "45%",
     },
     {
-      title: "Lượt thích",
-      dataIndex: "like",
+      title: "Loại",
+      dataIndex: "typeID",
       width: "5%",
     },
     {
-      title: "Người bình luận",
-      dataIndex: "authorName",
-      width: "15%",
+      title: "Đánh giá",
+      dataIndex: "rate",
+      width: "5%",
     },
     {
-      title: "Blocked",
-      dataIndex: "isBlock",
+      title: "Ẩn danh",
+      dataIndex: "anonymous",
       width: "5%",
+    },
+    {
+      title: "Người đánh giá",
+      dataIndex: "userID",
+      width: "10%",
     },
     {
       title: "Action",
@@ -122,21 +107,11 @@ function TableComment(props) {
             <div className="container-btn">
               <button
                 className="btn btn-sm btn-success width-60 m-r-2 container-btn__edit"
-                onClick={() => editTable(row.id)}
-              >
-                View
-              </button>
-              <button
-                className="btn btn-sm btn-warning width-60 container-btn__delete m-l-10"
-                onClick={() => showModal(row.id)}
-              >
-                Block Comment
+                onClick={() => editTable(row.id)}> View
               </button>
               <button
                 className="btn btn-sm btn-danger width-60 container-btn__delete m-l-10"
-                onClick={() => showModalDelete(row.id)}
-              >
-                Delete
+                onClick={() => showModalDelete(row.id)} > Delete
               </button>
             </div>
           </React.Fragment>
@@ -196,24 +171,12 @@ function TableComment(props) {
       <Modal
         title="Are you sure?"
         visible={isShowModal}
-        onOk={blockComment}
+        onOk={deleteFeedback}
         okType={"danger"}
-        onCancel={handleCancel}
-      >
-        <p>Do you really want to block comment?</p>
-      </Modal>
-
-      <Modal
-        title="Are you sure?"
-        visible={isShowModalDelete}
-        onOk={deleteComment}
-        okType={"danger"}
-        onCancel={handleCancelDelete}
-      >
+        onCancel={handleCancelDelete}>
         <p
           // @ts-ignore
-          style={(cssContants.firstContent, cssContants.dangerColor)}
-        >
+          style={(cssContants.firstContent, cssContants.dangerColor)}>
           Do you really want to delete this record?
         </p>
       </Modal>
@@ -221,4 +184,4 @@ function TableComment(props) {
   );
 }
 
-export default connect(null, null)(withRouter(TableComment));
+export default connect(null, null)(withRouter(TableFeedback));

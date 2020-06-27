@@ -13,35 +13,18 @@ import Select from "react-select";
 import * as api from "./../../utils/api";
 import { Checkbox, DatePicker, Input } from "antd";
 import moment from "moment";
-import { bool } from "prop-types";
-import { Editor } from '@tinymce/tinymce-react';
 
-function ManageDocumentForm (props) {
-  const [documentModel, setDocumentModel] = useState({
-    isRecommend: Boolean,
-    name: "",
-    shortDesc: "",
-    contents: "",
-    categoryId: "",
+function ManageAbsenceForm (props) {
+  const [absenceModel, setAbsenceModel] = useState({
+    reason: "",
+    status: '',
+    classID: "",
+    dateFrom: "",
+    dateTo: "",
   });
 
-  const [categories, setCategories] = useState([]);
-  const dateFormat = "DD/MM/YYYY";
-  const dateFormatList = ['DD/MM/YYYY HH:mm'];
-
-  const editorConfig = {
-    height: 200,
-    menubar: true,
-    plugins: [
-      'advlist autolink lists link image charmap hr',
-      'searchreplace visualblocks visualchars code media table',
-      'paste textcolor colorpicker textpattern imagetools'
-    ],
-    toolbar: `styleselect | bold italic underline | forecolor backcolor | bullist numlist | link image | media`,
-    convert_fonts_to_spans: true,
-    paste_word_valid_elements: "b,strong,i,em,h1,h2,u,p,ol,ul,li,a[href],span,color,font-size,font-color,font-family,mark,table,tr,td",
-    paste_retain_style_properties: "all",
-  };
+  const [classes, setClasses] = useState([]);
+  const dateFormatList = ['DD/MM/YYYY'];
 
   useEffect(() => {
     api
@@ -50,7 +33,19 @@ function ManageDocumentForm (props) {
         let list = res.data.data.map((c) => {
           return c;
         });
-        setCategories(list);
+        setClasses(list);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+
+    api
+      .getCourseDropdown()
+      .then((res) => {
+        let list = res.data.data.map((c) => {
+          return c;
+        });
+        setClasses(list);
       })
       .catch((err) => {
         console.log("err", err);
@@ -58,13 +53,15 @@ function ManageDocumentForm (props) {
 
     if (idUrl) {
       api
-        .getDocument(idUrl)
+        .getAbsence(idUrl)
         .then((res) => {
-          let _data = res.data;
-          let update = moment(new Date(_data.update));
-          _data.update = update.format("DD/MM/YYYY");
+          let absenceData = res.data;
+          let dateTo = moment(new Date(absenceData.dateTo));
+          absenceData.dateTo = dateTo.format("MM/DD/YYYY");
+          let dateFrom = moment(new Date(absenceData.dateFrom));
+          absenceData.dateFrom = dateFrom.format("MM/DD/YYYY");
 
-          setDocumentModel(_data);
+          setAbsenceModel(absenceData);
         })
         .catch((err) => {
           console.log("err", err);
@@ -78,8 +75,8 @@ function ManageDocumentForm (props) {
     let target = e.target;
     let value = target.type === "checkbox" ? target.checked : target.value;
 
-    setDocumentModel({
-      ...documentModel,
+    setAbsenceModel({
+      ...absenceModel,
       [target.name]: value,
     });
   };
@@ -89,34 +86,28 @@ function ManageDocumentForm (props) {
   }
 
   const handleSubmit = (e) => {
+    debugger
     e.preventDefault();
-    let _documentModel = {
-      ...documentModel,
+    let _absenceModel = {
+      ...absenceModel,
     };
 
-    // if (_documentModel.dateIn != null && _documentModel.dateOut != null) {
-    //   if (!isValidDate(_documentModel.dateOut, _documentModel.dateIn)) {
-    //     return;
-    //   }
-    // }
-
-    console.log("_documentModel", _documentModel);
     if (idUrl) {
       api
-        .updateDocument(idUrl, _documentModel)
+        .updateAbsence(idUrl, _absenceModel)
         .then((res) => {
           console.log("edit success");
-          props.history.push("/documents");
+          props.history.push("/absences");
         })
         .catch((err) => {
           console.log("err", err);
         });
     } else {
       api
-        .createDocument(_documentModel)
+        .createAbsence(_absenceModel)
         .then((res) => {
           console.log("create success");
-          props.history.push("/documents");
+          props.history.push("/absences");
         })
         .catch((err) => {
           console.log("err", err);
@@ -131,61 +122,69 @@ function ManageDocumentForm (props) {
           <div className="card-body">
             <div className="row pt-3">
               <h4 className="card-title">Thông tin cơ bản</h4>
-
-              {/* name */}
               <div className="col-md-12">
                 <div className="form-group">
-                  <label htmlFor="class-content">Tên tài liệu</label>
-                  <Input
+                  <label htmlFor="reason">Lí do</label>
+                  <input
                     type="text"
                     className="form-control"
-                    id="name"
-                    name="name"
-                    placeholder="Tên tài liệu"
-                    value={documentModel.name}
+                    placeholder="Lí do"
+                    id="reason"
+                    name="reason"
+                    value={absenceModel.reason}
                     onChange={handleOnchange}
                     required
                   />
                 </div>
               </div>
-
-              {/* shortDesc */}
-              <div className="col-md-12">
+              <div className="col-md-6">
                 <div className="form-group">
-                  <Input
-                    type="text"
+                  <label htmlFor="dateFrom">Thời gian bắt đầu nghỉ</label>
+                  <DatePicker
                     className="form-control"
-                    id="shortDesc"
-                    name="shortDesc"
-                    placeholder="Mô tả"
-                    value={documentModel.shortDesc}
-                    onChange={handleOnchange}
-                    required
+                    id="dateFrom"
+                    name="dateFrom"
+                    value={moment(absenceModel.dateFrom, dateFormatList[0])} format={dateFormatList}
+                    onChange={(date, dateString) => {
+                      setAbsenceModel({
+                        ...absenceModel,
+                        dateFrom: dateString
+                      })
+                    }}
                   />
                 </div>
               </div>
-
-              {/* content */}
-              <div className="col-md-12">
+              <div className="col-md-6">
                 <div className="form-group">
-                  <Editor
-                    value={documentModel.contents}
-                    init={editorConfig}
-                    onEditorChange={(content) => handleOnchange({ target: { name: 'contents', value: content } })}
+                  <label htmlFor="dateTo">Thời gian kết thúc nghỉ</label>
+                  <DatePicker
+                    className="form-control"
+                    id="dateTo"
+                    name="dateTo"
+                    value={moment(absenceModel.dateTo, dateFormatList[0])} format={dateFormatList}
+                    onChange={(date, dateString) => {
+                      setAbsenceModel({
+                        ...absenceModel,
+                        dateTo: dateString
+                      })
+                    }}
                   />
                 </div>
               </div>
-
-              {/* category */}
+            </div>
+            <div className="row pt-3">
+              <h4 className="card-title">Chọn lớp</h4>
               <div className="col-md-12">
                 <div className="form-group">
-                  <label className="control-label">Loại tài liệu</label>
+                  <label className="control-label">Loại Lớp</label>
                   <select
                     className="form-control"
-                    name="categoryId"
-                    value={documentModel.categoryId}
-                    onChange={handleOnchange}>
-                    {categories.map((x) => {
+                    name="classID"
+                    value={absenceModel.classID}
+                    onChange={handleOnchange}
+                  >
+                    <option value='' disabled>Chọn lớp</option>
+                    {classes.map((x) => {
                       return (
                         <React.Fragment key={x._id}>
                           <option value={x._id}>{x.name}</option>
@@ -195,25 +194,22 @@ function ManageDocumentForm (props) {
                   </select>
                 </div>
               </div>
-
-              {/* recommend */}
-              <div className="col-md-12">
+              {/* <div className="col-md-12">
                 <div className="form-group">
                   <Checkbox
-                    name="isRecommend"
+                    name="status"
                     onChange={handleOnchange}
                     // @ts-ignore
-                    checked={documentModel.isRecommend}
+                    checked={absenceModel.status}
                   ></Checkbox>
-                  <label className="control-label m-l-10">Trạng thái</label>
+                  <label className="control-label m-l-10">Đã duyệt</label>
                 </div>
-              </div>
-
-
+              </div> */}
               <div className="col-md-12">
                 <button
                   className="btn btn-success"
-                  onClick={() => props.history.push("/documents")}>
+                  onClick={() => props.history.push("/absencees")}
+                >
                   {" "}
                   Cancel{" "}
                 </button>
@@ -242,7 +238,7 @@ function ManageDocumentForm (props) {
                 <li className="breadcrumb-item">
                   <a>Home</a>
                 </li>
-                <li className="breadcrumb-item active">Document</li>
+                <li className="breadcrumb-item active">Teacher</li>
               </ol>
               {/* <a
                 type="button"
@@ -277,4 +273,4 @@ function ManageDocumentForm (props) {
   );
 }
 
-export default connect(null, null)(withRouter(ManageDocumentForm));
+export default connect(null, null)(withRouter(ManageAbsenceForm));

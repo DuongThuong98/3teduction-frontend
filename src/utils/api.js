@@ -73,7 +73,7 @@ export const login = (acc) => {
 };
 
 export const getCurrentUser = () => {
-  return httpClient.get("api/auth/profile");
+  return httpClient.get("api/auth/me");
 };
 
 export const updateProfile = (profile) => {
@@ -137,6 +137,11 @@ export const getClassDropdown = () => {
   return httpClient.get(`classes/support/dropdown`);
 };
 
+export const getAllClassesInDay = () => {
+  return httpClient.get(`classes-in-day`);
+};
+
+
 // Shift Manage
 export const getAllShifts = () => {
   return httpClient.get("shifts/all");
@@ -184,8 +189,57 @@ export const getDocumentDropdown = () => {
 };
 
 //Category
+export const getAllCategories = () => {
+  return httpClient.get("categories/all");
+};
+
+export const getCategory = (id) => {
+  return httpClient.get(`categories/${id}`);
+};
+
+export const createCategory = (data) => {
+  return httpClient.post("categories", data);
+};
+
+export const updateCategory = (id, data) => {
+  return httpClient.put(`categories/${id}`, data);
+};
+
+export const deleteCategory = (id) => {
+  return httpClient.delete(`categories/${id}`);
+};
+
 export const getCategoryDropdown = () => {
-  return httpClient.get("categories/support/dropdown");
+  return httpClient.get(`categories/support/dropdown`);
+};
+
+//Student
+export const getAllStudents = () => {
+  return httpClient.get("students/all");
+};
+
+export const getStudent = (id) => {
+  return httpClient.get(`students/${id}`);
+};
+
+export const createStudent = (data) => {
+  return httpClient.post("students", data);
+};
+
+export const updateStudent = (id, data) => {
+  return httpClient.put(`students/${id}`, data);
+};
+
+export const updateLevelStudent = (id, data) => {
+  return httpClient.put(`students/level/${id}`, data);
+};
+
+export const deleteStudent = (id) => {
+  return httpClient.delete(`students/${id}`);
+};
+
+export const blockStudent = (id) => {
+  return httpClient.get(`students/block/${id}`);
 };
 
 //Course
@@ -250,4 +304,42 @@ export const blockComment = (id, data) => {
 
 export const deleteComment = (id) => {
   return httpClient.delete(`comments/${id}`);
+};
+
+//Feedback
+export const getAllFeedbacks = () => {
+  return httpClient.get("feedbacks/all");
+};
+
+export const createFeedback = (data) => {
+  return httpClient.post("feedbacks", data);
+};
+
+export const deleteFeedback = (id) => {
+  return httpClient.delete(`feedbacks/${id}`);
+};
+
+//Absence Manage
+export const getAllAbsences = () => {
+  return httpClient.get("absences/all");
+};
+
+export const getAbsence = (id) => {
+  return httpClient.get(`absences/${id}`);
+};
+
+export const createAbsence = (data) => {
+  return httpClient.post("absences", data);
+};
+
+export const updateAbsence = (id, data) => {
+  return httpClient.put(`absences/${id}`, data);
+};
+
+export const deleteAbsence = (id) => {
+  return httpClient.delete(`absences/${id}`);
+};
+
+export const confirmAbsence = (id) => {
+  return httpClient.get(`absences/confirm/${id}`);
 };

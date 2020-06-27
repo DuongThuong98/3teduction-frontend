@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useEffect } from "react";
 import {
   HashRouter as Router,
@@ -7,64 +8,26 @@ import {
   withRouter,
 } from "react-router-dom";
 import { connect } from "react-redux";
-import { useToasts } from "react-toast-notifications";
-import Select from "react-select";
 
-import * as api from "./../../utils/api";
-import { Checkbox, DatePicker, Input } from "antd";
+import * as api from "../../utils/api";
+import { Checkbox, DatePicker, Input, Radio } from "antd";
 import moment from "moment";
-import { bool } from "prop-types";
-import { Editor } from '@tinymce/tinymce-react';
 
-function ManageDocumentForm (props) {
-  const [documentModel, setDocumentModel] = useState({
-    isRecommend: Boolean,
+function ManageCategoryForm (props) {
+  const [model, setModel] = useState({
     name: "",
-    shortDesc: "",
-    contents: "",
-    categoryId: "",
+    icons: "",
+    level: "",
+    status: false,
+    typeID: "",
   });
 
-  const [categories, setCategories] = useState([]);
-  const dateFormat = "DD/MM/YYYY";
-  const dateFormatList = ['DD/MM/YYYY HH:mm'];
-
-  const editorConfig = {
-    height: 200,
-    menubar: true,
-    plugins: [
-      'advlist autolink lists link image charmap hr',
-      'searchreplace visualblocks visualchars code media table',
-      'paste textcolor colorpicker textpattern imagetools'
-    ],
-    toolbar: `styleselect | bold italic underline | forecolor backcolor | bullist numlist | link image | media`,
-    convert_fonts_to_spans: true,
-    paste_word_valid_elements: "b,strong,i,em,h1,h2,u,p,ol,ul,li,a[href],span,color,font-size,font-color,font-family,mark,table,tr,td",
-    paste_retain_style_properties: "all",
-  };
-
   useEffect(() => {
-    api
-      .getCategoryDropdown()
-      .then((res) => {
-        let list = res.data.data.map((c) => {
-          return c;
-        });
-        setCategories(list);
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
-
     if (idUrl) {
-      api
-        .getDocument(idUrl)
+      api.getCategory(idUrl)
         .then((res) => {
-          let _data = res.data;
-          let update = moment(new Date(_data.update));
-          _data.update = update.format("DD/MM/YYYY");
-
-          setDocumentModel(_data);
+          let _data = res.data.data;
+          setModel(_data);
         })
         .catch((err) => {
           console.log("err", err);
@@ -74,54 +37,43 @@ function ManageDocumentForm (props) {
 
   const idUrl = props.match.params.id;
 
-  const handleOnchange = (e) => {
-    let target = e.target;
-    let value = target.type === "checkbox" ? target.checked : target.value;
-
-    setDocumentModel({
-      ...documentModel,
-      [target.name]: value,
-    });
-  };
-
-  function isValidDate (str1, str2) {
-    return new Date(str2) > new Date(str1);
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    let _documentModel = {
-      ...documentModel,
+    let _model = {
+      ...model,
     };
 
-    // if (_documentModel.dateIn != null && _documentModel.dateOut != null) {
-    //   if (!isValidDate(_documentModel.dateOut, _documentModel.dateIn)) {
-    //     return;
-    //   }
-    // }
-
-    console.log("_documentModel", _documentModel);
     if (idUrl) {
       api
-        .updateDocument(idUrl, _documentModel)
+        .updateCategory(idUrl, _model)
         .then((res) => {
           console.log("edit success");
-          props.history.push("/documents");
+          props.history.push("/categories");
         })
         .catch((err) => {
           console.log("err", err);
         });
     } else {
       api
-        .createDocument(_documentModel)
+        .createCategory(_model)
         .then((res) => {
           console.log("create success");
-          props.history.push("/documents");
+          props.history.push("/categories");
         })
         .catch((err) => {
           console.log("err", err);
         });
     }
+  };
+
+  const handleOnchange = (e) => {
+    let target = e.target;
+    let value = target.type === "checkbox" ? target.checked : target.value;
+
+    setModel({
+      ...model,
+      [target.name]: value,
+    });
   };
 
   const showForm = () => {
@@ -131,89 +83,85 @@ function ManageDocumentForm (props) {
           <div className="card-body">
             <div className="row pt-3">
               <h4 className="card-title">Thông tin cơ bản</h4>
-
-              {/* name */}
               <div className="col-md-12">
                 <div className="form-group">
-                  <label htmlFor="class-content">Tên tài liệu</label>
-                  <Input
+                  <label htmlFor="name">Tên</label>
+                  <input
                     type="text"
                     className="form-control"
+                    placeholder="Category name"
                     id="name"
                     name="name"
-                    placeholder="Tên tài liệu"
-                    value={documentModel.name}
+                    value={model.name}
                     onChange={handleOnchange}
                     required
                   />
                 </div>
               </div>
-
-              {/* shortDesc */}
               <div className="col-md-12">
                 <div className="form-group">
+                  <label htmlFor="icons">Icon</label>
                   <Input
                     type="text"
                     className="form-control"
-                    id="shortDesc"
-                    name="shortDesc"
-                    placeholder="Mô tả"
-                    value={documentModel.shortDesc}
+                    id="icons"
+                    name="icons"
+                    placeholder="Icon"
+                    value={model.icons}
                     onChange={handleOnchange}
                     required
                   />
                 </div>
               </div>
-
-              {/* content */}
+            </div>
+            <div className="row pt-3">
+              <h4 className="card-title"></h4>
               <div className="col-md-12">
                 <div className="form-group">
-                  <Editor
-                    value={documentModel.contents}
-                    init={editorConfig}
-                    onEditorChange={(content) => handleOnchange({ target: { name: 'contents', value: content } })}
+                  <label htmlFor="level">Level</label>
+                  <Input
+                    type="number"
+                    className="form-control"
+                    id="level"
+                    name="level"
+                    placeholder="Icon"
+                    value={model.level}
+                    onChange={handleOnchange}
+                    required
                   />
                 </div>
               </div>
-
-              {/* category */}
               <div className="col-md-12">
                 <div className="form-group">
-                  <label className="control-label">Loại tài liệu</label>
+                  <label className="control-label">Loại</label>
                   <select
                     className="form-control"
-                    name="categoryId"
-                    value={documentModel.categoryId}
+                    name="typeID"
+                    value={model.typeID}
                     onChange={handleOnchange}>
-                    {categories.map((x) => {
-                      return (
-                        <React.Fragment key={x._id}>
-                          <option value={x._id}>{x.name}</option>
-                        </React.Fragment>
-                      );
-                    })}
+                    <React.Fragment>
+                      <option value="news"> News</option>
+                      <option value="mocktest"> MockTest</option>
+                    </React.Fragment>
                   </select>
                 </div>
               </div>
-
-              {/* recommend */}
               <div className="col-md-12">
                 <div className="form-group">
                   <Checkbox
-                    name="isRecommend"
+                    name="status"
                     onChange={handleOnchange}
                     // @ts-ignore
-                    checked={documentModel.isRecommend}
+                    checked={model.status}
                   ></Checkbox>
                   <label className="control-label m-l-10">Trạng thái</label>
                 </div>
               </div>
-
-
               <div className="col-md-12">
                 <button
                   className="btn btn-success"
-                  onClick={() => props.history.push("/documents")}>
+                  onClick={() => props.history.push("/categories")}
+                >
                   {" "}
                   Cancel{" "}
                 </button>
@@ -229,6 +177,7 @@ function ManageDocumentForm (props) {
     );
   };
 
+
   const showCommon = () => {
     return (
       <React.Fragment>
@@ -242,15 +191,8 @@ function ManageDocumentForm (props) {
                 <li className="breadcrumb-item">
                   <a>Home</a>
                 </li>
-                <li className="breadcrumb-item active">Document</li>
+                <li className="breadcrumb-item active">Category</li>
               </ol>
-              {/* <a
-                type="button"
-                className="btn btn-info d-none d-lg-block m-l-15"
-                href="./_admin-add-teacher.html"
-              >
-                <i className="fa fa-plus-circle"></i> Submit
-              </a> */}
             </div>
           </div>
         </div>
@@ -277,4 +219,4 @@ function ManageDocumentForm (props) {
   );
 }
 
-export default connect(null, null)(withRouter(ManageDocumentForm));
+export default connect(null, null)(withRouter(ManageCategoryForm));
