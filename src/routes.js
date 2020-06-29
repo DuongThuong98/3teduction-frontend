@@ -28,6 +28,8 @@ import ManageStudent from "./components/ManageStudent/ManageStudent";
 import ManageStudentForm from "./components/ManageStudent/ManageStudentForm";
 import ManageAbsence from "./components/ManageAbsence/ManageAbsence";
 import ManageAbsenceForm from "./components/ManageAbsence/ManageAbsenceForm";
+import MyCourses from "./components/MyCourses/MyCourses";
+import MyCoursesDetail from "./components/MyCourses/MyCoursesDetail";
 
 /** @type{import("react-router-config").RouteConfig} */
 const routes = [
@@ -140,6 +142,19 @@ const routes = [
     main: () => <LearningClassDetail />,
   },
 
+  // courses is used for learning
+  {
+    path: "/my-courses",
+    exact: false,
+    pageTitle: "List Learning Class",
+    main: () => <MyCourses />,
+  },
+  {
+    path: "/my-courses-detail/:id",
+    exact: false,
+    pageTitle: "Learning Class",
+    main: () => <MyCoursesDetail />,
+  },
   // class is used for teaching
   {
     path: "/t-classes",

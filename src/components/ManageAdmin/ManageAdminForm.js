@@ -16,14 +16,14 @@ import moment from "moment";
 
 function ManageAdminForm (props) {
   const [model, setModel] = useState({
-    displayName: "",
+    username: "",
     email: '',
     password: "",
     phone: "",
     birthdate: "",
     address: "",
     gender: "",
-    confirmPassword:"", 
+    confirmPassword: "",
   });
 
   const dateFormat = "DD/MM/YYYY";
@@ -42,7 +42,7 @@ function ManageAdminForm (props) {
     });
   };
 
-  const onChange =(e) =>{
+  const onChange = (e) => {
     let target = e.target;
     let value = target.value;
 
@@ -58,19 +58,19 @@ function ManageAdminForm (props) {
     let _model = {
       ...model,
     };
-      api.createAdmin(_model)
-        .then((res) => {
-          console.log("create success");
-          props.history.push("/admins");
-        })
-        .catch((err) => {
-          console.log("err", err);
-        });
+    api.createAdmin(_model)
+      .then((res) => {
+        console.log("create success");
+        props.history.push("/admins");
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
   };
 
   const showForm = () => {
     return (
-      <form className="mt-4" onSubmit={handleSubmit} onKeyPress={(event) => {if (event.which === 13) event.preventDefault(); }}>
+      <form className="mt-4" onSubmit={handleSubmit} onKeyPress={(event) => { if (event.which === 13) event.preventDefault(); }}>
         <div className="form-body">
           <div className="card-body">
             <div className="row pt-3">
@@ -81,9 +81,9 @@ function ManageAdminForm (props) {
                     type="text"
                     className="form-control"
                     placeholder="Tên hiển thị"
-                    id="displayName"
-                    name="displayName"
-                    value={model.displayName}
+                    id="username"
+                    name="username"
+                    value={model.username}
                     onChange={handleOnchange}
                     required
                   />
@@ -167,10 +167,10 @@ function ManageAdminForm (props) {
               </div>
               <div className="col-md-12">
                 <div className="form-group">
-                <Radio.Group onChange={onChange} name="gender">
-                  <Radio value="Nam">Nam</Radio>
-                  <Radio value="Nữ">Nữ</Radio>
-               </Radio.Group>
+                  <Radio.Group onChange={onChange} name="gender">
+                    <Radio value="Nam">Nam</Radio>
+                    <Radio value="Nữ">Nữ</Radio>
+                  </Radio.Group>
                 </div>
               </div>
               <div className="col-md-12">
@@ -180,7 +180,7 @@ function ManageAdminForm (props) {
                   Cancel{" "}
                 </button>
                 <button type="submit" className="btn btn-primary m-l-5">
-                 Create
+                  Create
                 </button>
               </div>
             </div>

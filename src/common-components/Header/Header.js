@@ -18,7 +18,7 @@ import "./Header.scss";
 function Header (props) {
   const { user } = props;
   var _user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {};
-  const displayName = _user.username;
+  const username = _user.username;
 
   const logOut = (e) => {
     e.preventDefault();
@@ -266,7 +266,7 @@ function Header (props) {
                 >
                   <img src="images/users/1.jpg" alt="user" />{" "}
                   <span className="hidden-md-down">
-                    {displayName}
+                    {username}
                     <i className="fa fa-angle-down" />
                   </span>{" "}
                 </a>

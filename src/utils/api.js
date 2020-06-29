@@ -238,13 +238,17 @@ export const deleteStudent = (id) => {
   return httpClient.delete(`students/${id}`);
 };
 
-export const blockStudent = (id) => {
-  return httpClient.get(`students/block/${id}`);
+export const upgradeStudent = (id) => {
+  return httpClient.get(`students/upgrade/${id}`);
 };
 
 //Course
 export const getCourseDropdown = () => {
   return httpClient.get("courses/support/dropdown");
+};
+
+export const getAllMyCourses = () => {
+  return httpClient.get("courses/mycourses");
 };
 
 // Admin Manage

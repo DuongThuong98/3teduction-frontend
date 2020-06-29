@@ -1,4 +1,4 @@
-const menus = [
+const menusTeacher = [
   {
     name: "Home",
     to: "/",
@@ -6,22 +6,10 @@ const menus = [
     icon: "fas fa-th",
   },
   {
-    name: "Teacher",
-    to: "/teachers",
-    exact: false,
-    icon: " fas fa-users",
-  },
-  {
     name: "Student",
     to: "/students",
     exact: false,
     icon: "fa fa-users",
-  },
-  {
-    name: "Admin",
-    to: "/admins",
-    exact: false,
-    icon: "fas fa-user-secret",
   },
   {
     name: "Class",
@@ -35,12 +23,12 @@ const menus = [
     exact: false,
     icon: "fab fa-discourse",
   },
-  // {
-  //   name: "Learning Class",
-  //   to: "/l-classes",
-  //   exact: false,
-  //   icon: "fas fa-align-justify",
-  // },
+  {
+    name: "Learning Class",
+    to: "/l-classes",
+    exact: false,
+    icon: "fas fa-align-justify",
+  },
   {
     name: "Shift",
     to: "/shifts",
@@ -91,4 +79,4 @@ const menus = [
   },
 ];
 
-export default menus;
+export default menusTeacher;

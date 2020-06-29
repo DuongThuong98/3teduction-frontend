@@ -14,7 +14,7 @@ import * as api from "../../utils/api";
 import { Checkbox, DatePicker, Input, Radio } from "antd";
 import moment from "moment";
 
-function LearningClassDetail (props) {
+function MyCoursesDetail (props) {
   const [model, setModel] = useState({
     className: "",
     teacherName: '',
@@ -372,4 +372,4 @@ function LearningClassDetail (props) {
   );
 }
 
-export default connect(null, null)(withRouter(LearningClassDetail));
+export default connect(null, null)(withRouter(MyCoursesDetail));

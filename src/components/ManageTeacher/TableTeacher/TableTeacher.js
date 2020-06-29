@@ -87,9 +87,9 @@ function TableTeacher (props) {
   const columns = [
     {
       title: "Tên hiển thị",
-      dataIndex: "displayName",
+      dataIndex: "username",
       sorter: (a, b) =>
-        a.displayName.toLowerCase() > b.displayName.toLowerCase() ? 1 : -1,
+        a.username.toLowerCase() > b.username.toLowerCase() ? 1 : -1,
       width: "20%",
     },
     {

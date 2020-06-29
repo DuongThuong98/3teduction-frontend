@@ -43,14 +43,14 @@ function TableAdmin (props) {
   };
 
   const blockAdminApi = (id) => {
-    api.blockAdmin(id).then((res) => {getAdmins();}).catch((err) => { });
+    api.blockAdmin(id).then((res) => { getAdmins(); }).catch((err) => { });
   };
 
   const columns = [
     {
       title: "Tên hiển thị",
-      dataIndex: "displayName",
-      sorter: (a, b) => (a.displayName.toLowerCase() > b.displayName.toLowerCase() ? 1 : -1),
+      dataIndex: "username",
+      sorter: (a, b) => (a.username.toLowerCase() > b.username.toLowerCase() ? 1 : -1),
       width: "20%",
     },
     {
