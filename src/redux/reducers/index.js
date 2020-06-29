@@ -6,12 +6,18 @@ import teachers from "./teacher/teacher";
 import itemEditing from "./teacher/itemEditing";
 import major from '../major/major.reducers';
 import tag from '../tag/tag.reducers';
+import assignment from './assignment.reducer';
+import mockingTest from './mockingTest.reducer';
+import response from './response.reducer'
 
 const appReducers = combineReducers({
     user,
     toastr: toastrReducer,
     major,
-    tag
+    tag,
+    assignment,
+    mockingTest,
+    response
 });
 
 export default appReducers;

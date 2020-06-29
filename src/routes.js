@@ -20,6 +20,10 @@ import ManageTeacher from "./components/ManageTeacher/ManageTeacher";
 import ManageTeacherForm from "./components/ManageTeacher/ManageTeacherForm";
 import ManageComment from "./components/ManageComment/ManageComment";
 import ManageCommentForm from "./components/ManageComment/ManageCommentForm";
+import ManageAssignment from './components/ManageAssignment/ManageAssignment.container'
+import ManageMockingTest from './components/ManageMockingTest/ManageMockingTest.container'
+import ManageResponse from './components/ManageResponse/ManageResponse.container'
+
 import ManageCategory from "./components/ManageCategory/ManageCategory";
 import ManageCategoryForm from "./components/ManageCategory/ManageCategoryForm";
 import ManageFeedback from "./components/ManageFeedback/ManageFeedback";
@@ -201,7 +205,13 @@ const routes = [
     pageTitle: "Add Document",
     main: () => <ManageDocumentForm />,
   },
-
+  //Mocking test
+  {
+    path: "/mocking-tests",
+    exact: false,
+    pageTitle: "Mocking Test",
+    main: () => <ManageMockingTest/>,
+  },
   //Exercise
   {
     path: "/exercises",
@@ -221,6 +231,13 @@ const routes = [
     pageTitle: "Add Exercise",
     main: () => <ExerciseComponent></ExerciseComponent>,
   },
+  //Assignment
+{
+  path: "/assignments",
+  exact: false,
+  pageTitle: "List Exercise",
+  main: () => <ManageAssignment></ManageAssignment>,
+},
 
   //feedback: Feedback do not have route or menu, it has list to view/delete
   //and is added in form at livestream study page
@@ -230,7 +247,13 @@ const routes = [
     pageTitle: "List Feedback",
     main: () => <ManageFeedback />,
   },
-
+  //response
+  {
+    path: "/responses",
+    exact: false,
+    pageTitle: "Response",
+    main: () => <ManageResponse></ManageResponse>,
+  },
   //profile
   {
     path: "/my-profile",

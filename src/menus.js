@@ -54,14 +54,32 @@ const menus = [
     icon: "fas fa-book",
   },
   {
+    name: "Mocking Test",
+    to: "/mocking-tests",
+    exact: false,
+    icon: "fas fa-book",
+  },
+  {
     name: "Exercise",
     to: "/exercises",
     exact: false,
     icon: " fas fa-box",
   },
   {
+    name: "Assignment",
+    to: "/assignments",
+    exact: false,
+    icon: " fas fa-box",
+  },
+  {
     name: "Feedback",
     to: "/feedbacks",
+    exact: false,
+    icon: "fas fa-text-width",
+  },
+  {
+    name: "Response",
+    to: "/responses",
     exact: false,
     icon: "fas fa-text-width",
   },
