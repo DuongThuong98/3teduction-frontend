@@ -1,15 +1,15 @@
 /* eslint-disable import/named */
 /* eslint-disable import/no-named-as-default */
 import { connect } from 'react-redux'
-import { getAllTag, createTag, editTag, deleteTag } from '../../redux/actions/response.action'
+import { getAllTag, createTag, editTag, deleteTag } from '../../redux/actions/video.action'
 import { getAllMajor } from '../../redux/actions/major.action'
 import ManageVideo from './ManageVideo.component'
 
 const mapStateToProps = state => ({
-  data: state.response.data,
+  data: state.video.data,
   dataMajor: state.major.data,
   loadingData: state.major.loading,
-  length: state.response.length,
+  length: state.video.length,
 })
 
 const mapDispatchToProps = dispatch => ({
