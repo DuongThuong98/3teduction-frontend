@@ -10,7 +10,7 @@ import {
   editTagFailure,
   deleteTagSuccess,
   deleteTagFailure,
-} from '../actions/response.action'
+} from '../actions/video.action'
 import ResponseService from '../../services/video.service'
 
 // Get all

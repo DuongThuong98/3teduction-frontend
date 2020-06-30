@@ -9,6 +9,7 @@ import tag from '../tag/tag.reducers';
 import assignment from './assignment.reducer';
 import mockingTest from './mockingTest.reducer';
 import response from './response.reducer'
+import video from './video.reducer'
 
 const appReducers = combineReducers({
     user,
@@ -17,7 +18,8 @@ const appReducers = combineReducers({
     tag,
     assignment,
     mockingTest,
-    response
+    response,
+    video
 });
 
 export default appReducers;

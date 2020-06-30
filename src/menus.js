@@ -84,6 +84,12 @@ const menus = [
     icon: "fas fa-text-width",
   },
   {
+    name: "Video",
+    to: "/video",
+    exact: false,
+    icon: "fas fa-text-width",
+  },
+  {
     name: "Salary",
     to: "/salaries",
     exact: false,
