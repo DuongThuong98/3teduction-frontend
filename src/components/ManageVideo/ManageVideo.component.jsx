@@ -1,13 +1,14 @@
+// @ts-nocheck
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
-import './ManageVideo.scss'
-import React, { useEffect, useState } from 'react'
-import { Table, Tag, Divider, Button, Modal } from 'antd'
-import ModalSkill from './ModalVideo/ModalVideo.component'
-import CustomPagination from '../Pagination/Pagination.component'
+import "./ManageVideo.scss";
+import React, { useEffect, useState } from "react";
+import { Table, Tag, Divider, Button, Modal } from "antd";
+import ModalSkill from "./ModalVideo/ModalVideo.component";
+import CustomPagination from "../Pagination/Pagination.component";
 
-const { confirm } = Modal
+const { confirm } = Modal;
 
 // eslint-disable-next-line react/prop-types
 const ManageVideo = ({
@@ -21,122 +22,130 @@ const ManageVideo = ({
   length,
   deleteTag,
 }) => {
-  const [loading, setLoading] = useState(false)
-  const [visible, setVisible] = useState(false)
-  const [loadingEdit, setLoadingEdit] = useState(false)
-  const [visibleEdit, setVisibleEdit] = useState(false)
-  const [tag, setTag] = useState(null)
-  const [currentPage, setCurrentPage] = useState(1)
-  const [pageSize] = useState(5)
+  const [loading, setLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [loadingEdit, setLoadingEdit] = useState(false);
+  const [visibleEdit, setVisibleEdit] = useState(false);
+  const [tag, setTag] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize] = useState(5);
 
   useEffect(() => {
-    getAllMajor()
-    getAllTag({ limit: pageSize, page: 1 })
-  }, [getAllTag, getAllMajor, pageSize])
+    getAllMajor();
+    getAllTag({ limit: pageSize, page: 1 });
+  }, [getAllTag, getAllMajor, pageSize]);
 
   const showModal = () => {
-    setVisible(true)
-  }
+    setVisible(true);
+  };
 
-  const handleOk = values => {
-    setLoading(true)
+  const handleOk = (values) => {
+    setLoading(true);
     setTimeout(() => {
-      setLoading(false)
-      setVisible(false)
-    }, 1000)
-    createTag(values)
-  }
+      setLoading(false);
+      setVisible(false);
+    }, 1000);
+    createTag(values);
+  };
 
   const handleCancel = () => {
-    setVisible(false)
-  }
+    setVisible(false);
+  };
 
-  const showModalEdit = row => {
-    setTag(row)
-    setVisibleEdit(true)
-  }
+  const showModalEdit = (row) => {
+    setTag(row);
+    setVisibleEdit(true);
+  };
 
-  const handleOkEdit = values => {
-    setLoadingEdit(true)
+  const handleOkEdit = (values) => {
+    setLoadingEdit(true);
     setTimeout(() => {
-      setLoadingEdit(false)
-      setVisibleEdit(false)
-    }, 1000)
+      setLoadingEdit(false);
+      setVisibleEdit(false);
+    }, 1000);
 
-    editTag({ ...values, _id: tag._id })
-  }
+    editTag({ ...values, _id: tag._id });
+  };
 
   const handleCancelEdit = () => {
-    setVisibleEdit(false)
-  }
+    setVisibleEdit(false);
+  };
 
-  const showConfirm = row => {
+  const showConfirm = (row) => {
     confirm({
-      title: 'Bạn có muốn xóa bài tập này?',
-      okText: 'Có',
-      okType: 'primary',
-      cancelText: 'Hủy',
+      title: "Bạn có muốn xóa bài tập này?",
+      okText: "Có",
+      okType: "primary",
+      cancelText: "Hủy",
       cancelButtonProps: {
-        type: 'link',
+        type: "link",
       },
       onOk() {
-        deleteTag({ _id: row._id })
+        deleteTag({ _id: row._id });
       },
       onCancel() {},
-    })
-  }
+    });
+  };
 
-  const onChangeTable = page => {
-    setCurrentPage(page)
-    getAllTag({ limit: pageSize, offset: page })
-  }
+  const onChangeTable = (page) => {
+    setCurrentPage(page);
+    getAllTag({ limit: pageSize, offset: page });
+  };
 
   const columns = [
     {
-      title: 'Content',
-      dataIndex: 'content',
-      key: 'content',
+      title: "Desc",
+      dataIndex: "desc",
+      key: "desc",
     },
     {
-      title: 'Tittle',
-      dataIndex: 'title',
-      key: 'title',
+      title: "URL",
+      dataIndex: "url",
+      key: "url",
+      render: (_id, row) => 
+        <a href={row.url}>{row.url}</a>
+      
     },
-    // {
-    //   title: 'File',
-    //   dataIndex: 'name',
-    //   key: 'name',
-    // },
-    // {
-    //   title: 'Deadline',
-    //   dataIndex: 'deadline',
-    //   key: 'deadline',
-    // },
+    {
+      title: 'Name',
+      dataIndex: 'originalName',
+      key: 'originalName',
+    },
+    {
+      title: 'Type',
+      dataIndex: 'resourceType',
+      key: 'resourceType',
+    },
     // {
     //   title: 'Status',
     //   dataIndex: 'status',
     //   key: 'status',
     //   render: (_id, row) => <Tag color="cyan">{row.status === true? "Hoan thanh" : "Chua hoan thanh"}</Tag>,
     // },
-    
 
     {
-      title: 'Thao tác',
-      dataIndex: 'action',
-      key: 'action',
+      title: "Thao tác",
+      dataIndex: "action",
+      key: "action",
       render: (_id, row) => (
         <span>
-          <Button onClick={() => showModalEdit(row)} className="link link__edit">
+          <Button
+            onClick={() => showModalEdit(row)}
+            className="link link__edit"
+          >
             Sửa
           </Button>
           <Divider type="vertical" />
-          <Button onClick={() => showConfirm(row)} className="link link__delete">
+          <Button
+            onClick={() => showConfirm(row)}
+            className="link link__delete"
+          >
             Xóa
           </Button>
         </span>
       ),
     },
-  ]
+  ];
 
   return (
     <div className="tags">
@@ -145,7 +154,7 @@ const ManageVideo = ({
       </Button>
       {data ? (
         <Table
-          rowKey={record => record._id}
+          rowKey={(record) => record._id}
           columns={columns}
           dataSource={data}
           className="tags__table"
@@ -181,8 +190,16 @@ const ManageVideo = ({
         data={tag}
         title="Chỉnh sửa bài tập"
       />
+      {/* <div>
+        <Dropzone multiple={false} onDrop={onDrop}>
+          <p>Drop an image or click to select an image to upload</p>
+        </Dropzone>
+        <Button onClick={() => handleOk(file)} className="link link__edit">
+          Sửa
+        </Button>
+      </div> */}
     </div>
-  )
-}
+  );
+};
 
-export default ManageVideo
+export default ManageVideo;

@@ -3,12 +3,12 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
-import './ModalVideo.scss'
+import "./ModalVideo.scss";
 
-import React from 'react'
-import { Modal, Button, Select, Form, Input } from 'antd'
+import React, { useState } from "react";
+import { Modal, Button, Select, Form, Input, Upload, Icon } from "antd";
 
-const { Option } = Select
+const { Option } = Select;
 
 const formItemLayout = {
   labelCol: {
@@ -19,19 +19,48 @@ const formItemLayout = {
     xs: { span: 24 },
     sm: { span: 24 },
   },
-}
+};
 
-const ModelSKill = ({ visible, handleOk, handleCancel, loading, form, options, title, data }) => {
-  const handleSubmit = e => {
-    e.preventDefault()
-    form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values)
-        handleOk(values)
-      }
-    })
-  }
-  const { getFieldDecorator } = form
+const tailFormItemLayout = {
+  wrapperCol: {
+    xs: {
+      span: 24,
+      offset: 0,
+    },
+    sm: {
+      span: 14,
+      offset: 0,
+    },
+  },
+};
+
+const ModelSKill = ({
+  visible,
+  handleOk,
+  handleCancel,
+  loading,
+  form,
+  options,
+  title,
+  data,
+}) => {
+  const [file, setFile]= useState( '' );
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // form.validateFields((err, values) => {
+    //   if (!err) {
+    //     console.log("Received values of form: ", values);
+    //     handleOk(values);
+    //   }
+    // });
+    handleOk(file);
+  };
+  const handleUpload = (info) => {
+    let files = info.fileList;
+    console.log(files[0]);
+    setFile(files[0]);
+  };
+  const { getFieldDecorator } = form;
   return (
     <Modal
       visible={visible}
@@ -42,24 +71,54 @@ const ModelSKill = ({ visible, handleOk, handleCancel, loading, form, options, t
         <Button key="back" onClick={handleCancel} type="link">
           Hủy
         </Button>,
-        <Button key="submit" type="primary" loading={loading} onClick={handleSubmit}>
+        <Button
+          key="submit"
+          type="primary"
+          loading={loading}
+          onClick={handleSubmit}
+        >
           Lưu
         </Button>,
       ]}
     >
-      <Form {...formItemLayout}>
-        <Form.Item label="Nhập tên bài tập" hasFeedback>
-          {getFieldDecorator('content', {
-            initialValue: data ? data.content : '',
-            rules: [{ required: true, message: 'Vui lòng nhập tên kĩ năng', whitespace: true }],
+      <Form>
+        {/* <Form.Item {...formItemLayout} label="Nhập tên bài" hasFeedback>
+          {getFieldDecorator("content", {
+            initialValue: data ? data.content : "",
+            rules: [
+              {
+                required: true,
+                message: "Vui lòng nhập tên kĩ năng",
+                whitespace: true,
+              },
+            ],
           })(<Input />)}
         </Form.Item>
-        <Form.Item label="Nhập nội dung bài tập" hasFeedback>
-          {getFieldDecorator('title', {
-            initialValue: data ? data.title : '',
-            rules: [{ required: true, message: 'Vui lòng nhập tên kĩ năng', whitespace: true }],
+        <Form.Item
+          {...formItemLayout}
+          label="Nhập nội dung bài tập"
+          hasFeedback
+        >
+          {getFieldDecorator("title", {
+            initialValue: data ? data.title : "",
+            rules: [
+              {
+                required: true,
+                message: "Vui lòng nhập tên kĩ năng",
+                whitespace: true,
+              },
+            ],
           })(<Input />)}
         </Form.Item>
+       */}
+        <Form.Item {...tailFormItemLayout}>
+          <Upload onChange={handleUpload}>
+            <Button>
+              <Icon type="upload" /> Click to Upload
+            </Button>
+          </Upload>
+        </Form.Item>
+        
         {/* <Form.Item label="Nhập tên kĩ năng" hasFeedback>
           {getFieldDecorator('deadline', {
             initialValue: data ? data.deadline : '',
@@ -84,8 +143,8 @@ const ModelSKill = ({ visible, handleOk, handleCancel, loading, form, options, t
         </Form.Item> */}
       </Form>
     </Modal>
-  )
-}
-const WrappedModelSKillForm = Form.create({ name: 'register' })(ModelSKill)
+  );
+};
+const WrappedModelSKillForm = Form.create({ name: "register" })(ModelSKill);
 
-export default WrappedModelSKillForm
+export default WrappedModelSKillForm;
