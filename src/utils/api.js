@@ -247,9 +247,28 @@ export const getCourseDropdown = () => {
   return httpClient.get("courses/support/dropdown");
 };
 
-export const getAllMyCourses = () => {
-  return httpClient.get("courses/mycourses");
+export const getVideoItemInCurriculum = (id) => {
+  return httpClient.post("courses/curriculums/video/detail", { id: id });
 };
+
+// right code
+// export const getAllMyCourses = () => {
+//   return httpClient.get("courses/mycourses");
+// };
+
+//temp
+export const getAllMyCourses = () => {
+  return httpClient.get("courses");
+};
+
+export const getCourse = (id) => {
+  return httpClient.get("courses/" + id);
+};
+
+
+export const getAllCurriculumByCourseId = (idCourse) => {
+  return httpClient.get(`courses/:id/curriculum`)
+}
 
 // Admin Manage
 export const getAllAdmins = () => {
@@ -346,4 +365,18 @@ export const deleteAbsence = (id) => {
 
 export const confirmAbsence = (id) => {
   return httpClient.get(`absences/confirm/${id}`);
+};
+
+//Manage course request
+
+export const getCourseRequests = () => {
+  return httpClient.get(`courseRequests/all`);
+};
+
+export const getCourseRequest = (id) => {
+  return httpClient.get(`courseRequests/${id}`);
+};
+
+export const updateStatusCourseRequest = (id, data) => {
+  return httpClient.put(`courseRequests/${id}`, data);
 };

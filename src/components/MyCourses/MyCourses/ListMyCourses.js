@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { HashRouter as Router, withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Input, Table, Modal } from "antd";
@@ -28,46 +28,44 @@ function ListMyCourses (props) {
   };
 
 
-  const chooseClass = (id) => {
+  const goToCurriculum = (id) => {
     props.history.push(`/my-courses-detail/${id}`);
   };
 
-  const showMyCourses = () => {
-
-    return (
-      <div className="col-lg-3 col-md-4">
-        <div className="card">
-          <div className="el-card-item">
-            <div className="el-card-avatar el-overlay-1">
-              <img src="images/big/img1.jpg" alt="user" />
-              <div className="el-overlay">
-                <ul className="el-info">
-                  <li>
-                    <a className="btn default btn-outline image-popup-vertical-fit" href="images/big/img1.jpg">
-                      <i className="icon-paper-plane" title="Vào học" />
-                    </a>
-                  </li>
-                  {/* <li>
-                    <a className="btn default btn-outline" data-toggle="modal" data-target="#show-modal-du-thinh">
-                      <i className="icon-earphones" title="Xem sau" />
-                    </a>
-                  </li> */}
-                </ul>
+  const showMyCourses = (courses) => {
+    const data = courses;
+    const element = data.map((c, index) => (
+      <React.Fragment key={c._id}>
+        <div className="col-lg-3 col-md-4">
+          <div className="card h-100">
+            <div className="el-card-item">
+              <div className="el-card-avatar el-overlay-1">
+                <img src="images/big/img1.jpg" alt="user" />
+                <div className="el-overlay">
+                  <ul className="el-info">
+                    <li>
+                      <button className="btn default btn-outline image-popup-vertical-fit" onClick={() => goToCurriculum(c._id)}>
+                        <i className="icon-paper-plane" title="Vào học" />
+                      </button>
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div className="el-card-content">
-              <h4 className="box-title">Học về đồ đạc trong nhà</h4>
-              <div className="card-body" style={{ padding: '0.25rem' }}>
-                <button type="button" className="btn waves-effect waves-light btn-rounded btn-primary m-t-10">Vào
-                lớp</button>
-                {/* <button className="btn btn-success btn-rounded waves-effect waves-light m-t-10" data-toggle="modal" data-target="#show-modal-du-thinh">Dự
-                thính</button> */}
+              <div className="el-card-content">
+                <h4 className="box-title" style={{ color: "#03a9f3" }}>{c.name}</h4>
+                <h6 className="box-title text-left ml-1">Mô tả: {c.shortDesc}</h6>
+                <div className="card-body" style={{ padding: '0.25rem' }}>
+                  <button type="button" className="btn waves-effect waves-light btn-rounded btn-primary m-t-10"
+                    onClick={() => goToCurriculum(c._id)}>Vào học</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    )
+      </React.Fragment>
+
+    ));
+    return element;
   }
 
   return (
@@ -98,7 +96,7 @@ function ListMyCourses (props) {
       </div >
       <div className="row el-element-overlay">
 
-        {showMyCourses()}
+        {showMyCourses(myCourses)}
 
       </div >
       <div className="row mt-2" style={{ paddingleft: '10px' }}>
@@ -141,70 +139,6 @@ function ListMyCourses (props) {
             </div>
           </div>
         </div>
-        <div className="col-lg-4 col-md-6">
-          <div className="card">
-            <div className="el-card-item">
-              <div className="el-card-avatar el-overlay-1">
-                <img src="images/big/img2.jpg" alt="user" />
-                <div className="el-overlay">
-                  <ul className="el-info">
-                    <li>
-                      <a className="btn default btn-outline image-popup-vertical-fit" href="images/big/img2.jpg">
-                        <i className="icon-paper-plane" title="Vào học" />
-                      </a>
-                    </li>
-                    <li>
-                      <a className="btn default btn-outline">
-                        <i className="icon-earphones" title="Dự thính" />
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="el-card-content">
-                <h4 className="box-title">Học về đồ đạc trong nhà</h4>
-                <div className="card-body" style={{ padding: '0.25rem' }}>
-                  <button type="button" className="btn waves-effect waves-light btn-rounded btn-primary m-t-10">Vào
-                      lớp</button>
-                  <button className="btn btn-success btn-rounded waves-effect waves-light m-t-10">Dự
-                      thính</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div >
-        <div className="col-lg-4 col-md-6">
-          <div className="card">
-            <div className="el-card-item">
-              <div className="el-card-avatar el-overlay-1">
-                <img src="images/big/img3.jpg" alt="user" />
-                <div className="el-overlay">
-                  <ul className="el-info">
-                    <li>
-                      <a className="btn default btn-outline image-popup-vertical-fit" href="images/big/img3.jpg">
-                        <i className="icon-paper-plane" title="Vào học" />
-                      </a>
-                    </li>
-                    <li>
-                      <a className="btn default btn-outline">
-                        <i className="icon-earphones" title="Dự thính" />
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="el-card-content">
-                <h4 className="box-title">Học về đồ đạc trong nhà</h4>
-                <div className="card-body" style={{ padding: '0.25rem' }}>
-                  <button type="button" className="btn waves-effect waves-light btn-rounded btn-primary m-t-10">Vào
-                      lớp</button>
-                  <button className="btn btn-success btn-rounded waves-effect waves-light m-t-10">Dự
-                      thính</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div >
       </div >
       <div className="row mt-2" style={{ paddingleft: '10px' }}>
         <div className="card">
@@ -246,70 +180,6 @@ function ListMyCourses (props) {
             </div>
           </div>
         </div>
-        <div className="col-lg-4 col-md-6">
-          <div className="card">
-            <div className="el-card-item">
-              <div className="el-card-avatar el-overlay-1">
-                <img src="images/big/img5.jpg" alt="user" />
-                <div className="el-overlay">
-                  <ul className="el-info">
-                    <li>
-                      <a className="btn default btn-outline image-popup-vertical-fit" href="images/big/img5.jpg">
-                        <i className="icon-paper-plane" title="Vào học" />
-                      </a>
-                    </li>
-                    <li>
-                      <a className="btn default btn-outline">
-                        <i className="icon-earphones" title="Dự thính" />
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="el-card-content">
-                <h4 className="box-title">Học về đồ đạc trong nhà</h4>
-                <div className="card-body" style={{ padding: '0.25rem' }}>
-                  <button type="button" className="btn waves-effect waves-light btn-rounded btn-primary m-t-10">Vào
-                      lớp</button>
-                  <button className="btn btn-success btn-rounded waves-effect waves-light m-t-10">Dự
-                      thính</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-lg-4 col-md-6">
-          <div className="card">
-            <div className="el-card-item">
-              <div className="el-card-avatar el-overlay-1">
-                <img src="images/big/img3.jpg" alt="user" />
-                <div className="el-overlay">
-                  <ul className="el-info">
-                    <li>
-                      <a className="btn default btn-outline image-popup-vertical-fit" href="images/big/img3.jpg">
-                        <i className="icon-paper-plane" title="Vào học" />
-                      </a>
-                    </li>
-                    <li>
-                      <a className="btn default btn-outline">
-                        <i className="icon-earphones" title="Dự thính" />
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="el-card-content">
-                <h4 className="box-title">Học về đồ đạc trong nhà</h4>
-                <div className="card-body" style={{ padding: '0.25rem' }}>
-                  <button type="button" className="btn waves-effect waves-light btn-rounded btn-primary m-t-10">Vào
-                      lớp</button>
-                  <button className="btn btn-success btn-rounded waves-effect waves-light m-t-10">Dự
-                      thính</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div >
       </div >
       <div className="row mt-2" style={{ paddingleft: '10px' }}>
         <div className="card">
@@ -337,28 +207,6 @@ function ListMyCourses (props) {
                 <img className="card-img-top img-responsive" src="images/big/img2.jpg" alt="Card image cap" />
                 <div className="card-body h-100">
                   <h4 className="card-title">Ôn tập từ vừng</h4>
-                  <p className="card-text">Some quick example text to build on the card title and make
-                      up the bulk of the card's content.</p>
-                  <a className="btn btn-primary">Ôn tập</a>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-3 col-md-6">
-              <div className="card">
-                <img className="card-img-top img-responsive" src="images/big/img3.jpg" alt="Card image cap" />
-                <div className="card-body h-100">
-                  <h4 className="card-title">ABC</h4>
-                  <p className="card-text">Some quick example text to build on the card title and make
-                      up the bulk of the card's content.</p>
-                  <a className="btn btn-primary">Ôn tập</a>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-3 col-md-6 img-responsive">
-              <div className="card">
-                <img className="card-img-top img-responsive" src="images/big/img4.jpg" alt="Card image cap" />
-                <div className="card-body h-100">
-                  <h4 className="card-title">Card title</h4>
                   <p className="card-text">Some quick example text to build on the card title and make
                       up the bulk of the card's content.</p>
                   <a className="btn btn-primary">Ôn tập</a>

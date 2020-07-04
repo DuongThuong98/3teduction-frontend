@@ -13,7 +13,7 @@ const menusStudent = [
   },
   {
     name: "My Courses",
-    to: "/my-course",
+    to: "/my-courses",
     exact: false,
     icon: "fab fa-discourse",
   },

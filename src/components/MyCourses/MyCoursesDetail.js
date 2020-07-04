@@ -15,122 +15,144 @@ import { Checkbox, DatePicker, Input, Radio } from "antd";
 import moment from "moment";
 
 function MyCoursesDetail (props) {
-  const [model, setModel] = useState({
-    className: "",
-    teacherName: '',
-    studentList: "",
+  const [course, setCourse] = useState({
+    name: "",
+    shortDesc: "",
+    content: "",
+    category: "",
+    lecturerName: ""
   });
 
-  const calculateTimeLeft = () => {
-    const difference = +new Date("2020-06-25 11:00:00") - +new Date();
-    let timeLeft = {};
+  const idUrl = props.match.params.id;
 
-    if (difference > 0) {
-      timeLeft = {
-        phút: Math.floor((difference / 1000 / 60) % 60),
-        giây: Math.floor((difference / 1000) % 60)
-      };
-    }
-
-    return timeLeft;
-  };
-
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-
+  const [myCurriculums, setMyCurriculums] = useState([]);
+  const [video, setVideo] = useState({
+    name: "",
+    linkVideo: "",
+    length: ""
+  });
+  const [id, setId] = useState(null);
 
   useEffect(() => {
-    setTimeout(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
+    getMyCurriculums();
+    getCourseInfo(idUrl);
   }, []);
 
-  const timerComponents = [];
+  const getMyCurriculums = () => {
+    api.getAllCurriculumByCourseId()
+      .then((res) => {
+        const data = res.data.data;
+        setMyCurriculums(data);
+      })
+      .catch((error) => { });
+  };
 
-  Object.keys(timeLeft).forEach(interval => {
-    if (!timeLeft[interval]) {
-      return;
-    }
+  const getCourseInfo = (id) => {
+    api.getCourse(id)
+      .then((res) => {
+        const data = res.data.data;
+        setCourse(data);
+      })
+      .catch((error) => { });
+  };
 
-    timerComponents.push(
-      <span>
-        {timeLeft[interval]} {interval}{" "}
-      </span>
-    );
-  });
+
+  // const getAllCurriculumByCourseId = (id) => {
+  //   props.history.push(`/my-courses-detail/${id}`);
+  // };
+
+  const showVideoItem = (id) => {
+    api.getVideoItemInCurriculum(id)
+      .then((res) => {
+        const data = res.data.data;
+        setVideo(data);
+      })
+      .catch((error) => { });
+  }
+
+  const showListVideo = (myCurriculums) => {
+    const data = myCurriculums;
+    const element = data.map((c, index) => (
+      <React.Fragment key={c._id}>
+        <a href="javascript:void(0)" onClick={() => showVideoItem(c._id)}>
+          <div className="user-img">
+            <iframe src="https://drive.google.com/file/d/1UrSt0xiK1CH1_sGKr0mClGuY2peJcAM9/preview" width="40" height="40"></iframe>
+          </div>
+          <div className="mail-contnet">
+            <h5>{c.name}</h5>
+            <span className="time">Độ dài: {c.length}</span>
+          </div>
+        </a>
+      </React.Fragment>
+    ));
+    return element;
+  }
+
+  const showVideo = (vid) => {
+    return (
+      <div className="col-lg-8 col-xlg-9 col-md-7">
+        <div className="card">
+          {vid.linkVideo !== "" ?
+            <iframe src={vid.linkVideo} style={{ width: '100%' }} height="480"></iframe>
+            :
+            <iframe src="https://www.youtube.com/embed/IUTRRedYWgw" style={{ width: '100%' }} height="480" frameBorder="0" allowFullScreen></iframe>
+          }
+        </div>
+        <div className="card" style={{ marginTop: '10px' }}>
+          <div className="card-body">
+            <h4 className="card-title">{vid.name}</h4>
+          </div>
+        </div>
+        <div className="col-sm-6">
+          <div className="row">
+            <div className="col text-center">
+              <a className="btn btn-info btn-block waves-effect waves-light" href="#">Download file</a>
+            </div>
+          </div>
+        </div>
+      </div >
+    )
+  }
+
+  const getOutCourse = () => {
+    props.history.push(`/my-courses`);
+  }
 
   return (
     <div className="text-left">
       <React.Fragment>
         <div>
-          <div className="row">
+          {/* <div className="row">
             <div className="col-lg-8 col-xlg-9 col-md-7">
               <div className="button-group">
                 <button type="button" className="btn waves-effect waves-light btn-primary"><i className="mdi mdi-speaker-wireless" title="bật loa" /></button>
                 <button type="button" className="btn waves-effect waves-light btn-primary"><i className="mdi mdi-speaker-off" title="tắt loa" /></button>
               </div>
             </div>
-            <div className="col-lg-4 col-xlg-3 col-md-5">
-              <div className="card">
-                <div className="box bg-info text-center">
-                  <h4 className="font-light text-white">Thời gian còn lại : <span> {timerComponents.length ? timerComponents : <span>Hết giờ!</span>}</span></h4>
-                </div>
-              </div>
-            </div>
-          </div>
+          </div> */}
           <div className="row">
-            <div className="col-lg-8 col-xlg-9 col-md-7">
-              <div className="card"> <img className="card-img" src="../assets/images/background/socialbg.jpg" height={656} alt="Card image" />
-                <div className="card-img-overlay card-inverse text-white social-profile d-flex justify-content-center">
-                  <div className="align-self-center">
-                  </div>
-                </div>
-              </div>
-              <div className="card" style={{ marginTop: '10px' }}>
-                <div className="card-body">
-                  <h4 className="card-title">Đây là tên bài học nè</h4>
-                </div>
-              </div>
-              <div className="col-sm-6">
-                <div className="row">
-                  <div className="col text-center">
-                    <a className="btn btn-info btn-block waves-effect waves-light" href="#">Download file</a>
-                  </div>
-                  <div className="col text-center">
-                    <a className="btn btn-success btn-block waves-effect waves-light" href="./_submit_exercise.html">Nộp bài</a>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {showVideo(video)}
+
             <div className="col-lg-4 col-xlg-3 col-md-5">
               <div className="card">
                 <ul className="nav nav-tabs profile-tab" role="tablist">
-                  <li className="nav-item"> <a className="nav-link active" data-toggle="tab" href="#webcam" role="tab">Trực tuyến</a> </li>
-                  <li className="nav-item"> <a className="nav-link" data-toggle="tab" href="#home" role="tab">Trò
-                    chuyện</a> </li>
-                  <li className="nav-item"> <a className="nav-link" data-toggle="tab" href="#profile" role="tab">Học viên</a> </li>
-                  <li className="nav-item"> <a className="nav-link" data-toggle="tab" href="#settings" role="tab">Thông tin lớp</a> </li>
+                  <li className="nav-item active"> <a className="nav-link active" data-toggle="tab" href="#list" role="tab">Danh sách</a> </li>
+                  <li className="nav-item"> <a className="nav-link" data-toggle="tab" href="#home" role="tab">Tài liệu</a> </li>
+                  <li className="nav-item"> <a className="nav-link" data-toggle="tab" href="#settings" role="tab">Thông tin</a> </li>
                 </ul>
                 <div className="tab-content">
-                  <div className="tab-pane active" id="webcam" role="tabpanel">
-                    <div className="card-body">
-                      <div className="row">
-                        <div className="col-lg-12 col-md-12">
-                          <div className="card">
-                            <img className="card-img-top img-responsive" src="../assets/images/big/img3.jpg" alt="Card image cap" />
+                  <div className="tab-pane active" id="list" role="tabpanel">
+                    <div className="card">
+                      <div className="card-body">
+                        <div className="message-box">
+                          <div className="message-widget message-scroll">
+                            {showListVideo(myCurriculums)}
                           </div>
-                        </div>
-                        <div className="col-lg-12 col-md-12">
-                          <span className="heading">Đánh giá</span>
-                          <span className="fa fa-star checked" />
-                          <span className="fa fa-star checked" />
-                          <span className="fa fa-star checked" />
-                          <span className="fa fa-star checked" />
-                          <span className="fa fa-star" />
-                          <p>4.1 average based on 254 reviews.</p>
                         </div>
                       </div>
                     </div>
                   </div>
+
                   <div className="tab-pane " id="home" role="tabpanel">
                     <div className="card-body">
                       <div className="chat-right-aside">
@@ -142,110 +164,11 @@ function MyCoursesDetail (props) {
                         <div className="chat-rbox">
                           <ul className="chat-list">
                             <li>
-                              <div className="chat-img"><img src="../assets/images/users/1.jpg" alt="user" /></div>
                               <div className="chat-content">
-                                <h5>James Anderson</h5>
-                                <div className="box bg-light-info">Lorem Ipsum is simply dummy text of the printing &amp; type setting industry.</div>
-                                <div className="chat-time">10:56 am</div>
-                              </div>
-                            </li>
-                            <li>
-                              <div className="chat-img"><img src="../assets/images/users/2.jpg" alt="user" /></div>
-                              <div className="chat-content">
-                                <h5>Bianca Doe</h5>
-                                <div className="box bg-light-info">It’s Great opportunity to work.</div>
-                                <div className="chat-time">10:57 am</div>
-                              </div>
-                            </li>
-                            <li className="reverse">
-                              <div className="chat-content">
-                                <h5>Steave Doe</h5>
-                                <div className="box bg-light-inverse">It’s Great opportunity to work.</div>
-                                <div className="chat-time">10:57 am</div>
-                              </div>
-                              <div className="chat-img"><img src="../assets/images/users/5.jpg" alt="user" /></div>
-                            </li>
-                            <li className="reverse">
-                              <div className="chat-content">
-                                <h5>Steave Doe</h5>
-                                <div className="box bg-light-inverse">It’s Great opportunity to work.</div>
-                                <div className="chat-time">10:57 am</div>
-                              </div>
-                              <div className="chat-img"><img src="../assets/images/users/5.jpg" alt="user" /></div>
-                            </li>
-                            <li>
-                              <div className="chat-img"><img src="../assets/images/users/3.jpg" alt="user" /></div>
-                              <div className="chat-content">
-                                <h5>Angelina Rhodes</h5>
-                                <div className="box bg-light-info">Well we have good budget for the project</div>
-                                <div className="chat-time">11:00 am</div>
+                                <h5><a href="https://drive.google.com/file/d/1KulfnRG3_jAnmc0ageX7BZmZgubHXIXa/view" target="_blank">Xem tài liệu</a></h5>
                               </div>
                             </li>
                           </ul>
-                        </div>
-                        <div className="border-top border-bottom">
-                          <div className="row">
-                            <div className="col-10">
-                              <textarea placeholder="Type your message here" className="form-control border-0" defaultValue={""} />
-                            </div>
-                            <div className="col-2 text-right mt-1 p-1">
-                              <button type="button" className="btn btn-info btn-circle"><i className="fas fa-paper-plane" /> </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="tab-pane" id="profile" role="tabpanel">
-                    <div className="card">
-                      <div className="card-body">
-                        <div className="message-box">
-                          <div className="message-widget message-scroll">
-                            <a href="javascript:void(0)">
-                              <div className="user-img">
-                                <img src="../assets/images/users/1.jpg" alt="user" className="img-circle" />
-                                <span className="profile-status online pull-right" />
-                              </div>
-                              <div className="mail-contnet">
-                                <h5>Pavan kumar</h5>
-                                <i className="fas fa-microphone-slash fa-pull-right mb-1" style={{ fontSize: '26px' }} />
-                                <span className="time">Học viên</span>
-                              </div>
-                            </a>
-                            <a href="javascript:void(0)">
-                              <div className="user-img">
-                                <img src="../assets/images/users/2.jpg" alt="user" className="img-circle" />
-                                <span className="profile-status busy pull-right" />
-                              </div>
-                              <div className="mail-contnet">
-                                <h5>Sonu Nigam</h5>
-                                <i className="fa fa-microphone fa-pull-right mb-1" style={{ fontSize: '26px' }} />
-                                <span className="time">Học viên</span>
-                              </div>
-                            </a>
-                            <a href="javascript:void(0)">
-                              <div className="user-img">
-                                <span className="round">A</span>
-                                <span className="profile-status online pull-right" />
-                              </div>
-                              <div className="mail-contnet">
-                                <h5>Arijit Sinh</h5>
-                                <i className="fas fa-microphone-slash fa-pull-right mb-1" style={{ fontSize: '26px' }} />
-                                <span className="time">Học viên</span>
-                              </div>
-                            </a>
-                            <a href="javascript:void(0)">
-                              <div className="user-img">
-                                <img src="../assets/images/users/4.jpg" alt="user" className="img-circle" />
-                                <span className="profile-status online pull-right" />
-                              </div>
-                              <div className="mail-contnet">
-                                <h5>Pavan kumar</h5>
-                                <i className="fa fa-microphone fa-pull-right mb-1" style={{ fontSize: '26px' }} />
-                                <span className="time">Học viên</span>
-                              </div>
-                            </a>
-                          </div>
                         </div>
                       </div>
                     </div>
@@ -253,21 +176,33 @@ function MyCoursesDetail (props) {
                   <div className="tab-pane" id="settings" role="tabpanel">
                     <div className="card-body">
                       <div className="row">
-                        <div className="col-md-4 col-xs-6 b-r"> <strong>Tên lớp</strong>
+                        <div className="col-md-8 col-xs-8 b-r"> <strong>Tên khóa</strong>
                           <br />
-                          <p className="text-muted">Johnathan Deo</p>
+                          <p className="text-muted">{course.name}</p>
                         </div>
-                        <div className="col-md-4 col-xs-6 b-r"> <strong>Ca</strong>
+                        <div className="col-md-4 col-xs-4 b-r"> <strong>Giáo viên</strong>
                           <br />
-                          <p className="text-muted">16:00</p>
-                        </div>
-                        <div className="col-md-4 col-xs-6 b-r"> <strong>Giáo viên</strong>
-                          <br />
-                          <p className="text-muted">johnathan@admin.com</p>
+                          <p className="text-muted">{course.lecturerName != "" ? course.lecturerName : "Hữu Thời"}</p>
                         </div>
                       </div>
-                      <hr />
+                      <div className="row">
+                        <div className="col-md-8 col-xs-8 b-r"> <strong>Mô tả</strong>
+                          <br />
+                          <p className="text-muted">{course.shortDesc}</p>
+                        </div>
+                        <div className="col-md-4 col-xs-4 b-r"> <strong>Thể loại</strong>
+                          <br />
+                          <p className="text-muted">{course.category}</p>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-md-12 col-xs-12 b-r"> <strong>Nội dung</strong>
+                          <br />
+                          <p className="text-muted">{course.content}</p>
+                        </div>
+                      </div>
                     </div>
+                    <hr />
                   </div>
                 </div>
               </div>
@@ -287,7 +222,7 @@ function MyCoursesDetail (props) {
             <div className="modal-dialog">
               <div className="modal-content">
                 <div className="modal-header">
-                  <h4 className="modal-title">Thông báo</h4>
+                  <h4 className="modal-title">Đánh giá khóa học</h4>
                   <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div className="modal-body">
@@ -307,17 +242,6 @@ function MyCoursesDetail (props) {
                         </div>
                         <div className="form-group">
                           <label className="control-label">Đánh giá chất lượng bài học</label>
-                          <input type="text" id="firstName" className="form-control" placeholder="John doe" />
-                          <div className="col-lg-12 col-md-12 mt-1">
-                            <span className="fa fa-star" />
-                            <span className="fa fa-star" />
-                            <span className="fa fa-star" />
-                            <span className="fa fa-star" />
-                            <span className="fa fa-star" />
-                          </div>
-                        </div>
-                        <div className="form-group">
-                          <label className="control-label">Đánh giá chất lượng kĩ thuật(audio, hình ảnh...)</label>
                           <input type="text" id="firstName" className="form-control" placeholder="John doe" />
                           <div className="col-lg-12 col-md-12 mt-1">
                             <span className="fa fa-star" />
@@ -353,22 +277,21 @@ function MyCoursesDetail (props) {
                   <form role="form">
                     <div className="row">
                       <div className="col-md-12">
-                        <label className="control-label">Bạn có muốn rời khỏi lớp ngay bây giờ?</label>
+                        <label className="control-label">Bạn muốn rời khỏi ngay bây giờ?</label>
                       </div>
                     </div>
                   </form>
                 </div>
                 <div className="modal-footer">
-                  <button type="button" className="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Có</button>
+                  <button type="button" className="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal" onClick={() => getOutCourse()}>Có</button>
                   <button type="button" className="btn btn-secondary waves-effect" data-dismiss="modal">Hủy</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-    );
       </React.Fragment>
-    </div>
+    </div >
   );
 }
 

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { HashRouter as Router, withRouter } from "react-router-dom";
-import TableClass from "./TableAdmin/TableAdmin";
+import TableAdmin from "./TableAdmin/TableAdmin";
 
-function ManageClass(props) {
+function ManageAdmin (props) {
   return (
     <React.Fragment>
-      <TableClass />
+      <TableAdmin />
     </React.Fragment>
   );
 }
 
-export default withRouter(ManageClass);
+export default withRouter(ManageAdmin);

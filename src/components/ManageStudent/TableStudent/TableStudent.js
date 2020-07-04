@@ -145,7 +145,7 @@ function TableStudent (props) {
               >
                 Edit
               </button>
-              {row.role === "Standard" && row.wantToUpgrade === true ? (
+              {row.wantToUpgrade === true ? (
                 <button
                   className="btn btn-sm btn-warning width-60 container-btn__delete m-l-10"
                   onClick={() => showModal(row.id)}

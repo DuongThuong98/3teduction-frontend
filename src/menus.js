@@ -66,6 +66,12 @@ const menus = [
     icon: " fas fa-box",
   },
   {
+    name: "Course Request",
+    to: "/course-request",
+    exact: false,
+    icon: " fas fa-box",
+  },
+  {
     name: "Assignment",
     to: "/assignments",
     exact: false,
