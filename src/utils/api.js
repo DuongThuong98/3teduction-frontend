@@ -141,7 +141,6 @@ export const getAllClassesInDay = () => {
   return httpClient.get(`classes-in-day`);
 };
 
-
 // Shift Manage
 export const getAllShifts = () => {
   return httpClient.get("shifts/all");
@@ -251,6 +250,26 @@ export const getVideoItemInCurriculum = (id) => {
   return httpClient.post("courses/curriculums/video/detail", { id: id });
 };
 
+export const getAllCourses = () => {
+  return httpClient.get("courses/all");
+};
+
+export const getCourse = (id) => {
+  return httpClient.get(`courses/${id}`);
+};
+
+export const createCourse = (data) => {
+  return httpClient.post("courses", data);
+};
+
+export const updateCourse = (id, data) => {
+  return httpClient.put(`courses/${id}`, data);
+};
+
+export const deleteCourse = (id) => {
+  return httpClient.delete(`courses/${id}`);
+};
+
 // right code
 // export const getAllMyCourses = () => {
 //   return httpClient.get("courses/mycourses");
@@ -265,10 +284,9 @@ export const getCourse = (id) => {
   return httpClient.get("courses/" + id);
 };
 
-
 export const getAllCurriculumByCourseId = (idCourse) => {
-  return httpClient.get(`courses/:id/curriculum`)
-}
+  return httpClient.get(`courses/:id/curriculum`);
+};
 
 // Admin Manage
 export const getAllAdmins = () => {

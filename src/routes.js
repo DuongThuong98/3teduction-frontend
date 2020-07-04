@@ -20,10 +20,10 @@ import ManageTeacher from "./components/ManageTeacher/ManageTeacher";
 import ManageTeacherForm from "./components/ManageTeacher/ManageTeacherForm";
 import ManageComment from "./components/ManageComment/ManageComment";
 import ManageCommentForm from "./components/ManageComment/ManageCommentForm";
-import ManageAssignment from './components/ManageAssignment/ManageAssignment.container'
-import ManageMockingTest from './components/ManageMockingTest/ManageMockingTest.container'
-import ManageResponse from './components/ManageResponse/ManageResponse.container'
-import ManageVideo from './components/ManageVideo/ManageVideo.container'
+import ManageAssignment from "./components/ManageAssignment/ManageAssignment.container";
+import ManageMockingTest from "./components/ManageMockingTest/ManageMockingTest.container";
+import ManageResponse from "./components/ManageResponse/ManageResponse.container";
+import ManageVideo from "./components/ManageVideo/ManageVideo.container";
 
 import ManageCategory from "./components/ManageCategory/ManageCategory";
 import ManageCategoryForm from "./components/ManageCategory/ManageCategoryForm";
@@ -36,6 +36,9 @@ import ManageAbsenceForm from "./components/ManageAbsence/ManageAbsenceForm";
 import MyCourses from "./components/MyCourses/MyCourses";
 import MyCoursesDetail from "./components/MyCourses/MyCoursesDetail";
 import ManageManageRegisterCourseRequest from "./components/ManageRegisterCourseRequest/ManageManageRegisterCourseRequest";
+
+import ManagCourse from "./components/ManagCourse/ManagCourse";
+import ManagCourseForm from "./components/ManagCourse/ManagCourseForm";
 
 /** @type{import("react-router-config").RouteConfig} */
 const routes = [
@@ -146,6 +149,25 @@ const routes = [
     exact: false,
     pageTitle: "Learning Class",
     main: () => <LearningClassDetail />,
+  },
+  //student
+  {
+    path: "/courses",
+    exact: false,
+    pageTitle: "List Course",
+    main: () => <ManageCourse />,
+  },
+  {
+    path: "/courses-edit/:id",
+    exact: false,
+    pageTitle: "Edit Course",
+    main: () => <ManageCourseForm />,
+  },
+  {
+    path: "/courses-add",
+    exact: false,
+    pageTitle: "Add Course",
+    main: () => <ManageCourseForm />,
   },
 
   // courses is used for learning

@@ -35,12 +35,12 @@ const menus = [
     exact: false,
     icon: "fab fa-discourse",
   },
-  // {
-  //   name: "Learning Class",
-  //   to: "/l-classes",
-  //   exact: false,
-  //   icon: "fas fa-align-justify",
-  // },
+  {
+    name: "Course",
+    to: "/courses",
+    exact: false,
+    icon: "fas fa-align-justify",
+  },
   {
     name: "Shift",
     to: "/shifts",
