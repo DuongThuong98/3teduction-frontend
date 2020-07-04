@@ -6,23 +6,22 @@ import { Input, Table, Modal } from "antd";
 import 'antd/dist/antd.css'
 import * as api from "../../../utils/api";
 
-function TableAdmin (props) {
-  const [admins, setAdmins] = useState([]);
-  const [customTable, setTable] = useState(admins);
+function TableManageRegisterCourseRequest (props) {
+  const [courseRequests, setCourseRequests] = useState([]);
+  const [customTable, setTable] = useState(courseRequests);
   const [isShowModal, setModal] = useState(false);
-  const [idAdmin, setIdAdmin] = useState(null);
+  const [id, setId] = useState(null);
 
   useEffect(() => {
-    getAdmins();
+    getCourseRequests();
   }, []);
 
-  const getAdmins = () => {
-    api
-      .getAllAdmins()
+  const getCourseRequests = () => {
+    api.getCourseRequests()
       .then((res) => {
         const data = res.data.data;
         setTable(data);
-        setAdmins(data);
+        setCourseRequests(data);
       })
       .catch((error) => { });
 
@@ -30,71 +29,58 @@ function TableAdmin (props) {
 
   const showModal = (id) => {
     setModal(true);
-    setIdAdmin(id);
+    setId(id);
   };
 
   const handleCancel = () => {
     setModal(false);
   };
 
-  const blockAdmin = () => {
-    blockAdminApi(idAdmin);
+  const updateStatus = () => {
+    updateStatusApi(id);
     handleCancel();
   };
 
-  const blockAdminApi = (id) => {
-    api.blockAdmin(id).then((res) => { getAdmins(); }).catch((err) => { });
+  const updateStatusApi = (id) => {
+    const data = {
+      id: id,
+      status: "Confirmed"
+    }
+    api.updateStatusCourseRequest(id, data).then((res) => { getCourseRequests(); }).catch((err) => { });
   };
 
   const columns = [
     {
-      title: "Tên hiển thị",
-      dataIndex: "username",
+      title: "Học sinh",
+      dataIndex: "studentName",
       sorter: (a, b) => (a.username.toLowerCase() > b.username.toLowerCase() ? 1 : -1),
+      width: "30%",
+    },
+    {
+      title: "Khóa",
+      dataIndex: "courseName",
+      width: "30%",
+    },
+    {
+      title: "Trạng thái",
+      dataIndex: "status",
       width: "20%",
-    },
-    {
-      title: "Email",
-      dataIndex: "email",
-      width: "20%",
-    },
-    {
-      title: "Điện thoại",
-      dataIndex: "phone",
-      width: "15%",
-    },
-    {
-      title: "Ngày sinh",
-      dataIndex: "birthdate",
-      width: "15%",
-    },
-    {
-      title: "Blocked",
-      dataIndex: "isBlock",
-      width: "5%",
-    },
-    {
-      title: "Giới tính",
-      dataIndex: "gender",
-      width: "5%",
-    },
-    {
-      title: "Dia chi",
-      dataIndex: "address",
-      width: "15%",
     },
     {
       title: "Action",
       key: "action",
-      width: "5%",
+      width: "20%",
       render: (row) => {
         return (
           <React.Fragment>
             <div className="container-btn">
-              <button className="btn btn-sm btn-danger width-60 container-btn__delete m-l-10"
-                onClick={() => showModal(row.id)}>
-                Block Admin
+              {row.status === "Pending" ?
+                <button className="btn btn-sm btn-success width-60 container-btn__delete m-l-10"
+                  onClick={() => showModal(row.id)}>
+                  Cập nhật trạng thái
               </button>
+                : ""
+              }
             </div>
           </React.Fragment>
         );
@@ -119,10 +105,6 @@ function TableAdmin (props) {
               </li>
               <li className="breadcrumb-item active">Widget Data</li>
             </ol>
-            <Link
-              type="button"
-              className="btn btn-info d-none d-lg-block m-l-15"
-              to="/admins-add"><i className="fa fa-plus-circle" /> Create New</Link>
           </div>
         </div>
       </div>
@@ -156,13 +138,13 @@ function TableAdmin (props) {
       <Modal
         title="Are you sure?"
         visible={isShowModal}
-        onOk={blockAdmin}
-        okType={"danger"}
+        onOk={updateStatus}
+        okType={"success"}
         onCancel={handleCancel}>
-        <p>Do you really want to block admin?</p>
+        <p>Do you really want to update status Confirm for Student?</p>
       </Modal>
     </React.Fragment>
   );
 }
 
-export default connect(null, null)(withRouter(TableAdmin));
+export default connect(null, null)(withRouter(TableManageRegisterCourseRequest));

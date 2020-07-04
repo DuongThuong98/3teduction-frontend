@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { HashRouter as Router, withRouter } from "react-router-dom";
-import TableAdmin from "./TableAdmin/TableAdmin";
+import ListMyCourses from "./MyCourses/ListMyCourses";
 
-function ManageAdmin (props) {
+function MyCourses (props) {
   return (
     <React.Fragment>
-      <TableAdmin />
+      <ListMyCourses />
     </React.Fragment>
   );
 }
 
-export default withRouter(ManageAdmin);
+export default withRouter(MyCourses);

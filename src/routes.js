@@ -33,6 +33,9 @@ import ManageStudent from "./components/ManageStudent/ManageStudent";
 import ManageStudentForm from "./components/ManageStudent/ManageStudentForm";
 import ManageAbsence from "./components/ManageAbsence/ManageAbsence";
 import ManageAbsenceForm from "./components/ManageAbsence/ManageAbsenceForm";
+import MyCourses from "./components/MyCourses/MyCourses";
+import MyCoursesDetail from "./components/MyCourses/MyCoursesDetail";
+import ManageManageRegisterCourseRequest from "./components/ManageRegisterCourseRequest/ManageManageRegisterCourseRequest";
 
 /** @type{import("react-router-config").RouteConfig} */
 const routes = [
@@ -145,6 +148,19 @@ const routes = [
     main: () => <LearningClassDetail />,
   },
 
+  // courses is used for learning
+  {
+    path: "/my-courses",
+    exact: false,
+    pageTitle: "List Learning Class",
+    main: () => <MyCourses />,
+  },
+  {
+    path: "/my-courses-detail/:id",
+    exact: false,
+    pageTitle: "Learning Class",
+    main: () => <MyCoursesDetail />,
+  },
   // class is used for teaching
   {
     path: "/t-classes",
@@ -196,7 +212,7 @@ const routes = [
     path: "/mocking-tests",
     exact: false,
     pageTitle: "Mocking Test",
-    main: () => <ManageMockingTest/>,
+    main: () => <ManageMockingTest />,
   },
   //Exercise
   {
@@ -218,12 +234,12 @@ const routes = [
     main: () => <ExerciseComponent></ExerciseComponent>,
   },
   //Assignment
-{
-  path: "/assignments",
-  exact: false,
-  pageTitle: "List Exercise",
-  main: () => <ManageAssignment></ManageAssignment>,
-},
+  {
+    path: "/assignments",
+    exact: false,
+    pageTitle: "List Exercise",
+    main: () => <ManageAssignment></ManageAssignment>,
+  },
 
   //feedback: Feedback do not have route or menu, it has list to view/delete
   //and is added in form at livestream study page
@@ -293,6 +309,12 @@ const routes = [
     main: () => <ManageCommentForm />,
   },
 
+  {
+    path: "/course-request",
+    exact: false,
+    pageTitle: "List Course Request",
+    main: () => <ManageManageRegisterCourseRequest />,
+  },
   {
     path: "/login",
     exact: false,

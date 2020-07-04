@@ -86,7 +86,6 @@ function ManageAbsenceForm (props) {
   }
 
   const handleSubmit = (e) => {
-    debugger
     e.preventDefault();
     let _absenceModel = {
       ...absenceModel,

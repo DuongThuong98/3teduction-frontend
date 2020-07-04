@@ -25,7 +25,7 @@ function Login (props) {
 
   useEffect(() => {
     // if (localStorage.getItem("token")) {
-    //   props.history.push("/");
+    //   props.history.push("/home");
     // }
   }, []);
 

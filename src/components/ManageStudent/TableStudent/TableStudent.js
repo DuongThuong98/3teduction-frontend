@@ -47,14 +47,14 @@ function TableStudent (props) {
     setModal(false);
   };
 
-  const blockStudent = () => {
-    blockStudentApi(idStudent);
+  const upgradeStudent = () => {
+    upgradeStudentApi(idStudent);
     handleCancel();
   };
 
-  const blockStudentApi = (id) => {
+  const upgradeStudentApi = (id) => {
     api
-      .blockStudent(id)
+      .upgradeStudent(id)
       .then((res) => {
         getStudents();
       })
@@ -91,9 +91,9 @@ function TableStudent (props) {
   const columns = [
     {
       title: "Tên hiển thị",
-      dataIndex: "displayName",
+      dataIndex: "username",
       sorter: (a, b) =>
-        a.displayName.toLowerCase() > b.displayName.toLowerCase() ? 1 : -1,
+        a.username.toLowerCase() > b.username.toLowerCase() ? 1 : -1,
       width: "20%",
     },
     {
@@ -122,9 +122,14 @@ function TableStudent (props) {
       width: "5%",
     },
     {
+      title: "Nâng cấp",
+      dataIndex: "wantToUpgrade",
+      width: "5%",
+    },
+    {
       title: "Ngày hết hạn",
       dataIndex: "dateExpire",
-      width: "15%",
+      width: "10%",
     },
     {
       title: "Action",
@@ -140,10 +145,13 @@ function TableStudent (props) {
               >
                 Edit
               </button>
-              <button
-                className="btn btn-sm btn-warning width-60 container-btn__delete m-l-10"
-                onClick={() => showModal(row.id)}
-              >Block</button>
+              {row.wantToUpgrade === true ? (
+                <button
+                  className="btn btn-sm btn-warning width-60 container-btn__delete m-l-10"
+                  onClick={() => showModal(row.id)}
+                >Upgrade</button>
+              ) : ""
+              }
               <button
                 className="btn btn-sm btn-danger width-60 container-btn__delete m-l-10"
                 onClick={() => showModalDelete(row.id)}
@@ -215,11 +223,11 @@ function TableStudent (props) {
       <Modal
         title="Are you sure?"
         visible={isShowModal}
-        onOk={blockStudent}
+        onOk={upgradeStudent}
         okType={"danger"}
         onCancel={handleCancel}
       >
-        <p>Do you really want to block teacher?</p>
+        <p>Do you really want to upgrade student?</p>
       </Modal>
 
       <Modal

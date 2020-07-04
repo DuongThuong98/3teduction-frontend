@@ -16,7 +16,7 @@ import moment from "moment";
 
 function ManageTeacherForm (props) {
   const [model, setModel] = useState({
-    displayName: "",
+    username: "",
     email: '',
     password: "",
     phone: "",
@@ -106,9 +106,9 @@ function ManageTeacherForm (props) {
                     type="text"
                     className="form-control"
                     placeholder="Tên hiển thị"
-                    id="displayName"
-                    name="displayName"
-                    value={model.displayName}
+                    id="username"
+                    name="username"
+                    value={model.username}
                     onChange={handleOnchange}
                     required
                     disabled={idUrl ? true : false}

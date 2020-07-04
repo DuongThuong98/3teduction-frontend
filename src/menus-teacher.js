@@ -1,4 +1,4 @@
-const menus = [
+const menusTeacher = [
   {
     name: "Home",
     to: "/",
@@ -6,22 +6,10 @@ const menus = [
     icon: "fas fa-th",
   },
   {
-    name: "Teacher",
-    to: "/teachers",
-    exact: false,
-    icon: " fas fa-users",
-  },
-  {
     name: "Student",
     to: "/students",
     exact: false,
     icon: "fa fa-users",
-  },
-  {
-    name: "Admin",
-    to: "/admins",
-    exact: false,
-    icon: "fas fa-user-secret",
   },
   {
     name: "Class",
@@ -35,12 +23,12 @@ const menus = [
     exact: false,
     icon: "fab fa-discourse",
   },
-  // {
-  //   name: "Learning Class",
-  //   to: "/l-classes",
-  //   exact: false,
-  //   icon: "fas fa-align-justify",
-  // },
+  {
+    name: "Learning Class",
+    to: "/l-classes",
+    exact: false,
+    icon: "fas fa-align-justify",
+  },
   {
     name: "Shift",
     to: "/shifts",
@@ -54,44 +42,14 @@ const menus = [
     icon: "fas fa-book",
   },
   {
-    name: "Mocking Test",
-    to: "/mocking-tests",
-    exact: false,
-    icon: "fas fa-book",
-  },
-  {
     name: "Exercise",
     to: "/exercises",
     exact: false,
     icon: " fas fa-box",
   },
   {
-    name: "Course Request",
-    to: "/course-request",
-    exact: false,
-    icon: " fas fa-box",
-  },
-  {
-    name: "Assignment",
-    to: "/assignments",
-    exact: false,
-    icon: " fas fa-box",
-  },
-  {
     name: "Feedback",
     to: "/feedbacks",
-    exact: false,
-    icon: "fas fa-text-width",
-  },
-  {
-    name: "Response",
-    to: "/responses",
-    exact: false,
-    icon: "fas fa-text-width",
-  },
-  {
-    name: "Video",
-    to: "/video",
     exact: false,
     icon: "fas fa-text-width",
   },
@@ -121,4 +79,4 @@ const menus = [
   },
 ];
 
-export default menus;
+export default menusTeacher;

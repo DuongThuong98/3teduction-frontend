@@ -11,10 +11,17 @@ import {
 
 import "./Menu.scss";
 import menus from "../../menus";
+import menusTeacher from "../../menus-teacher";
+import menusStudent from "../../menus-student";
 import MenuProfile from "./MenuProfile/MenuProfile";
 
 class Menu extends Component {
-  render() {
+  constructor(props) {
+    super(props);
+  }
+
+  render () {
+    const role = this.props.role.role;
     return (
       <div>
         <aside className="left-sidebar">
@@ -24,7 +31,15 @@ class Menu extends Component {
                 <Switch>
                   <MenuProfile></MenuProfile>
                 </Switch>
-                {this.showMenus(menus)}
+                {role === "Admin" &&
+                  this.showMenus(menus)
+                }
+                {role === "Teacher" &&
+                  this.showMenus(menusTeacher)
+                }
+                {role === "Student" &&
+                  this.showMenus(menusStudent)
+                }
               </ul>
             </nav>
           </div>
@@ -34,6 +49,42 @@ class Menu extends Component {
   }
 
   showMenus = (menus) => {
+    var result = null;
+    if (menus.length > 0) {
+      result = menus.map((menu, index) => {
+        return (
+          <MenuLink
+            key={index}
+            to={menu.to}
+            label={menu.name}
+            activeOnlyWhenExact={menu.active}
+            icon={menu.icon}
+          ></MenuLink>
+        );
+      });
+    }
+    return result;
+  };
+
+  showMenusTeacher = (menus) => {
+    var result = null;
+    if (menus.length > 0) {
+      result = menus.map((menu, index) => {
+        return (
+          <MenuLink
+            key={index}
+            to={menu.to}
+            label={menu.name}
+            activeOnlyWhenExact={menu.active}
+            icon={menu.icon}
+          ></MenuLink>
+        );
+      });
+    }
+    return result;
+  };
+
+  showMenusStudent = (menus) => {
     var result = null;
     if (menus.length > 0) {
       result = menus.map((menu, index) => {

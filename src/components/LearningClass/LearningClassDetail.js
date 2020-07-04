@@ -40,7 +40,6 @@ function LearningClassDetail (props) {
 
   useEffect(() => {
     setTimeout(() => {
-      debugger
       setTimeLeft(calculateTimeLeft());
     }, 1000);
   }, []);

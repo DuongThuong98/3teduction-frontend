@@ -15,6 +15,7 @@ import Header from "./common-components/Header/Header";
 import Rightbar from "./common-components/Rightbar/Rightbar";
 import Login from "./components/Login/Login";
 import { history } from './helpers/index';
+import jwt_decode from "jwt-decode";
 
 class App extends Component {
   if (pageTitle) {
@@ -42,6 +43,10 @@ class App extends Component {
         const { auth } = route;
         if (!auth) {
           if (token) {
+
+            var decoded = jwt_decode(token)
+            var role = decoded.role;
+
             return (
               <Route
                 key={index}
@@ -49,7 +54,7 @@ class App extends Component {
                 exact={route.exact}
                 component={() => <div id="main-wrapper">
                   <Header />
-                  <Menu />
+                  <Menu role={{ role }} />
                   <div className="page-wrapper">
                     <div className="container-fluid">
                       {React.createElement(route.main)}
