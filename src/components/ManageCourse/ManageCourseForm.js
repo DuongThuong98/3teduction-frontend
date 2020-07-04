@@ -9,13 +9,14 @@ import {
 import { connect } from "react-redux";
 import { useToasts } from "react-toast-notifications";
 import Select from "react-select";
-
 import * as api from "./../../utils/api";
+
 import { Checkbox, DatePicker, Input } from "antd";
 import moment from "moment";
 import { bool } from "prop-types";
+import { Editor } from "@tinymce/tinymce-react";
 
-function ManageCourseForm(props) {
+function ManageCourseForm (props) {
   const [model, setModel] = useState({
     name: "",
     shortDesc: "",
@@ -24,10 +25,29 @@ function ManageCourseForm(props) {
     content: "",
     lecturer: "",
     category: "",
+    dateStart: "",
+    dateEnd: "",
   });
 
   const [categories, setCategories] = useState([]);
   const [teachers, setTeachers] = useState([]);
+
+  const dateFormat = "YYYY-MM-DD";
+  const dateFormatList = ['DD/MM/YYYY'];
+
+  const editorConfig = {
+    height: 200,
+    menubar: true,
+    plugins: [
+      'advlist autolink lists link image charmap hr',
+      'searchreplace visualblocks visualchars code media table',
+      'paste textcolor colorpicker textpattern imagetools'
+    ],
+    toolbar: `styleselect | bold italic underline | forecolor backcolor | bullist numlist | link image | media`,
+    convert_fonts_to_spans: true,
+    paste_word_valid_elements: "b,strong,i,em,h1,h2,u,p,ol,ul,li,a[href],span,color,font-size,font-color,font-family,mark,table,tr,td",
+    paste_retain_style_properties: "all",
+  };
 
   useEffect(() => {
     api
@@ -85,8 +105,7 @@ function ManageCourseForm(props) {
     };
 
     if (idUrl) {
-      api
-        .updateCourse(idUrl, _model)
+      api.updateCourse(idUrl, _model)
         .then((res) => {
           console.log("edit success");
           props.history.push("/courses");
@@ -151,8 +170,8 @@ function ManageCourseForm(props) {
                     <option value="">Chọn</option>
                     {categories.map((x) => {
                       return (
-                        <React.Fragment key={x._id}>
-                          <option value={x._id}>{x.name}</option>
+                        <React.Fragment key={x}>
+                          <option value={x}>{x}</option>
                         </React.Fragment>
                       );
                     })}
@@ -173,7 +192,7 @@ function ManageCourseForm(props) {
                     {teachers.map((x) => {
                       return (
                         <React.Fragment key={x._id}>
-                          <option value={x._id}>{x.name}</option>
+                          <option value={x._id}>{x.username}</option>
                         </React.Fragment>
                       );
                     })}
@@ -193,23 +212,52 @@ function ManageCourseForm(props) {
                     value={model.shortDesc}
                     onChange={handleOnchange}
                     required
-                    disabled={idUrl ? true : false}
                   />
                 </div>
               </div>
 
               <div className="col-md-12">
                 <div className="form-group">
-                  <label htmlFor="content">Nội dung</label>
-                  <input
-                    type="text"
+                  <label htmlFor="dateStart">Thời gian bắt đầu</label>
+                  <DatePicker
                     className="form-control"
-                    placeholder="Nội dung"
-                    id="content"
-                    name="content"
+                    id="dateStart"
+                    name="dateStart"
+                    value={moment(model.dateStart, dateFormat)} format={dateFormat}
+                    onChange={(date, dateString) => {
+                      setModel({
+                        ...model,
+                        dateStart: dateString
+                      })
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="col-md-12">
+                <div className="form-group">
+                  <label htmlFor="dateEnd">Thời gian kết thúc</label>
+                  <DatePicker
+                    className="form-control"
+                    id="dateEnd"
+                    name="dateEnd"
+                    value={moment(model.dateEnd, dateFormat)} format={dateFormat}
+                    onChange={(date, dateString) => {
+                      setModel({
+                        ...model,
+                        dateEnd: dateString
+                      })
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="col-md-12">
+                <div className="form-group">
+                  <Editor
                     value={model.content}
-                    onChange={handleOnchange}
-                    required
+                    init={editorConfig}
+                    onEditorChange={(content) => handleOnchange({ target: { name: 'content', value: content } })}
                   />
                 </div>
               </div>

@@ -8,7 +8,7 @@ import * as cssContants from "../../../constants/css.contants";
 import { Checkbox, DatePicker, Input, Table, Modal } from "antd";
 import moment from "moment";
 
-function TableCourse(props) {
+function TableCourse (props) {
   const [courses, setCourses] = useState([]);
   const [customTable, setTable] = useState(courses);
   const [isShowDeleteModal, setDeleteModal] = useState(false);
@@ -25,12 +25,20 @@ function TableCourse(props) {
   const getCourses = () => {
     api
       .getAllCourses()
+
       .then((res) => {
         const data = res.data.data;
+        data.map(el => {
+          let dateStart = el.dateStart != null ? moment(new Date(el.dateStart)) : null;
+          el.dateStart = dateStart != null ? dateStart.format("DD-MM-YYYY") : null;
+          let dateEnd = el.dateEnd != null ? moment(new Date(el.dateEnd)) : null;
+          el.dateEnd = dateEnd != null ? dateEnd.format("DD-MM-YYYY") : null;
+        })
+
         setTable(data);
         setCourses(data);
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   const deleteCourseApi = (id) => {
@@ -39,7 +47,7 @@ function TableCourse(props) {
       .then((res) => {
         getCourses();
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const showModal = (id) => {
@@ -63,25 +71,45 @@ function TableCourse(props) {
 
   const columns = [
     {
-      title: "Lớp",
-      dataIndex: "className",
+      title: "Tên",
+      dataIndex: "name",
       sorter: (a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1),
-      width: "30%",
-    },
-    {
-      title: "Thời gian bắt đầu",
-      dataIndex: "timeIn",
       width: "20%",
     },
     {
-      title: "Thời gian kết thúc",
-      dataIndex: "timeOut",
+      title: "Thể loại",
+      dataIndex: "category",
+      width: "10%",
+    },
+    {
+      title: "Mô tả",
+      dataIndex: "shortDesc",
       width: "20%",
     },
     {
-      title: "Status",
-      dataIndex: "status",
-      width: "20%",
+      title: "Giá",
+      dataIndex: "tuition",
+      width: "5%",
+    },
+    {
+      title: "Giáo viên",
+      dataIndex: "lecturer",
+      width: "15%",
+    },
+    {
+      title: "Ngày bắt đầu",
+      dataIndex: "dateStart",
+      width: "5%",
+    },
+    {
+      title: "Ngày kết thúc",
+      dataIndex: "dateEnd",
+      width: "5%",
+    },
+    {
+      title: "Trạng thái",
+      dataIndex: "new",
+      width: "5%",
     },
     {
       title: "Action",
@@ -144,18 +172,6 @@ function TableCourse(props) {
           <div className="card">
             <div className="card-body">
               <h4 className="card-title">Tabel name</h4>
-              <a
-                type="button"
-                className="btn waves-effect waves-light block btn-primary m-l-5"
-                data-toggle="collapse"
-                data-target="#search-form"
-                aria-expanded="false"
-              >
-                <i
-                  className="fa fa-search"
-                  style={{ fontSize: "20px", verticalAlign: "middle" }}
-                />
-              </a>
               <div className="table-responsive">
                 <div
                   id="demo-foo-addrow"

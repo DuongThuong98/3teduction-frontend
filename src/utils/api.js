@@ -280,10 +280,6 @@ export const getAllMyCourses = () => {
   return httpClient.get("courses");
 };
 
-export const getCourse = (id) => {
-  return httpClient.get("courses/" + id);
-};
-
 export const getAllCurriculumByCourseId = (idCourse) => {
   return httpClient.get(`courses/:id/curriculum`);
 };

@@ -37,8 +37,8 @@ import MyCourses from "./components/MyCourses/MyCourses";
 import MyCoursesDetail from "./components/MyCourses/MyCoursesDetail";
 import ManageManageRegisterCourseRequest from "./components/ManageRegisterCourseRequest/ManageManageRegisterCourseRequest";
 
-import ManagCourse from "./components/ManagCourse/ManagCourse";
-import ManagCourseForm from "./components/ManagCourse/ManagCourseForm";
+import ManageCourse from "./components/ManageCourse/ManageCourse";
+import ManageCourseForm from "./components/ManageCourse/ManageCourseForm";
 
 /** @type{import("react-router-config").RouteConfig} */
 const routes = [
