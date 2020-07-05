@@ -1,6 +1,6 @@
 import { call, all, takeLatest, put } from 'redux-saga/effects'
 import { message } from 'antd'
-import TagType from '../constant/response.types'
+import TagType from '../constant/curriculum.types'
 import {
   getAllSuccess,
   getAllFailure,
@@ -10,8 +10,8 @@ import {
   editTagFailure,
   deleteTagSuccess,
   deleteTagFailure,
-} from '../actions/response.action'
-import ResponseService from '../../services/response.service '
+} from '../actions/curriculum.action'
+import ResponseService from '../../services/curriculum.service '
 
 // Get all
 function* getAll(action) {

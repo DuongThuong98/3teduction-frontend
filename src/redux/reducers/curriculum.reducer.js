@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import TagType from '../constant/response.types'
+import TagType from '../constant/curriculum.types'
 
 const INITIAL_STATE = {
   data: [],

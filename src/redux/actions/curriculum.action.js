@@ -1,4 +1,4 @@
-import TagType from '../constant/response.types'
+import TagType from '../constant/curriculum.types'
 
 export const getAllTag = data => 
   {console.log('assign action' + {data}); return {
