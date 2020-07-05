@@ -6,7 +6,7 @@ export default class AssignmentService {
   static getAll = data => {
     const { limit, offset } = data
     console.log('assign service')
-    const api = `${apiUrl}/responses/${limit}/${offset}`
+    const api = `${apiUrl}/curriculums/${limit}/${offset}`
     let status = 400
 
     // eslint-disable-next-line no-undef
@@ -34,7 +34,7 @@ export default class AssignmentService {
   }
 
   static createTag = tag => {
-    const api = `${apiUrl}/responses/`
+    const api = `${apiUrl}/curriculums/`
     let status = 400
 
     // eslint-disable-next-line no-undef
@@ -63,7 +63,7 @@ export default class AssignmentService {
   }
 
   static editTag = tag => {
-    const api = `${apiUrl}/responses/${tag._id}`
+    const api = `${apiUrl}/curriculums/${tag._id}`
     let status = 400
 
     // eslint-disable-next-line no-undef
