@@ -35,7 +35,8 @@ function ListMyCourses (props) {
   const showMyCourses = (courses) => {
     const data = courses;
     const element = data.map((c, index) => (
-      <React.Fragment key={c._id}>
+
+      <React.Fragment key={c.id}>
         <div className="col-lg-3 col-md-4">
           <div className="card h-100">
             <div className="el-card-item">
@@ -44,7 +45,7 @@ function ListMyCourses (props) {
                 <div className="el-overlay">
                   <ul className="el-info">
                     <li>
-                      <button className="btn default btn-outline image-popup-vertical-fit" onClick={() => goToCurriculum(c._id)}>
+                      <button className="btn default btn-outline image-popup-vertical-fit" onClick={() => goToCurriculum(c.id)}>
                         <i className="icon-paper-plane" title="Vào học" />
                       </button>
                     </li>
@@ -56,7 +57,7 @@ function ListMyCourses (props) {
                 <h6 className="box-title text-left ml-1">Mô tả: {c.shortDesc}</h6>
                 <div className="card-body" style={{ padding: '0.25rem' }}>
                   <button type="button" className="btn waves-effect waves-light btn-rounded btn-primary m-t-10"
-                    onClick={() => goToCurriculum(c._id)}>Vào học</button>
+                    onClick={() => goToCurriculum(c.id)}>Vào học</button>
                 </div>
               </div>
             </div>
@@ -90,7 +91,7 @@ function ListMyCourses (props) {
       }}>
         <div className="card">
           <div className="box bg-info text-center">
-            <h4 className="font-light text-white">Học giao tiếp với giáo viên nước ngoài</h4>
+            <h4 className="font-light text-white">Khóa học của tôi</h4>
           </div>
         </div>
       </div >

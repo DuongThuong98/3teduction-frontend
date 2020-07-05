@@ -39,7 +39,7 @@ function MyCoursesDetail (props) {
   }, []);
 
   const getMyCurriculums = () => {
-    api.getAllCurriculumByCourseId()
+    api.getAllCurriculumByCourseId(idUrl)
       .then((res) => {
         const data = res.data.data;
         setMyCurriculums(data);
