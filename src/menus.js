@@ -84,8 +84,8 @@ const menus = [
     icon: "fas fa-text-width",
   },
   {
-    name: "Response",
-    to: "/responses",
+    name: "Curriculum",
+    to: "/curriculums",
     exact: false,
     icon: "fas fa-text-width",
   },

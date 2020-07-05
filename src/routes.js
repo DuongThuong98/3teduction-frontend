@@ -22,7 +22,7 @@ import ManageComment from "./components/ManageComment/ManageComment";
 import ManageCommentForm from "./components/ManageComment/ManageCommentForm";
 import ManageAssignment from "./components/ManageAssignment/ManageAssignment.container";
 import ManageMockingTest from "./components/ManageMockingTest/ManageMockingTest.container";
-import ManageResponse from "./components/ManageResponse/ManageResponse.container";
+import ManageCurriculum from "./components/ManageCurriculum/ManageCurriculum.container";
 import ManageVideo from "./components/ManageVideo/ManageVideo.container";
 
 import ManageCategory from "./components/ManageCategory/ManageCategory";
@@ -273,10 +273,10 @@ const routes = [
   },
   //response
   {
-    path: "/responses",
+    path: "/curriculums",
     exact: false,
-    pageTitle: "Response",
-    main: () => <ManageResponse></ManageResponse>,
+    pageTitle: "Curriculum",
+    main: () => <ManageCurriculum></ManageCurriculum>,
   },
   //video
   {

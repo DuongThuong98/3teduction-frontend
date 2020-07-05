@@ -3,7 +3,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
-import './ModalResponse.scss'
+import './ModalCurriculum.scss'
 
 import React from 'react'
 import { Modal, Button, Select, Form, Input } from 'antd'
@@ -49,31 +49,36 @@ const ModelSKill = ({ visible, handleOk, handleCancel, loading, form, options, t
     >
       <Form {...formItemLayout}>
         <Form.Item label="Nhập tên bài tập" hasFeedback>
-          {getFieldDecorator('content', {
-            initialValue: data ? data.content : '',
+          {getFieldDecorator('name', {
+            initialValue: data ? data.name : '',
             rules: [{ required: true, message: 'Vui lòng nhập tên kĩ năng', whitespace: true }],
           })(<Input />)}
         </Form.Item>
-        <Form.Item label="Nhập nội dung bài tập" hasFeedback>
-          {getFieldDecorator('title', {
-            initialValue: data ? data.title : '',
-            rules: [{ required: true, message: 'Vui lòng nhập tên kĩ năng', whitespace: true }],
-          })(<Input />)}
-        </Form.Item>
-        {/* <Form.Item label="Nhập tên kĩ năng" hasFeedback>
-          {getFieldDecorator('deadline', {
-            initialValue: data ? data.deadline : '',
-            rules: [{  message: 'Vui lòng nhập tên kĩ năng', whitespace: true }],
-          })(<Input />)}
-        </Form.Item> */}
-        {/* <Form.Item label="Chọn ngành học" hasFeedback>
-          {getFieldDecorator('majorId', {
-            initialValue: Option.initialValue || (data ? data.majorId._id : ''),
+      
+        <Form.Item label="Chọn ngành học" hasFeedback>
+          {getFieldDecorator('courseID', {
+            initialValue: Option.initialValue || (data ? data.courseID._id : ''),
             rules: [{ required: true, message: 'Vui lòng chọn ngành học' }],
           })(
             <Select>
-              {options
-                ? options.map((item, key) => (
+              {options.dataMajor
+                ? options.dataMajor.map((item, key) => (
+                    <Option key={key} value={item.id}>
+                      {item.name}
+                    </Option>
+                  ))
+                : null}
+            </Select>
+          )}
+        </Form.Item>
+        <Form.Item label="Chọn bài test" hasFeedback>
+          {getFieldDecorator('linkHomework', {
+            initialValue: Option.initialValue || (data ? data.linkHomework._id : ''),
+            rules: [{ required: true, message: 'Vui lòng chọn ngành học' }],
+          })(
+            <Select>
+              {options.dataTest
+                ? options.dataTest.map((item, key) => (
                     <Option key={key} value={item._id}>
                       {item.name}
                     </Option>
@@ -81,7 +86,7 @@ const ModelSKill = ({ visible, handleOk, handleCancel, loading, form, options, t
                 : null}
             </Select>
           )}
-        </Form.Item> */}
+        </Form.Item>
       </Form>
     </Modal>
   )

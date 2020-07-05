@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
-import './ManageResponse.scss'
+import './ManageCurriculum.scss'
 import React, { useEffect, useState } from 'react'
 import { Table, Tag, Divider, Button, Modal } from 'antd'
-import ModalSkill from './ModalResponse/ModalResponse.component'
+import ModalSkill from './ModalCurriculum/ModalCurriculum.component'
 import CustomPagination from '../Pagination/Pagination.component'
 
 const { confirm } = Modal
@@ -13,8 +13,10 @@ const { confirm } = Modal
 const ManageMockingTest = ({
   data,
   dataMajor,
+  dataTest,
   loadingData,
   getAllMajor,
+  getAllTest,
   getAllTag,
   createTag,
   editTag,
@@ -31,8 +33,11 @@ const ManageMockingTest = ({
 
   useEffect(() => {
     getAllMajor()
+    console.log("dataMajor:",dataMajor);
+    getAllTest()
+    console.log("dataTest:",dataTest);
     getAllTag({ limit: pageSize, page: 1 })
-  }, [getAllTag, getAllMajor, pageSize])
+  }, [getAllTag, getAllMajor, getAllTest, pageSize])
 
   const showModal = () => {
     setVisible(true)
@@ -93,31 +98,23 @@ const ManageMockingTest = ({
 
   const columns = [
     {
-      title: 'Content',
-      dataIndex: 'content',
-      key: 'content',
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
     },
     {
-      title: 'Tittle',
-      dataIndex: 'title',
-      key: 'title',
+      title: 'Course',
+      dataIndex: 'course',
+      key: 'course',
+      render: (_id, row) => <p>{row.courseID.name}</p>,
     },
-    // {
-    //   title: 'File',
-    //   dataIndex: 'name',
-    //   key: 'name',
-    // },
-    // {
-    //   title: 'Deadline',
-    //   dataIndex: 'deadline',
-    //   key: 'deadline',
-    // },
-    // {
-    //   title: 'Status',
-    //   dataIndex: 'status',
-    //   key: 'status',
-    //   render: (_id, row) => <Tag color="cyan">{row.status === true? "Hoan thanh" : "Chua hoan thanh"}</Tag>,
-    // },
+    
+    {
+      title: 'Homework',
+      dataIndex: 'homework',
+      key: 'homework',
+      render: (_id, row) => <p>{row.linkHomework.name}</p>,
+    },
     
 
     {
@@ -168,7 +165,7 @@ const ManageMockingTest = ({
         visible={visible}
         handleOk={handleOk}
         handleCancel={handleCancel}
-        options={dataMajor}
+        options={{dataMajor, dataTest}}
         title="Tạo bài tập"
       />
       <ModalSkill
@@ -177,7 +174,7 @@ const ManageMockingTest = ({
         visible={visibleEdit}
         handleOk={handleOkEdit}
         handleCancel={handleCancelEdit}
-        options={dataMajor}
+        options={{dataMajor, dataTest}}
         data={tag}
         title="Chỉnh sửa bài tập"
       />
