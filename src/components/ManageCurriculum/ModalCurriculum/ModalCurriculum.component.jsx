@@ -48,14 +48,14 @@ const ModelSKill = ({ visible, handleOk, handleCancel, loading, form, options, t
       ]}
     >
       <Form {...formItemLayout}>
-        <Form.Item label="Nhập tên bài tập" hasFeedback>
+        <Form.Item label="Nhập tên buổi học" hasFeedback>
           {getFieldDecorator('name', {
             initialValue: data ? data.name : '',
             rules: [{ required: true, message: 'Vui lòng nhập tên kĩ năng', whitespace: true }],
           })(<Input />)}
         </Form.Item>
       
-        <Form.Item label="Chọn ngành học" hasFeedback>
+        <Form.Item label="Chọn khóa học" hasFeedback>
           {getFieldDecorator('courseID', {
             initialValue: Option.initialValue || (data ? data.courseID._id : ''),
             rules: [{ required: true, message: 'Vui lòng chọn ngành học' }],
@@ -81,6 +81,22 @@ const ModelSKill = ({ visible, handleOk, handleCancel, loading, form, options, t
                 ? options.dataTest.map((item, key) => (
                     <Option key={key} value={item._id}>
                       {item.name}
+                    </Option>
+                  ))
+                : null}
+            </Select>
+          )}
+        </Form.Item>
+        <Form.Item label="Chọn video bài giảng" hasFeedback>
+          {getFieldDecorator('linkVideo', {
+            initialValue: Option.initialValue || (data ? data.linkVideo._id : ''),
+            rules: [{ required: true, message: 'Vui lòng chọn ngành học' }],
+          })(
+            <Select>
+              {options.dataVideo
+                ? options.dataVideo.map((item, key) => (
+                    <Option key={key} value={item._id}>
+                      {item.originalName}
                     </Option>
                   ))
                 : null}

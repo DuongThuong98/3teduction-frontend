@@ -7,6 +7,9 @@ import React, { useEffect, useState } from "react";
 import { Table, Tag, Divider, Button, Modal } from "antd";
 import ModalSkill from "./ModalVideo/ModalVideo.component";
 import CustomPagination from "../Pagination/Pagination.component";
+import { Document, Page, pdfjs } from "react-pdf";
+import pdf from "./Assignment 1 - Goi y dap an-1593849242396.pdf";
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const { confirm } = Modal;
 
@@ -28,6 +31,8 @@ const ManageVideo = ({
   const [visibleEdit, setVisibleEdit] = useState(false);
   const [tag, setTag] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [numPages, setNumPages] = useState(1);
+  const [pageNumber, setPageNumber] = useState(1);
   const [pageSize] = useState(5);
 
   useEffect(() => {
@@ -102,19 +107,17 @@ const ManageVideo = ({
       title: "URL",
       dataIndex: "url",
       key: "url",
-      render: (_id, row) => 
-        <a href={row.url}>{row.url}</a>
-      
+      render: (_id, row) => <a href={row.url}>{row.url}</a>,
     },
     {
-      title: 'Name',
-      dataIndex: 'originalName',
-      key: 'originalName',
+      title: "Name",
+      dataIndex: "originalName",
+      key: "originalName",
     },
     {
-      title: 'Type',
-      dataIndex: 'resourceType',
-      key: 'resourceType',
+      title: "Type",
+      dataIndex: "resourceType",
+      key: "resourceType",
     },
     // {
     //   title: 'Status',
@@ -147,6 +150,18 @@ const ManageVideo = ({
     },
   ];
 
+  const goToPrevPage = () =>
+    setPageNumber( pageNumber - 1 );
+
+  const goToNextPage = () =>
+  setPageNumber( pageNumber + 1 );
+
+  const onDocumentLoadSuccess = ({ numPages }) => {
+    setNumPages( numPages );
+  };
+
+  const onDocumentLoadError = (error) =>
+    alert("Error while loading document! " + error.message);
   return (
     <div className="tags">
       <Button className="tags__button" type="primary" onClick={showModal}>
@@ -198,6 +213,31 @@ const ManageVideo = ({
           Sửa
         </Button>
       </div> */}
+      {/* <div>
+        <Document file={pdf} onLoadError= {onDocumentLoadError}>
+        <Page pageNumber={1} />
+        </Document>
+      </div> */}
+      <div>
+        <nav>
+          <button onClick={goToPrevPage}>Prev</button>
+          <button onClick={goToNextPage}>Next</button>
+        </nav>
+
+        <div style={{ width: 600 }}>
+          <Document
+            file={pdf}
+            onLoadSuccess={onDocumentLoadSuccess}
+            onLoadError={onDocumentLoadError}
+          >
+            <Page pageNumber={pageNumber} width={600} />
+          </Document>
+        </div>
+
+        <p>
+          Page {pageNumber} of {numPages}
+        </p>
+      </div>
     </div>
   );
 };
