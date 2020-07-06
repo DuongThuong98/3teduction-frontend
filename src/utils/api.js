@@ -275,13 +275,12 @@ export const getAllMyCourses = () => {
   return httpClient.get("courses/mycourses/all");
 };
 
-//temp
-// export const getAllMyCourses = () => {
-//   return httpClient.get("courses");
-// };
-
 export const getAllCurriculumByCourseId = (idCourse) => {
   return httpClient.get(`courses/${idCourse}/curriculum`);
+};
+
+export const getDiligenceDateInCourse = (idCourse) => {
+  return httpClient.get(`courses/${idCourse}/diligences`);
 };
 
 // Admin Manage
