@@ -1,4 +1,4 @@
-import MajorType from './major.types'
+import MajorType from '../constant/course.types'
 
 const INITIAL_STATE = {
   data: [],

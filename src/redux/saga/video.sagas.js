@@ -4,6 +4,7 @@ import TagType from '../constant/video.types'
 import {
   getAllSuccess,
   getAllFailure,
+  getAllVideoDropdownSuccess,
   createTagFailure,
   createTagSuccess,
   editTagSuccess,
@@ -27,6 +28,22 @@ function* getAll(action) {
 
 function* getAllSaga() {
   yield takeLatest(TagType.GET_ALL_VIDEO, getAll)
+}
+
+// Get all for dropdown
+function* getAllDropdown(action) {
+  try {
+    console.log('Saga get all: ' + action.type)
+    const data = yield ResponseService.getAllDropdown()
+    console.log('saga data: '+ data)
+    yield put(getAllVideoDropdownSuccess(data))
+  } catch (err) {
+    yield put(getAllFailure(err.message))
+  }
+}
+
+function* getAllDropdownSaga() {
+  yield takeLatest(TagType.GET_ALL_VIDEO_DROPDOWN, getAllDropdown)
 }
 
 // Create tag
@@ -78,5 +95,5 @@ function* deleteTagSaga() {
 }
 
 export default function* tagSaga() {
-  yield all([call(getAllSaga), call(createTagSaga), call(editTagSaga), call(deleteTagSaga)])
+  yield all([call(getAllSaga), call(getAllDropdownSaga), call(createTagSaga), call(editTagSaga), call(deleteTagSaga)])
 }

@@ -1,4 +1,4 @@
-import MajorType from '../constant/major.types'
+import MajorType from '../constant/course.types'
 
 export const getAllMajor = () => ({
   type: MajorType.GET_ALL_MAJOR,

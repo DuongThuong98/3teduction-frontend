@@ -33,6 +33,36 @@ export default class AssignmentService {
       })
   }
 
+  static getAllDropdown = () => {
+  
+    console.log('video service')
+    const api = `${apiUrl}/video/all`
+    let status = 400
+
+    // eslint-disable-next-line no-undef
+    return fetch(api, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then(response => {
+        status = response.status
+        console.log(status)
+        return response.json()
+      })
+      .then(result => {
+        if (status === 200) {
+          console.log("dropdown: ",result)
+          return result
+        }
+        throw new Error(result.message)
+      })
+      .catch(err => {
+        throw new Error(err.message)
+      })
+  }
+
   static createTag = tag => {
     const api = `${apiUrl}/video/upload`
     let status = 400

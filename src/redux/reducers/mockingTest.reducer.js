@@ -1,25 +1,26 @@
 /* eslint-disable no-underscore-dangle */
-import TagType from '../constant/assignment.types'
+import TagType from '../constant/mockingTest.types'
 
 const INITIAL_STATE = {
   data: [],
   loading: false,
   err: null,
   length: 1,
+  dropdown: []
 }
 
 const TagReducers = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case TagType.GET_ALL_ASSIGNMENT:
-    case TagType.CREATE_ASSIGNMENT:
-    case TagType.EDIT_ASSIGNMENT:
-    case TagType.DELETE_ASSIGNMENT: {
+    case TagType.GET_ALL_MOCKINGTEST:
+    case TagType.CREATE_MOCKINGTEST:
+    case TagType.EDIT_MOCKINGTEST:
+    case TagType.DELETE_MOCKINGTEST: {
       return {
         ...state,
         loading: true,
       }
     }
-    case TagType.GET_ALL_SUCCESS_ASSIGNMENT: {
+    case TagType.GET_ALL_SUCCESS_MOCKINGTEST: {
       console.log('reducer: ' + action.payload.data[0])
       return {
         ...state,
@@ -28,14 +29,21 @@ const TagReducers = (state = INITIAL_STATE, action) => {
         length: action.payload.length,
       }
     }
-    case TagType.CREATE_SUCCESS_ASSIGNMENT: {
+    case TagType.GET_ALL_SUCCESS_MOCKINGTEST_DROPDOWN: {
+      console.log('reducer: ' + action.payload.data[0])
+      return {
+        ...state,
+        dropdown: action.payload.data,
+      }
+    }
+    case TagType.CREATE_SUCCESS_MOCKINGTEST: {
       return {
         ...state,
         loading: false,
         data: state.data.concat(action.payload.data),
       }
     }
-    case TagType.EDIT_SUCCESS_ASSIGNMENT: {
+    case TagType.EDIT_SUCCESS_MOCKINGTEST: {
       return {
         ...state,
         loading: false,
@@ -44,17 +52,17 @@ const TagReducers = (state = INITIAL_STATE, action) => {
         ),
       }
     }
-    case TagType.DELETE_SUCCESS_ASSIGNMENT: {
+    case TagType.DELETE_SUCCESS_MOCKINGTEST: {
       return {
         ...state,
         loading: false,
         data: state.data.filter(item => item._id.toString() !== action.payload.data._id.toString()),
       }
     }
-    case TagType.GET_ALL_FAILURE_ASSIGNMENT:
-    case TagType.CREATE_FAILURE_ASSIGNMENT:
-    case TagType.EDIT_FAILURE_ASSIGNMENT:
-    case TagType.DELETE_FAILURE_ASSIGNMENT: {
+    case TagType.GET_ALL_FAILURE_MOCKINGTEST:
+    case TagType.CREATE_FAILURE_MOCKINGTEST:
+    case TagType.EDIT_FAILURE_MOCKINGTEST:
+    case TagType.DELETE_FAILURE_MOCKINGTEST: {
       return {
         ...state,
         loading: false,

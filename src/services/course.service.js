@@ -1,8 +1,8 @@
 import apiUrl from './api-url'
-
+// const apiUrl = 'https://tutor-back-end-admin.herokuapp.com'
 export default class MajorService {
   static getAll = () => {
-    const api = `${apiUrl}/admin/major`
+    const api = `${apiUrl}/courses/all`
     let status = 400
 
     // eslint-disable-next-line no-undef
@@ -17,7 +17,9 @@ export default class MajorService {
         return response.json()
       })
       .then(result => {
-        if (status === 200) {
+        
+        if (status === 200 || status === 304) {
+          console.log("major: ", result)
           return result
         }
         throw new Error(result.message)

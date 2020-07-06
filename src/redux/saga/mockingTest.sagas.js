@@ -4,13 +4,14 @@ import TagType from '../constant/mockingTest.types'
 import {
   getAllSuccess,
   getAllFailure,
+  getAllTestDropdownSuccess,
   createTagFailure,
   createTagSuccess,
   editTagSuccess,
   editTagFailure,
   deleteTagSuccess,
   deleteTagFailure,
-} from '../actions/assignment.action'
+} from '../actions/mockingTest.action'
 import MockingTestService from '../../services/mockingTest.service'
 
 // Get all
@@ -27,6 +28,21 @@ function* getAll(action) {
 
 function* getAllSaga() {
   yield takeLatest(TagType.GET_ALL_MOCKINGTEST, getAll)
+}
+// Get all
+function* getAllDropdown(action) {
+  try {
+    console.log('Saga get all: ' + action.type)
+    const data = yield MockingTestService.getAllDropdown()
+    console.log('saga data: '+ data)
+    yield put(getAllTestDropdownSuccess(data))
+  } catch (err) {
+    yield put(getAllFailure(err.message))
+  }
+}
+
+function* getAllDropdownSaga() {
+  yield takeLatest(TagType.GET_ALL_MOCKINGTEST_DROPDOWN, getAllDropdown)
 }
 
 // Create tag
@@ -78,5 +94,5 @@ function* deleteTagSaga() {
 }
 
 export default function* tagSaga() {
-  yield all([call(getAllSaga), call(createTagSaga), call(editTagSaga), call(deleteTagSaga)])
+  yield all([call(getAllSaga),call(getAllDropdownSaga), call(createTagSaga), call(editTagSaga), call(deleteTagSaga)])
 }

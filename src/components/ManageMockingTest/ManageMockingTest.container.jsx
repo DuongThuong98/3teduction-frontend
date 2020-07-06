@@ -2,7 +2,7 @@
 /* eslint-disable import/no-named-as-default */
 import { connect } from 'react-redux'
 import { getAllTag, createTag, editTag, deleteTag } from '../../redux/actions/mockingTest.action'
-import { getAllMajor } from '../../redux/actions/major.action'
+import { getAllMajor } from '../../redux/actions/course.action'
 import ManageMockingTest from './ManageMockingTestcomponent'
 
 const mapStateToProps = state => ({

@@ -8,7 +8,7 @@ import major from '../major/major.reducers';
 import tag from '../tag/tag.reducers';
 import assignment from './assignment.reducer';
 import mockingTest from './mockingTest.reducer';
-import response from './response.reducer'
+import response from './curriculum.reducer'
 import video from './video.reducer'
 
 const appReducers = combineReducers({

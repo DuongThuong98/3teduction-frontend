@@ -2,7 +2,7 @@
 /* eslint-disable import/no-named-as-default */
 import { connect } from 'react-redux'
 import { getAllTag, createTag, editTag, deleteTag } from '../../redux/actions/assignment.action'
-import { getAllMajor } from '../../redux/actions/major.action'
+import { getAllMajor } from '../../redux/actions/course.action'
 import ManagerTagSkill from './ManageAssignment.component'
 
 const mapStateToProps = state => ({

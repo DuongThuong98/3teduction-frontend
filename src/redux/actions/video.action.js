@@ -16,6 +16,15 @@ export const getAllFailure = message => ({
   payload: { message },
 })
 
+export const getAllVideoDropdown = () => ({
+  type: TagType.GET_ALL_VIDEO_DROPDOWN
+})
+
+export const getAllVideoDropdownSuccess = ({ data }) => ({
+  type: TagType.GET_ALL_SUCCESS_VIDEO_DROPDOWN,
+  payload: { data },
+})
+
 export const createTag = data => ({
   type: TagType.CREATE_VIDEO,
   payload: { data },

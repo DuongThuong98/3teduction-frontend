@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   loading: false,
   err: null,
   length: 1,
+  dropdown: []
 }
 
 const TagReducers = (state = INITIAL_STATE, action) => {
@@ -26,6 +27,13 @@ const TagReducers = (state = INITIAL_STATE, action) => {
         loading: false,
         data: action.payload.data,
         length: action.payload.length,
+      }
+    }
+    case TagType.GET_ALL_SUCCESS_VIDEO_DROPDOWN: {
+      console.log('reducer: ' + action.payload.data[0])
+      return {
+        ...state,
+        dropdown: action.payload.data,
       }
     }
     case TagType.CREATE_SUCCESS_VIDEO: {

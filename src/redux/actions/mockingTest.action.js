@@ -6,6 +6,15 @@ export const getAllTag = data =>
   payload: { data },
 }}
 
+export const getAllTestDropdown = () => ({
+  type: TagType.GET_ALL_MOCKINGTEST_DROPDOWN
+})
+
+export const getAllTestDropdownSuccess = ({ data }) => ({
+  type: TagType.GET_ALL_SUCCESS_MOCKINGTEST_DROPDOWN,
+  payload: { data },
+})
+
 export const getAllSuccess = ({ data, length }) => ({
   type: TagType.GET_ALL_SUCCESS_MOCKINGTEST,
   payload: { data, length },

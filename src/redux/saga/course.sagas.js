@@ -1,7 +1,7 @@
 import { call, all, takeLatest, put } from 'redux-saga/effects'
-import MajorType from '../constant/major.types'
-import { getAllSuccess, getAllFailure } from '../actions/major.action'
-import MajorService from '../../services/major.service'
+import MajorType from '../constant/course.types'
+import { getAllSuccess, getAllFailure } from '../actions/course.action'
+import MajorService from '../../services/course.service'
 
 // Get all
 function* getAll() {
