@@ -271,17 +271,16 @@ export const deleteCourse = (id) => {
 };
 
 // right code
-// export const getAllMyCourses = () => {
-//   return httpClient.get("courses/mycourses");
-// };
-
-//temp
 export const getAllMyCourses = () => {
-  return httpClient.get("courses");
+  return httpClient.get("courses/mycourses/all");
 };
 
 export const getAllCurriculumByCourseId = (idCourse) => {
-  return httpClient.get(`courses/:id/curriculum`);
+  return httpClient.get(`courses/${idCourse}/curriculum`);
+};
+
+export const getDiligenceDateInCourse = (idCourse) => {
+  return httpClient.get(`courses/${idCourse}/diligences`);
 };
 
 // Admin Manage

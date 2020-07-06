@@ -26,23 +26,35 @@ function MyCoursesDetail (props) {
   const idUrl = props.match.params.id;
 
   const [myCurriculums, setMyCurriculums] = useState([]);
+  const [diligencesDate, setDiligencesDate] = useState([]);
   const [video, setVideo] = useState({
     name: "",
     linkVideo: "",
     length: ""
   });
+
   const [id, setId] = useState(null);
 
   useEffect(() => {
     getMyCurriculums();
     getCourseInfo(idUrl);
+    getDiligenceDateInCourse();
   }, []);
 
   const getMyCurriculums = () => {
-    api.getAllCurriculumByCourseId()
+    api.getAllCurriculumByCourseId(idUrl)
       .then((res) => {
         const data = res.data.data;
         setMyCurriculums(data);
+      })
+      .catch((error) => { });
+  };
+
+  const getDiligenceDateInCourse = () => {
+    api.getDiligenceDateInCourse(idUrl)
+      .then((res) => {
+        const data = res.data.data;
+        setDiligencesDate(data);
       })
       .catch((error) => { });
   };
@@ -68,6 +80,8 @@ function MyCoursesDetail (props) {
         setVideo(data);
       })
       .catch((error) => { });
+
+    getDiligenceDateInCourse();
   }
 
   const showListVideo = (myCurriculums) => {
@@ -114,6 +128,23 @@ function MyCoursesDetail (props) {
     )
   }
 
+  const showDiligenceDate = () => {
+    return (
+      <div className="row m-2">
+        <div className="button-group">
+          {diligencesDate.map((x, index) => {
+            return (
+              x === true ?
+                <button type="button" className='btn waves-effect waves-light btn-success'>Chuyên cần</button>
+                : <button type="button" className='btn waves-effect waves-light btn-light'>Chưa học</button>
+            )
+          }
+          )}
+        </div>
+      </div>
+    )
+  }
+
   const getOutCourse = () => {
     props.history.push(`/my-courses`);
   }
@@ -130,6 +161,7 @@ function MyCoursesDetail (props) {
               </div>
             </div>
           </div> */}
+          {showDiligenceDate()}
           <div className="row">
             {showVideo(video)}
 
