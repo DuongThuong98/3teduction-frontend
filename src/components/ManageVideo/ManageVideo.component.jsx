@@ -119,13 +119,17 @@ const ManageVideo = ({
       dataIndex: "resourceType",
       key: "resourceType",
     },
+    {
+      title: "Duration",
+      dataIndex: "duration",
+      key: "duration",
+    },
     // {
     //   title: 'Status',
     //   dataIndex: 'status',
     //   key: 'status',
     //   render: (_id, row) => <Tag color="cyan">{row.status === true? "Hoan thanh" : "Chua hoan thanh"}</Tag>,
     // },
-
     {
       title: "Thao tác",
       dataIndex: "action",
@@ -205,20 +209,8 @@ const ManageVideo = ({
         data={tag}
         title="Chỉnh sửa bài tập"
       />
+     
       {/* <div>
-        <Dropzone multiple={false} onDrop={onDrop}>
-          <p>Drop an image or click to select an image to upload</p>
-        </Dropzone>
-        <Button onClick={() => handleOk(file)} className="link link__edit">
-          Sửa
-        </Button>
-      </div> */}
-      {/* <div>
-        <Document file={pdf} onLoadError= {onDocumentLoadError}>
-        <Page pageNumber={1} />
-        </Document>
-      </div> */}
-      <div>
         <nav>
           <button onClick={goToPrevPage}>Prev</button>
           <button onClick={goToNextPage}>Next</button>
@@ -237,7 +229,7 @@ const ManageVideo = ({
         <p>
           Page {pageNumber} of {numPages}
         </p>
-      </div>
+      </div> */}
     </div>
   );
 };
