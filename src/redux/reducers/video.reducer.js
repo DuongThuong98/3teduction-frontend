@@ -1,13 +1,14 @@
 /* eslint-disable no-underscore-dangle */
-import TagType from '../constant/video.types'
+import TagType from "../constant/video.types";
 
 const INITIAL_STATE = {
   data: [],
   loading: false,
   err: null,
   length: 1,
-  dropdown: []
-}
+  dataVideo: null,
+  dataDoc: null,
+};
 
 const TagReducers = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -18,46 +19,52 @@ const TagReducers = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         loading: true,
-      }
+      };
     }
     case TagType.GET_ALL_SUCCESS_VIDEO: {
-      console.log('reducer: ' + action.payload.data[0])
+      console.log("reducer: " + action.payload.data[0]);
       return {
         ...state,
         loading: false,
         data: action.payload.data,
         length: action.payload.length,
-      }
+      };
     }
     case TagType.GET_ALL_SUCCESS_VIDEO_DROPDOWN: {
-      console.log('reducer: ' + action.payload.data[0])
+      // console.log('reducer: ' + action.payload.data.dataVideo)
       return {
         ...state,
-        dropdown: action.payload.data,
-      }
+        // dropdown: action.payload
+        dataVideo: action.payload.dataVideo,
+        dataDoc: action.payload.dataDoc,
+      };
     }
     case TagType.CREATE_SUCCESS_VIDEO: {
       return {
         ...state,
         loading: false,
         data: state.data.concat(action.payload.data),
-      }
+      };
     }
     case TagType.EDIT_SUCCESS_VIDEO: {
       return {
         ...state,
         loading: false,
-        data: state.data.map(item =>
-          item._id.toString() === action.payload.data._id.toString() ? action.payload.data : item
+        data: state.data.map((item) =>
+          item._id.toString() === action.payload.data._id.toString()
+            ? action.payload.data
+            : item
         ),
-      }
+      };
     }
     case TagType.DELETE_SUCCESS_VIDEO: {
       return {
         ...state,
         loading: false,
-        data: state.data.filter(item => item._id.toString() !== action.payload.data._id.toString()),
-      }
+        data: state.data.filter(
+          (item) => item._id.toString() !== action.payload.data._id.toString()
+        ),
+      };
     }
     case TagType.GET_ALL_FAILURE_VIDEO:
     case TagType.CREATE_FAILURE_VIDEO:
@@ -67,10 +74,10 @@ const TagReducers = (state = INITIAL_STATE, action) => {
         ...state,
         loading: false,
         err: action.payload.message,
-      }
+      };
     }
     default:
-      return state
+      return state;
   }
-}
-export default TagReducers
+};
+export default TagReducers;

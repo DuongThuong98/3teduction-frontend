@@ -61,8 +61,8 @@ const ModelSKill = ({ visible, handleOk, handleCancel, loading, form, options, t
             rules: [{ required: true, message: 'Vui lòng chọn ngành học' }],
           })(
             <Select>
-              {options.dataMajor
-                ? options.dataMajor.map((item, key) => (
+              {options.dataCourse
+                ? options.dataCourse.map((item, key) => (
                     <Option key={key} value={item.id}>
                       {item.name}
                     </Option>
@@ -95,6 +95,22 @@ const ModelSKill = ({ visible, handleOk, handleCancel, loading, form, options, t
             <Select>
               {options.dataVideo
                 ? options.dataVideo.map((item, key) => (
+                    <Option key={key} value={item._id}>
+                      {item.originalName}
+                    </Option>
+                  ))
+                : null}
+            </Select>
+          )}
+        </Form.Item>
+        <Form.Item label="Chọn video bài giảng" hasFeedback>
+          {getFieldDecorator('linkDoc', {
+            initialValue: Option.initialValue || (data ? data.linkDoc._id : ''),
+            rules: [{ required: true, message: 'Vui lòng chọn ngành học' }],
+          })(
+            <Select>
+              {options.dataDoc
+                ? options.dataDoc.map((item, key) => (
                     <Option key={key} value={item._id}>
                       {item.originalName}
                     </Option>

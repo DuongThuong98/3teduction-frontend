@@ -12,9 +12,10 @@ const { confirm } = Modal;
 // eslint-disable-next-line react/prop-types
 const ManageMockingTest = ({
   data,
-  dataMajor,
+  dataCourse,
   dataTest,
   dataVideo,
+  dataDoc,
   loadingData,
   getAllMajor,
   getAllTest,
@@ -35,7 +36,7 @@ const ManageMockingTest = ({
 
   useEffect(() => {
     getAllMajor();
-    console.log("dataMajor:", dataMajor);
+    console.log("dataMajor:", dataCourse);
     getAllTest();
     console.log("dataTest:", dataTest);
     getAllVideo();
@@ -135,6 +136,22 @@ const ManageMockingTest = ({
       }
     },
     {
+      title: "Document",
+      dataIndex: "document",
+      key: "document",
+      render: (_id, row) => {
+        if (row.linkDoc) {
+          return (
+            <p>
+              {row.linkDoc.originalName}
+              <br />
+              <a href={row.linkDoc.url}>{row.linkDoc.url}</a>
+            </p>
+          );
+        }
+      }
+    },
+    {
       title: "Thao tác",
       dataIndex: "action",
       key: "action",
@@ -188,7 +205,7 @@ const ManageMockingTest = ({
         visible={visible}
         handleOk={handleOk}
         handleCancel={handleCancel}
-        options={{ dataMajor, dataTest, dataVideo }}
+        options={{ dataCourse, dataTest, dataVideo, dataDoc }}
         title="Tạo bài tập"
       />
       <ModalSkill
@@ -197,7 +214,7 @@ const ManageMockingTest = ({
         visible={visibleEdit}
         handleOk={handleOkEdit}
         handleCancel={handleCancelEdit}
-        options={{ dataMajor, dataTest, dataVideo }}
+        options={{ dataCourse, dataTest, dataVideo, dataDoc }}
         data={tag}
         title="Chỉnh sửa bài tập"
       />

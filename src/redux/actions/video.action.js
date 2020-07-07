@@ -20,10 +20,12 @@ export const getAllVideoDropdown = () => ({
   type: TagType.GET_ALL_VIDEO_DROPDOWN
 })
 
-export const getAllVideoDropdownSuccess = ({ data }) => ({
+export const getAllVideoDropdownSuccess = ( data ) => {
+  console.log("video action: ",data)
+  return {
   type: TagType.GET_ALL_SUCCESS_VIDEO_DROPDOWN,
-  payload: { data },
-})
+  payload:  data ,
+}}
 
 export const createTag = data => ({
   type: TagType.CREATE_VIDEO,

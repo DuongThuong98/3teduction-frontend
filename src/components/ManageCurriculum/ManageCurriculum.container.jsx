@@ -9,11 +9,12 @@ import ManageResponse from './ManageCurriculum.component'
 
 const mapStateToProps = state => ({
   data: state.response.data,
-  dataMajor: state.major.data,
+  dataCourse: state.major.data,
   loadingData: state.major.loading,
   length: state.response.length,
   dataTest: state.mockingTest.dropdown,
-  dataVideo: state.video.dropdown,
+  dataVideo: state.video.dataVideo,
+  dataDoc: state.video.dataDoc,
 })
 
 const mapDispatchToProps = dispatch => ({
