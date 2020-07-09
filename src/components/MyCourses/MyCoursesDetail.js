@@ -106,8 +106,8 @@ function MyCoursesDetail (props) {
     return (
       <div className="col-lg-8 col-xlg-9 col-md-7">
         <div className="card">
-          {vid.linkVideo !== "" ?
-            <iframe src={vid.linkVideo} style={{ width: '100%' }} height="480"></iframe>
+          {vid.linkVideo.url !== "" ?
+            <iframe src={vid.linkVideo.url} style={{ width: '100%' }} height="480"></iframe>
             :
             <iframe src="https://www.youtube.com/embed/IUTRRedYWgw" style={{ width: '100%' }} height="480" frameBorder="0" allowFullScreen></iframe>
           }
@@ -190,7 +190,7 @@ function MyCoursesDetail (props) {
                       <div className="chat-right-aside">
                         <div className="chat-main-header">
                           <div className="b-b">
-                            <h4 className="box-title">Chat Message</h4>
+                            <h4 className="box-title">Tài liệu khóa học</h4>
                           </div>
                         </div>
                         <div className="chat-rbox">
