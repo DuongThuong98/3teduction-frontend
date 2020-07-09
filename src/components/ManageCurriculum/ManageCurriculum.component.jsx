@@ -117,7 +117,17 @@ const ManageMockingTest = ({
       title: "Homework",
       dataIndex: "homework",
       key: "homework",
-      render: (_id, row) => <p>{row.linkHomework.name}</p>,
+      render: (_id, row) => {
+        if (row.linkHomework) {
+          return (
+            <p>
+              {row.linkHomework.name}
+              <br />
+              <a href={"https://mielts.herokuapp.com/user/mocktest/" + row.linkHomework._id}>{"https://mielts.herokuapp.com/user/mocktest/" + row.linkHomework._id}</a>
+            </p>
+          );
+        }
+      },
     },
     {
       title: "Video",
