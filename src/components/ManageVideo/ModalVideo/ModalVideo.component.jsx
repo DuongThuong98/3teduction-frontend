@@ -77,7 +77,7 @@ const ModelSKill = ({
           loading={loading}
           onClick={handleSubmit}
         >
-          Lưu
+          Đăng tải
         </Button>,
       ]}
     >

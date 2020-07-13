@@ -81,7 +81,7 @@ const ManageMockingTest = ({
 
   const showConfirm = (row) => {
     confirm({
-      title: "Bạn có muốn xóa bài tập này?",
+      title: "Bạn có muốn xóa bài học này?",
       okText: "Có",
       okType: "primary",
       cancelText: "Hủy",
@@ -105,11 +105,13 @@ const ManageMockingTest = ({
       title: "Name",
       dataIndex: "name",
       key: "name",
+      width: '10%',
     },
     {
       title: "Course",
       dataIndex: "course",
       key: "course",
+      width: '10%',
       render: (_id, row) => <p>{row.courseID.name}</p>,
     },
 
@@ -117,6 +119,7 @@ const ManageMockingTest = ({
       title: "Homework",
       dataIndex: "homework",
       key: "homework",
+      width: '30%',
       render: (_id, row) => {
         if (row.linkHomework) {
           return (
@@ -133,6 +136,7 @@ const ManageMockingTest = ({
       title: "Video",
       dataIndex: "video",
       key: "video",
+      width: '30%',
       render: (_id, row) => {
         if (row.linkVideo) {
           return (
@@ -149,6 +153,7 @@ const ManageMockingTest = ({
       title: "Document",
       dataIndex: "document",
       key: "document",
+      width: '30%',
       render: (_id, row) => {
         if (row.linkDoc) {
           return (
@@ -188,7 +193,7 @@ const ManageMockingTest = ({
   return (
     <div className="tags">
       <Button className="tags__button" type="primary" onClick={showModal}>
-        Thêm bài tập
+        Thêm bài học
       </Button>
       {data ? (
         <Table
@@ -216,7 +221,7 @@ const ManageMockingTest = ({
         handleOk={handleOk}
         handleCancel={handleCancel}
         options={{ dataCourse, dataTest, dataVideo, dataDoc }}
-        title="Tạo bài tập"
+        title="Tạo bài học"
       />
       <ModalSkill
         showModal={showModalEdit}
@@ -226,7 +231,7 @@ const ManageMockingTest = ({
         handleCancel={handleCancelEdit}
         options={{ dataCourse, dataTest, dataVideo, dataDoc }}
         data={tag}
-        title="Chỉnh sửa bài tập"
+        title="Chỉnh sửa bài học"
       />
     </div>
   );

@@ -278,11 +278,11 @@ const routes = [
     pageTitle: "Curriculum",
     main: () => <ManageCurriculum></ManageCurriculum>,
   },
-  //video
+  //upload
   {
-    path: "/video",
+    path: "/upload",
     exact: false,
-    pageTitle: "Video",
+    pageTitle: "Upload",
     main: () => <ManageVideo></ManageVideo>,
   },
   //profile

@@ -4,7 +4,7 @@
 /* eslint-disable react/prop-types */
 import "./ManageVideo.scss";
 import React, { useEffect, useState } from "react";
-import { Table, Tag, Divider, Button, Modal } from "antd";
+import { Table, Divider, Button, Modal } from "antd";
 import ModalSkill from "./ModalVideo/ModalVideo.component";
 import CustomPagination from "../Pagination/Pagination.component";
 import { Document, Page, pdfjs } from "react-pdf";
@@ -78,7 +78,7 @@ const ManageVideo = ({
 
   const showConfirm = (row) => {
     confirm({
-      title: "Bạn có muốn xóa bài tập này?",
+      title: "Bạn có muốn xóa?",
       okText: "Có",
       okType: "primary",
       cancelText: "Hủy",
@@ -136,13 +136,13 @@ const ManageVideo = ({
       key: "action",
       render: (_id, row) => (
         <span>
-          <Button
+          {/* <Button
             onClick={() => showModalEdit(row)}
             className="link link__edit"
           >
             Sửa
-          </Button>
-          <Divider type="vertical" />
+          </Button> */}
+          {/* <Divider type="vertical" /> */}
           <Button
             onClick={() => showConfirm(row)}
             className="link link__delete"
@@ -169,7 +169,7 @@ const ManageVideo = ({
   return (
     <div className="tags">
       <Button className="tags__button" type="primary" onClick={showModal}>
-        Thêm bài tập
+        Thêm
       </Button>
       {data ? (
         <Table
@@ -197,7 +197,7 @@ const ManageVideo = ({
         handleOk={handleOk}
         handleCancel={handleCancel}
         options={dataMajor}
-        title="Tạo bài tập"
+        title="Upload"
       />
       <ModalSkill
         showModal={showModalEdit}

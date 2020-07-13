@@ -103,7 +103,7 @@ const ModelSKill = ({ visible, handleOk, handleCancel, loading, form, options, t
             </Select>
           )}
         </Form.Item>
-        <Form.Item label="Chọn video bài giảng" hasFeedback>
+        <Form.Item label="Chọn tài liệu bài giảng" hasFeedback>
           {getFieldDecorator('linkDoc', {
             initialValue: Option.initialValue || (data ? data.linkDoc._id : ''),
             rules: [{ required: true, message: 'Vui lòng chọn ngành học' }],

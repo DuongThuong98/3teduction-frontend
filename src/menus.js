@@ -90,8 +90,8 @@ const menus = [
     icon: "fas fa-text-width",
   },
   {
-    name: "Video",
-    to: "/video",
+    name: "Upload",
+    to: "/upload",
     exact: false,
     icon: "fas fa-text-width",
   },
