@@ -94,7 +94,7 @@ function MyCoursesDetail (props) {
           </div>
           <div className="mail-contnet">
             <h5>{c.name}</h5>
-            <span className="time">Độ dài: {c.length}</span>
+            <span className="time">Độ dài: {c.duration}</span>
           </div>
         </a>
       </React.Fragment>
