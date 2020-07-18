@@ -19,7 +19,7 @@ function Login (props) {
   });
 
   const [user, setUser] = useState({
-    email: "",
+    emailOrUsername: "",
     password: "",
   });
 
@@ -82,10 +82,10 @@ function Login (props) {
                   <div className="col-xs-12">
                     <input
                       className="form-control"
-                      type="email"
-                      name="email"
+                      type="text"
+                      name="emailOrUsername"
                       required
-                      placeholder="Email"
+                      placeholder="Email Or Username"
                       onChange={handleOnChange}
                     />
                   </div>

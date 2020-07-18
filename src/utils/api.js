@@ -393,3 +393,17 @@ export const getCourseRequest = (id) => {
 export const updateStatusCourseRequest = (id, data) => {
   return httpClient.put(`courseRequests/${id}`, data);
 };
+
+
+//Dashboard
+export const getDataDashboardAdmin = () => {
+  return httpClient.get(`dashboard/admin`);
+};
+
+export const getDataDashboardTeacher = () => {
+  return httpClient.get(`dashboard/teacher`);
+};
+
+export const getDataDashboardStudent = () => {
+  return httpClient.get(`dashboard/student`);
+};
