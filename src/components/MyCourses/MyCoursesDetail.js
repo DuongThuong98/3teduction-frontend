@@ -93,12 +93,14 @@ function MyCoursesDetail(props) {
 
   const showListVideo = (myCurriculums) => {
     const data = myCurriculums;
-    const element = data.map((c, index) => (
-      <React.Fragment key={c._id}>
+    const element = data.map((c, index) => {
+      var linkDoc = c.linkDoc ? c.linkDoc.url : null
+      var linkHomework = c.linkHomework ? c.linkHomework : null
+     return (<React.Fragment key={c._id}>
         <div className="message-widget message-scroll">
           <a
             href="javascript:void(0)"
-            onClick={() => showVideoItem(c._id, c.linkDoc.url,c.linkHomework)}
+            onClick={() => showVideoItem(c._id, linkDoc, linkHomework)}
           >
             <div className="user-img">
               <iframe
@@ -113,8 +115,8 @@ function MyCoursesDetail(props) {
             </div>
           </a>
         </div>
-      </React.Fragment>
-    ));
+      </React.Fragment>)
+    })
     return element;
   };
 
