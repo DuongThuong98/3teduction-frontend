@@ -94,12 +94,14 @@ function MyCoursesDetail (props) {
 
   const showListVideo = (myCurriculums) => {
     const data = myCurriculums;
-    const element = data.map((c, index) => (
-      <React.Fragment key={c._id}>
+    const element = data.map((c, index) => {
+      var linkDoc = c.linkDoc ? c.linkDoc.url : null
+      var linkHomework = c.linkHomework ? c.linkHomework : null
+     return (<React.Fragment key={c._id}>
         <div className="message-widget message-scroll">
           <a style={{ display: 'flex' }}
             href="javascript:void(0)"
-            onClick={() => showVideoItem(c._id, c.linkDoc.url, c.linkHomework)}
+            onClick={() => showVideoItem(c._id, linkDoc, linkHomework)}
           >
             <div className="user-img" style={{ margin: '0 5px 5px 0' }}>
               <iframe src="https://drive.google.com/file/d/1UrSt0xiK1CH1_sGKr0mClGuY2peJcAM9/preview" width="40" height="40" frameBorder="false"></iframe>
@@ -110,8 +112,8 @@ function MyCoursesDetail (props) {
             </div>
           </a>
         </div>
-      </React.Fragment>
-    ));
+      </React.Fragment>)
+    })
     return element;
   };
 

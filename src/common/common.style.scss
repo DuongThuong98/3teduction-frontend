@@ -42,12 +42,12 @@ a {
 // input
 input {
   &:hover {
-    border: 1px solid $color-main !important;
+    // border: 1px solid $color-main !important;
   }
-  &:focus {
-    box-shadow: 0 0 0 2px #faad1446 !important;
-    border: 1px solid $color-main !important;
-  }
+  // &:focus {
+  //   box-shadow: 0 0 0 2px #faad1446 !important;
+  //   border: 1px solid $color-main !important;
+  // }
 }
 .ant-select-selection {
   &:hover {

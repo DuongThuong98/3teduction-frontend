@@ -73,8 +73,8 @@ const ModelSKill = ({ visible, handleOk, handleCancel, loading, form, options, t
         </Form.Item>
         <Form.Item label="Chọn bài test" hasFeedback>
           {getFieldDecorator('linkHomework', {
-            initialValue: Option.initialValue || (data ? data.linkHomework._id : ''),
-            rules: [{ required: true, message: 'Vui lòng chọn ngành học' }],
+            initialValue: Option.initialValue || (data ? (data.linkHomework ? data.linkHomework._id : '') : ''),
+            // rules: [{ required: true, message: 'Vui lòng chọn ngành học' }],
           })(
             <Select>
               {options.dataTest
@@ -89,7 +89,7 @@ const ModelSKill = ({ visible, handleOk, handleCancel, loading, form, options, t
         </Form.Item>
         <Form.Item label="Chọn video bài giảng" hasFeedback>
           {getFieldDecorator('linkVideo', {
-            initialValue: Option.initialValue || (data ? data.linkVideo._id : ''),
+            initialValue: Option.initialValue || (data ? (data.linkVideo ? data.linkVideo._id : '') : ''),
             rules: [{ required: true, message: 'Vui lòng chọn ngành học' }],
           })(
             <Select>
