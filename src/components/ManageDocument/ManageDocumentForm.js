@@ -180,15 +180,15 @@ function ManageDocumentForm (props) {
               <div className="col-md-12">
                 <div className="form-group">
                   <label className="control-label">Loại tài liệu</label>
-                  <select
+                  <select required
                     className="form-control"
                     name="categoryId"
                     value={documentModel.categoryId}
                     onChange={handleOnchange}>
                     {categories.map((x) => {
                       return (
-                        <React.Fragment key={x._id}>
-                          <option value={x._id}>{x.name}</option>
+                        <React.Fragment key={x}>
+                          <option value={x}>{x}</option>
                         </React.Fragment>
                       );
                     })}

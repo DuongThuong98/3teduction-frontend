@@ -30,6 +30,12 @@ const menusTeacher = [
     icon: "fas fa-align-justify",
   },
   {
+    name: "Course",
+    to: "/courses",
+    exact: false,
+    icon: "fas fa-align-justify",
+  },
+  {
     name: "Shift",
     to: "/shifts",
     exact: false,

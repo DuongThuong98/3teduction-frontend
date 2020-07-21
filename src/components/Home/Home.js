@@ -149,7 +149,7 @@ function Home () {
 
   const showBasicInfoForTeacher = (data) => {
     return (
-      <div className="row">
+      <>
         {showCourses(data.courses)}
         <div className="col-sm-6 col-md-4 col-lg-3 col-xlg-3">
           <div className="card">
@@ -169,7 +169,7 @@ function Home () {
             </div>
           </div>
         </div>
-      </div>
+      </>
     )
   }
 

@@ -28,9 +28,6 @@ class Menu extends Component {
           <div className="scroll-sidebar">
             <nav className="sidebar-nav">
               <ul id="sidebarnav">
-                <Switch>
-                  <MenuProfile></MenuProfile>
-                </Switch>
                 {role === "Admin" &&
                   this.showMenus(menus)
                 }

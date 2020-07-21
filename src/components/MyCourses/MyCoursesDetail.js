@@ -20,7 +20,7 @@ function MyCoursesDetail (props) {
     shortDesc: "",
     content: "",
     category: "",
-    lecturerName: "",
+    teacherName: ''
   });
 
   const idUrl = props.match.params.id;
@@ -35,7 +35,7 @@ function MyCoursesDetail (props) {
   const [doc, setDoc] = useState();
   const [homework, setHomework] = useState();
 
-  const [id, setId] = useState(null);
+  const [teacherName, setTeacherName] = useState(null);
 
   useEffect(() => {
     getMyCurriculums();
@@ -69,6 +69,7 @@ function MyCoursesDetail (props) {
       .then((res) => {
         const data = res.data.data;
         setCourse(data);
+        setTeacherName(res.data.teacher)
       })
       .catch((error) => { });
   };
@@ -151,7 +152,7 @@ function MyCoursesDetail (props) {
     return (
       <div className="row m-2">
         <div className="button-group">
-          {diligencesDate.map((x, index) => {
+          {diligencesDate != null && diligencesDate.map((x, index) => {
             return x === true ? (
               <button
                 type="button"
@@ -189,7 +190,7 @@ function MyCoursesDetail (props) {
               </div>
             </div>
           </div> */}
-          {showDiligenceDate()}
+          {/* {showDiligenceDate()} */}
           <div className="row">
             {showVideo(video)}
 
@@ -294,9 +295,7 @@ function MyCoursesDetail (props) {
                           <strong>Giáo viên</strong>
                           <br />
                           <p className="text-muted">
-                            {course.lecturerName != ""
-                              ? course.lecturerName
-                              : "Hữu Thời"}
+                            {teacherName}
                           </p>
                         </div>
                       </div>
