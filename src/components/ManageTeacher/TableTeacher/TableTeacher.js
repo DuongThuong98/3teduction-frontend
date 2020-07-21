@@ -25,8 +25,8 @@ function TableTeacher (props) {
       .then((res) => {
         const data = res.data.data;
         data.map((el) => {
-          let bd = moment(new Date(el.birthdate));
-          el.birthdate = bd.format("DD/MM/YYYY");
+          let birthdate = el.birthdate != null ? moment(new Date(el.birthdate)) : null;
+          el.birthdate = birthdate != null ? birthdate.format("DD-MM-YYYY") : null;
         });
         setTable(data);
         setTeachers(data);

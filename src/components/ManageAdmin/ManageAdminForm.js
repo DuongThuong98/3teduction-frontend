@@ -26,7 +26,7 @@ function ManageAdminForm (props) {
     confirmPassword: "",
   });
 
-  const dateFormat = "DD/MM/YYYY";
+  const dateFormat = "YYYY-MM-DD";
   const dateFormatList = ['DD/MM/YYYY'];
 
   useEffect(() => {
@@ -141,7 +141,7 @@ function ManageAdminForm (props) {
                     className="form-control"
                     id="birthdate"
                     name="birthdate"
-                    value={moment(model.birthdate, dateFormatList[0])} format={dateFormatList}
+                    value={moment(model.birthdate, dateFormat)} format={dateFormat}
                     onChange={(date, dateString) => {
                       setModel({
                         ...model,
@@ -159,7 +159,7 @@ function ManageAdminForm (props) {
                     className="form-control"
                     id="address"
                     name="address"
-                    placeholder="Mật khẩu"
+                    placeholder="Địa chỉ"
                     value={model.address}
                     onChange={handleOnchange}
                   />

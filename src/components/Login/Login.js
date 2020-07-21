@@ -75,7 +75,7 @@ function Login (props) {
               <form
                 className="form-horizontal form-material"
                 id="loginform"
-                onSubmit={login}
+                onSubmit={login} onKeyPress={(event) => { if (event.which === 13) event.preventDefault(); }}
               >
                 <h3 className="text-center m-b-20">Sign In</h3>
                 <div className="form-group ">

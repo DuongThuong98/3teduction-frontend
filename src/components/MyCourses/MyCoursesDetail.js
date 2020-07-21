@@ -14,7 +14,7 @@ import * as api from "../../utils/api";
 import { Checkbox, DatePicker, Input, Radio } from "antd";
 import moment from "moment";
 
-function MyCoursesDetail(props) {
+function MyCoursesDetail (props) {
   const [course, setCourse] = useState({
     name: "",
     shortDesc: "",
@@ -50,7 +50,7 @@ function MyCoursesDetail(props) {
         const data = res.data.data;
         setMyCurriculums(data);
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   const getDiligenceDateInCourse = () => {
@@ -60,7 +60,7 @@ function MyCoursesDetail(props) {
         const data = res.data.data;
         setDiligencesDate(data);
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   const getCourseInfo = (id) => {
@@ -70,7 +70,7 @@ function MyCoursesDetail(props) {
         const data = res.data.data;
         setCourse(data);
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   // const getAllCurriculumByCourseId = (id) => {
@@ -86,7 +86,7 @@ function MyCoursesDetail(props) {
         setDoc(linkDoc);
         setHomework(linkHomework);
       })
-      .catch((error) => {});
+      .catch((error) => { });
 
     getDiligenceDateInCourse();
   };
@@ -98,16 +98,12 @@ function MyCoursesDetail(props) {
       var linkHomework = c.linkHomework ? c.linkHomework : null
      return (<React.Fragment key={c._id}>
         <div className="message-widget message-scroll">
-          <a
+          <a style={{ display: 'flex' }}
             href="javascript:void(0)"
             onClick={() => showVideoItem(c._id, linkDoc, linkHomework)}
           >
-            <div className="user-img">
-              <iframe
-                // src={c.linkVideo.url}
-                width="40"
-                height="40"
-              ></iframe>
+            <div className="user-img" style={{ margin: '0 5px 5px 0' }}>
+              <iframe src="https://drive.google.com/file/d/1UrSt0xiK1CH1_sGKr0mClGuY2peJcAM9/preview" width="40" height="40" frameBorder="false"></iframe>
             </div>
             <div className="mail-contnet">
               <h5>{c.name}</h5>
@@ -124,28 +120,20 @@ function MyCoursesDetail(props) {
     return (
       <div className="col-lg-8 col-xlg-9 col-md-7">
         <div className="card">
-          {vid.linkVideo.url !== "" ? (
-            <iframe
-              src={vid.linkVideo.url}
-              style={{ width: "100%" }}
-              height="480"
-            ></iframe>
-          ) : (
-            <iframe
-              src="https://www.youtube.com/embed/IUTRRedYWgw"
-              style={{ width: "100%" }}
-              height="480"
-              frameBorder="0"
-              allowFullScreen
-            ></iframe>
-          )}
+          {vid.linkVideo.url !== "" ?
+            <iframe src={vid.linkVideo.url} style={{ width: '100%', border: '0 solid transparent' }} height="480"></iframe>
+            :
+            <iframe src="https://www.youtube.com/embed/IUTRRedYWgw" style={{ width: '100%' }} height="480" frameBorder="0" allowFullScreen></iframe>
+          }
         </div>
         <div className="card" style={{ marginTop: "10px" }}>
           <div className="card-body">
-            <h4 className="card-title">{vid.name}</h4>
+            {vid.name &&
+              <h4 className="card-title">Bài : {vid.name}</h4>
+            }
           </div>
         </div>
-        <div className="col-sm-6">
+        {/* <div className="col-sm-6">
           <div className="row">
             <div className="col text-center">
               <a
@@ -156,10 +144,10 @@ function MyCoursesDetail(props) {
               </a>
             </div>
           </div>
-        </div>
-      </div>
-    );
-  };
+        </div> */}
+      </div >
+    )
+  }
 
   const showDiligenceDate = () => {
     return (
@@ -174,13 +162,13 @@ function MyCoursesDetail(props) {
                 Chuyên cần
               </button>
             ) : (
-              <button
-                type="button"
-                className="btn waves-effect waves-light btn-light"
-              >
-                Chưa học
-              </button>
-            );
+                <button
+                  type="button"
+                  className="btn waves-effect waves-light btn-light"
+                >
+                  Chưa học
+                </button>
+              );
           })}
         </div>
       </div>
@@ -277,8 +265,8 @@ function MyCoursesDetail(props) {
                                   >
                                     Xem tài liệu
                                   </a>}
-                                  <br/>
-                                  <br/>
+                                  <br />
+                                  <br />
                                   {homework && <a
                                     // href="https://drive.google.com/file/d/1KulfnRG3_jAnmc0ageX7BZmZgubHXIXa/view"
                                     href={"https://mielts.herokuapp.com/user/mocktest/" + homework}
@@ -328,14 +316,14 @@ function MyCoursesDetail(props) {
                           <p className="text-muted">{course.category}</p>
                         </div>
                       </div>
-                      <div className="row">
+                      {/* <div className="row">
                         <div className="col-md-12 col-xs-12 b-r">
                           {" "}
                           <strong>Nội dung</strong>
                           <br />
                           <p className="text-muted">{course.content}</p>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                     <hr />
                   </div>

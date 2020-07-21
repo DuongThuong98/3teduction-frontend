@@ -26,9 +26,7 @@ function ManageStudentForm (props) {
     confirmPassword: "",
     isBlock: false,
   });
-
-  const dateFormat = "DD/MM/YYYY";
-  const dateFormatList = ["DD/MM/YYYY"];
+  const dateFormat = "YYYY-MM-DD";
   const idUrl = props.match.params.id;
 
   useEffect(() => {
@@ -156,7 +154,7 @@ function ManageStudentForm (props) {
                     <div className="form-group">
                       <label htmlFor="confirmPassword">Xác nhận Mật khẩu</label>
                       <Input
-                        type="confirmPassword"
+                        type="password"
                         className="form-control"
                         id="confirmPassword"
                         name="confirmPassword"
@@ -179,13 +177,12 @@ function ManageStudentForm (props) {
                     className="form-control"
                     id="birthdate"
                     name="birthdate"
-                    value={moment(model.birthdate, dateFormatList[0])}
-                    format={dateFormatList}
+                    value={moment(model.birthdate, dateFormat)} format={dateFormat}
                     onChange={(date, dateString) => {
                       setModel({
                         ...model,
-                        birthdate: dateString,
-                      });
+                        birthdate: dateString
+                      })
                     }}
                   />
                 </div>

@@ -15,6 +15,8 @@ function TableStudent (props) {
   const [isShowModalDelete, setModalDelete] = useState(false);
   const [idStudent, setIdStudent] = useState(null);
 
+  const dateFormat = "YYYY-MM-DD";
+
   useEffect(() => {
     getStudents();
   }, []);
@@ -24,13 +26,11 @@ function TableStudent (props) {
       .getAllStudents()
       .then((res) => {
         const data = res.data.data;
-        data.map((el) => {
-          let bd = moment(new Date(el.birthdate));
-          el.birthdate = bd.format("DD/MM/YYYY");
-          if (el.dateExpire) {
-            let dateExpire = moment(new Date(el.dateExpire));
-            el.dateExpire = dateExpire.format("DD/MM/YYYY");
-          }
+        data.map(el => {
+          let dateExpire = el.dateExpire != null ? moment(new Date(el.dateExpire)) : null;
+          el.dateExpire = dateExpire != null ? dateExpire.format("DD-MM-YYYY") : null;
+          let birthdate = el.birthdate != null ? moment(new Date(el.birthdate)) : null;
+          el.birthdate = birthdate != null ? birthdate.format("DD-MM-YYYY") : null;
         });
         setTable(data);
         setStudents(data);
@@ -126,11 +126,11 @@ function TableStudent (props) {
       dataIndex: "wantToUpgrade",
       width: "5%",
     },
-    {
-      title: "Ngày hết hạn",
-      dataIndex: "dateExpire",
-      width: "10%",
-    },
+    // {
+    //   title: "Ngày hết hạn",
+    //   dataIndex: "dateExpire",
+    //   width: "10%",
+    // },
     {
       title: "Action",
       key: "action",
