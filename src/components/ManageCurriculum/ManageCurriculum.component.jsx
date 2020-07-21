@@ -174,14 +174,14 @@ const ManageMockingTest = ({
         <span>
           <Button
             onClick={() => showModalEdit(row)}
-            className="link link__edit"
+            className="link link__edit1"
           >
             Sửa
           </Button>
           <Divider type="vertical" />
           <Button
             onClick={() => showConfirm(row)}
-            className="link link__delete"
+            className="link link__delete1"
           >
             Xóa
           </Button>
