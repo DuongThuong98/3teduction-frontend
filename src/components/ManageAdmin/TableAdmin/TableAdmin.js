@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { Input, Table, Modal } from "antd";
 import 'antd/dist/antd.css'
 import * as api from "../../../utils/api";
+import moment from "moment";
 
 function TableAdmin (props) {
   const [admins, setAdmins] = useState([]);
@@ -21,6 +22,10 @@ function TableAdmin (props) {
       .getAllAdmins()
       .then((res) => {
         const data = res.data.data;
+        data.map(el => {
+          let bd = el.birthdate != null ? moment(new Date(el.birthdate)) : null;
+          el.birthdate = bd != null ? bd.format("DD-MM-YYYY") : null;
+        })
         setTable(data);
         setAdmins(data);
       })
@@ -79,7 +84,7 @@ function TableAdmin (props) {
       width: "5%",
     },
     {
-      title: "Dia chi",
+      title: "Địa chỉ",
       dataIndex: "address",
       width: "15%",
     },

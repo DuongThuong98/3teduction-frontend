@@ -88,9 +88,9 @@ function MyCoursesDetail (props) {
     const data = myCurriculums;
     const element = data.map((c, index) => (
       <React.Fragment key={c._id}>
-        <a href="javascript:void(0)" onClick={() => showVideoItem(c._id)}>
-          <div className="user-img">
-            <iframe src="https://drive.google.com/file/d/1UrSt0xiK1CH1_sGKr0mClGuY2peJcAM9/preview" width="40" height="40"></iframe>
+        <a href="javascript:void(0)" style={{ display: 'flex' }} onClick={() => showVideoItem(c._id)}>
+          <div className="user-img" style={{ margin: '0 5px 5px 0' }}>
+            <iframe src="https://drive.google.com/file/d/1UrSt0xiK1CH1_sGKr0mClGuY2peJcAM9/preview" width="40" height="40" frameBorder="false"></iframe>
           </div>
           <div className="mail-contnet">
             <h5>{c.name}</h5>
@@ -107,23 +107,25 @@ function MyCoursesDetail (props) {
       <div className="col-lg-8 col-xlg-9 col-md-7">
         <div className="card">
           {vid.linkVideo.url !== "" ?
-            <iframe src={vid.linkVideo.url} style={{ width: '100%' }} height="480"></iframe>
+            <iframe src={vid.linkVideo.url} style={{ width: '100%', border: '0 solid transparent' }} height="480"></iframe>
             :
             <iframe src="https://www.youtube.com/embed/IUTRRedYWgw" style={{ width: '100%' }} height="480" frameBorder="0" allowFullScreen></iframe>
           }
         </div>
         <div className="card" style={{ marginTop: '10px' }}>
           <div className="card-body">
-            <h4 className="card-title">{vid.name}</h4>
+            {vid.name &&
+              <h4 className="card-title">Bài : {vid.name}</h4>
+            }
           </div>
         </div>
-        <div className="col-sm-6">
+        {/* <div className="col-sm-6">
           <div className="row">
             <div className="col text-center">
               <a className="btn btn-info btn-block waves-effect waves-light" href="#">Download file</a>
             </div>
           </div>
-        </div>
+        </div> */}
       </div >
     )
   }
@@ -132,7 +134,7 @@ function MyCoursesDetail (props) {
     return (
       <div className="row m-2">
         <div className="button-group">
-          {diligencesDate.map((x, index) => {
+          {diligencesDate != null && diligencesDate.map((x, index) => {
             return (
               x === true ?
                 <button type="button" className='btn waves-effect waves-light btn-success'>Chuyên cần</button>

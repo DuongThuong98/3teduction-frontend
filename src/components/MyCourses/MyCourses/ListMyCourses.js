@@ -41,7 +41,7 @@ function ListMyCourses (props) {
           <div className="card h-100">
             <div className="el-card-item">
               <div className="el-card-avatar el-overlay-1">
-                <img src="images/big/img1.jpg" alt="user" />
+                <img src="https://comelearntalk.com/wp-content/uploads/2017/03/IELTS-Introdcutory-Course.png" alt="user" />
                 <div className="el-overlay">
                   <ul className="el-info">
                     <li>
@@ -54,7 +54,7 @@ function ListMyCourses (props) {
               </div>
               <div className="el-card-content">
                 <h4 className="box-title" style={{ color: "#03a9f3" }}>{c.name}</h4>
-                <h6 className="box-title text-left ml-1">Mô tả: {c.shortDesc}</h6>
+                <h6 className="box-title text-left ml-1">{c.shortDesc}</h6>
                 <div className="card-body" style={{ padding: '0.25rem' }}>
                   <button type="button" className="btn waves-effect waves-light btn-rounded btn-primary m-t-10"
                     onClick={() => goToCurriculum(c.id)}>Vào học</button>
