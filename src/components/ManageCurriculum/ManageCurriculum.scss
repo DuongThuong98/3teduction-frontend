@@ -7,14 +7,14 @@
 
   &__table {
     .link {
-    //   transition: 0.2s;
-    //   background-color: transparent !important;
+      // transition: 0.2s;
+      // background-color: transparent !important;  
 
-      &__edit1 {
+      &__edit {
         color: $color-7 !important;
       }
 
-      &__delete1 {
+      &__delete {
         color: $color-11 !important;
       }
 
@@ -22,7 +22,7 @@
         // font-size: 1.4rem;
 
         span {
-        //   text-decoration: underline;
+          text-decoration: underline;
         }
       }
     }

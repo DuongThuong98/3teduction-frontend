@@ -1,4 +1,5 @@
 import apiUrl from './api-url'
+import { authHeader } from "../utils/authHeader";
 
 // const apiUrl = 'http://localhost:8080'
 
@@ -13,6 +14,7 @@ export default class AssignmentService {
     return fetch(api, {
       method: 'GET',
       headers: {
+        'Authorization': authHeader().Authorization,
         'Content-type': 'application/json; charset=UTF-8',
       },
     })
@@ -91,7 +93,7 @@ export default class AssignmentService {
   }
 
   static deleteTag = tag => {
-    const api = `${apiUrl}/responses/${tag._id}`
+    const api = `${apiUrl}/curriculums/${tag._id}`
     let status = 400
 
     // eslint-disable-next-line no-undef

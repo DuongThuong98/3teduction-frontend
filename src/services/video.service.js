@@ -1,5 +1,5 @@
 import apiUrl from './api-url'
-
+import { authHeader } from "../utils/authHeader";
 // const apiUrl = 'http://localhost:8080'
 
 export default class AssignmentService {
@@ -13,6 +13,7 @@ export default class AssignmentService {
     return fetch(api, {
       method: 'GET',
       headers: {
+        'Authorization': authHeader().Authorization,
         'Content-type': 'application/json; charset=UTF-8',
       },
     })
@@ -44,6 +45,7 @@ export default class AssignmentService {
       method: 'GET',
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
+        'Authorization': authHeader().Authorization,
       },
     })
       .then(response => {
@@ -75,9 +77,9 @@ export default class AssignmentService {
     return fetch(api, {
       method: 'POST',
       body: data,
-      // headers: {
-      //   'Content-type': 'multipart/form-data; boundary=----WebKitFormBoundaryqTqJIxvkWFYqvP5s',
-      // },
+      headers: {
+        'Authorization': authHeader().Authorization,
+      },
     })
       .then(response => {
         status = response.status

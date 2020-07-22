@@ -1,8 +1,9 @@
 import apiUrl from './api-url'
+import { authHeader } from "../utils/authHeader";
 // const apiUrl = 'https://tutor-back-end-admin.herokuapp.com'
 export default class MajorService {
   static getAll = () => {
-    const api = `${apiUrl}/courses/all`
+    const api = `${apiUrl}/courses/dropdown-by-id`
     let status = 400
 
     // eslint-disable-next-line no-undef
@@ -10,6 +11,7 @@ export default class MajorService {
       method: 'GET',
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
+        'Authorization': authHeader().Authorization,
       },
     })
       .then(response => {
