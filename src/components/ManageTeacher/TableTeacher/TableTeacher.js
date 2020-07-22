@@ -97,11 +97,11 @@ function TableTeacher (props) {
       dataIndex: "email",
       width: "20%",
     },
-    {
-      title: "Điện thoại",
-      dataIndex: "phone",
-      width: "10%",
-    },
+    // {
+    //   title: "Điện thoại",
+    //   dataIndex: "phone",
+    //   width: "10%",
+    // },
     {
       title: "Ngày sinh",
       dataIndex: "birthdate",
