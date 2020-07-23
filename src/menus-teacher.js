@@ -5,24 +5,25 @@ const menusTeacher = [
     exact: true,
     icon: "fas fa-th",
   },
-  {
-    name: "Student",
-    to: "/students",
-    exact: false,
-    icon: "fa fa-users",
-  },
+  
+  // {
+  //   name: "Student",
+  //   to: "/students",
+  //   exact: false,
+  //   icon: "fa fa-users",
+  // },
   // {
   //   name: "Class",
   //   to: "/classes",
   //   exact: false,
   //   icon: "fab fa-discourse",
   // },
-  {
-    name: "Categories",
-    to: "/categories",
-    exact: false,
-    icon: "fab fa-discourse",
-  },
+  // {
+  //   name: "Categories",
+  //   to: "/categories",
+  //   exact: false,
+  //   icon: "fab fa-discourse",
+  // },
   // {
   //   name: "Learning Class",
   //   to: "/l-classes",
