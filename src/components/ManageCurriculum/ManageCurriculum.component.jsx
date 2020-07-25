@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { Table, Tag, Divider, Button, Modal } from "antd";
 import ModalSkill from "./ModalCurriculum/ModalCurriculum.component";
 import CustomPagination from "../Pagination/Pagination.component";
+import jwt_decode from "jwt-decode";
 
 const { confirm } = Modal;
 
@@ -33,15 +34,25 @@ const ManageMockingTest = ({
   const [tag, setTag] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(5);
+  const [role, setRole] = useState(null);
 
   useEffect(() => {
+    getRoleFromLocalStorage();
     getAllMajor();
     console.log("dataMajor:", dataCourse);
     getAllTest();
     console.log("dataTest:", dataTest);
     getAllVideo();
     getAllTag({ limit: pageSize, page: 1 });
-  }, [getAllTag, getAllMajor, getAllTest, getAllVideo, pageSize]);
+  }, [getAllTag, getAllMajor, getAllTest, getAllVideo, pageSize, role]);
+
+  const getRoleFromLocalStorage = () => {
+    var token = localStorage.getItem("token");
+    if (token) {
+      var decoded = jwt_decode(token);
+      setRole(decoded.role.toString());
+    }
+  };
 
   const showModal = () => {
     setVisible(true);
@@ -105,13 +116,13 @@ const ManageMockingTest = ({
       title: "Name",
       dataIndex: "name",
       key: "name",
-      width: '10%',
+      width: "10%",
     },
     {
       title: "Course",
       dataIndex: "course",
       key: "course",
-      width: '10%',
+      width: "10%",
       render: (_id, row) => <p>{row.courseID.name}</p>,
     },
 
@@ -119,14 +130,22 @@ const ManageMockingTest = ({
       title: "Homework",
       dataIndex: "homework",
       key: "homework",
-      width: '30%',
+      width: "30%",
       render: (_id, row) => {
         if (row.linkHomework) {
           return (
             <p>
               {row.linkHomework.name}
               <br />
-              <a href={"https://mielts.herokuapp.com/user/mocktest/" + row.linkHomework._id}>{"https://mielts.herokuapp.com/user/mocktest/" + row.linkHomework._id}</a>
+              <a
+                href={
+                  "https://mielts.herokuapp.com/user/mocktest/" +
+                  row.linkHomework._id
+                }
+              >
+                {"https://mielts.herokuapp.com/user/mocktest/" +
+                  row.linkHomework._id}
+              </a>
             </p>
           );
         }
@@ -136,7 +155,7 @@ const ManageMockingTest = ({
       title: "Video",
       dataIndex: "video",
       key: "video",
-      width: '30%',
+      width: "30%",
       render: (_id, row) => {
         if (row.linkVideo) {
           return (
@@ -147,13 +166,13 @@ const ManageMockingTest = ({
             </p>
           );
         }
-      }
+      },
     },
     {
       title: "Document",
       dataIndex: "document",
       key: "document",
-      width: '30%',
+      width: "30%",
       render: (_id, row) => {
         if (row.linkDoc) {
           return (
@@ -164,7 +183,7 @@ const ManageMockingTest = ({
             </p>
           );
         }
-      }
+      },
     },
     {
       title: "Thao tác",
@@ -172,12 +191,14 @@ const ManageMockingTest = ({
       key: "action",
       render: (_id, row) => (
         <span>
-          <Button
-            onClick={() => showModalEdit(row)}
-            className="link link__edit"
-          >
-            Sửa
-          </Button>
+          {role === "Teacher" ? (
+            <Button
+              onClick={() => showModalEdit(row)}
+              className="link link__edit"
+            >
+              Sửa
+            </Button>
+          ) : null}
           <Divider type="vertical" />
           <Button
             onClick={() => showConfirm(row)}
@@ -192,9 +213,11 @@ const ManageMockingTest = ({
 
   return (
     <div className="tags">
-      <Button className="tags__button" type="primary" onClick={showModal}>
-        Thêm bài học
-      </Button>
+      {role === "Teacher" ? 
+        (<Button className="tags__button" type="primary" onClick={showModal}>
+          Thêm bài học
+        </Button>)
+       : null}
       {data ? (
         <Table
           rowKey={(record) => record._id}
