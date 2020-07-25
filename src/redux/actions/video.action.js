@@ -6,6 +6,11 @@ export const getAllTag = data =>
   payload: { data },
 }}
 
+export const setVisible = (data) => ({
+  type: TagType.SET_VISIBLE,
+  payload: data,
+})
+
 export const getAllSuccess = ({ data, length }) => ({
   type: TagType.GET_ALL_SUCCESS_VIDEO,
   payload: { data, length },

@@ -4,7 +4,7 @@ import TagType from "../constant/video.types";
 const INITIAL_STATE = {
   data: [],
   loading: false,
-  isVisible: true,
+  isVisible: false,
   err: null,
   length: 1,
   dataVideo: null,
@@ -18,6 +18,7 @@ const TagReducers = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         loading: true,
+        // isVisible: true,
       };
     }
     case TagType.EDIT_VIDEO:
@@ -25,6 +26,12 @@ const TagReducers = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         loading: true,
+      };
+    }
+    case TagType.SET_VISIBLE: {
+      return {
+        ...state,
+        isVisible: action.payload,
       };
     }
     case TagType.GET_ALL_SUCCESS_VIDEO: {
@@ -49,7 +56,7 @@ const TagReducers = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         loading: false,
-        isVisible: false,
+        // isVisible: false,
         data: state.data.concat(action.payload.data),
       };
     }
@@ -74,7 +81,14 @@ const TagReducers = (state = INITIAL_STATE, action) => {
       };
     }
     case TagType.GET_ALL_FAILURE_VIDEO:
-    case TagType.CREATE_FAILURE_VIDEO:
+    case TagType.CREATE_FAILURE_VIDEO: {
+      return {
+        ...state,
+        loading: false,
+        // isVisible: false,
+        data: state.data.concat(action.payload.data),
+      };
+    }
     case TagType.EDIT_FAILURE_VIDEO:
     case TagType.DELETE_FAILURE_VIDEO: {
       return {

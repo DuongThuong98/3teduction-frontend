@@ -11,6 +11,7 @@ import {
   editTagFailure,
   deleteTagSuccess,
   deleteTagFailure,
+  setVisible,
 } from '../actions/video.action'
 import ResponseService from '../../services/video.service'
 
@@ -52,9 +53,11 @@ function* createTag(action) {
     const data = yield ResponseService.createTag(action.payload.data)
     message.success(data.message)
     yield put(createTagSuccess(data))
+    yield put(setVisible(false))
   } catch (err) {
     message.error(err.message)
     yield put(createTagFailure(err.message))
+    yield put(setVisible(false))
   }
 }
 

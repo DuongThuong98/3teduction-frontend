@@ -28,9 +28,10 @@ const ManageVideo = ({
   editTag,
   length,
   deleteTag,
+  setVisible
 }) => {
   const [loading, setLoading] = useState(false);
-  const [visible, setVisible] = useState(false);
+  // const [visible, setVisible] = useState(false);
   const [loadingEdit, setLoadingEdit] = useState(false);
   const [visibleEdit, setVisibleEdit] = useState(false);
   const [tag, setTag] = useState(null);
@@ -203,7 +204,7 @@ const ManageVideo = ({
       <ModalSkill
         showModal={showModal}
         loading={uploading}
-        visible={visible && isVisible}
+        visible={isVisible}
         handleOk={handleOk}
         handleCancel={handleCancel}
         options={dataMajor}

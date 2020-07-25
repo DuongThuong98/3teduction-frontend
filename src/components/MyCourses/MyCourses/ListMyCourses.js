@@ -11,6 +11,7 @@ import classHours from '../../../constants/hours'
 
 function ListMyCourses (props) {
   const [myCourses, setMyCourses] = useState([]);
+  const [archieveCourses, setArchieveCourses] = useState([]);
   const [id, setId] = useState(null);
 
   useEffect(() => {
@@ -23,6 +24,8 @@ function ListMyCourses (props) {
       .then((res) => {
         const data = res.data.data;
         setMyCourses(data);
+        const archieves = res.data.archieves;
+        setArchieveCourses(archieves);
       })
       .catch((error) => { });
   };
@@ -33,6 +36,42 @@ function ListMyCourses (props) {
   };
 
   const showMyCourses = (courses) => {
+    const data = courses;
+    const element = data.map((c, index) => (
+
+      <React.Fragment key={c.id}>
+        <div className="col-lg-3 col-md-4">
+          <div className="card h-100">
+            <div className="el-card-item">
+              <div className="el-card-avatar el-overlay-1">
+                <img src="https://comelearntalk.com/wp-content/uploads/2017/03/IELTS-Introdcutory-Course.png" alt="user" />
+                <div className="el-overlay">
+                  <ul className="el-info">
+                    <li>
+                      <button className="btn default btn-outline image-popup-vertical-fit" onClick={() => goToCurriculum(c.id)}>
+                        <i className="icon-paper-plane" title="Vào học" />
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="el-card-content">
+                <h4 className="box-title" style={{ color: "#03a9f3" }}>{c.name}</h4>
+                <h6 className="box-title text-left ml-1">{c.shortDesc}</h6>
+                <div className="card-body" style={{ padding: '0.25rem' }}>
+                  <button type="button" className="btn waves-effect waves-light btn-rounded btn-primary m-t-10"
+                    onClick={() => goToCurriculum(c.id)}>Vào học</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </React.Fragment>
+
+    ));
+    return element;
+  }
+  const showMyArchieveCourses = (courses) => {
     const data = courses;
     const element = data.map((c, index) => (
 
@@ -100,48 +139,21 @@ function ListMyCourses (props) {
         {showMyCourses(myCourses)}
 
       </div >
-      <div className="row mt-2" style={{ paddingleft: '10px' }}>
+      <div className="row mt-2" style={{
+        paddingleft: '10px'
+      }}>
         <div className="card">
           <div className="box bg-info text-center">
-            <h4 className="font-light text-white">Học giao tiếp song ngữ</h4>
+            <h4 className="font-light text-white">Khóa học lưu trữ</h4>
           </div>
         </div>
       </div >
       <div className="row el-element-overlay">
-        <div className="col-lg-4 col-md-6">
-          <div className="card">
-            <div className="el-card-item">
-              <div className="el-card-avatar el-overlay-1">
-                <img src="images/big/img1.jpg" alt="user" />
-                <div className="el-overlay">
-                  <ul className="el-info">
-                    <li>
-                      <a className="btn default btn-outline image-popup-vertical-fit" href="images/big/img1.jpg">
-                        <i className="icon-paper-plane" title="Vào học" />
-                      </a>
-                    </li>
-                    <li>
-                      <a className="btn default btn-outline" data-toggle="modal" data-target="#show-modal-du-thinh">
-                        <i className="icon-earphones" title="Dự thính" />
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="el-card-content">
-                <h4 className="box-title">Học về đồ đạc trong nhà</h4>
-                <div className="card-body" style={{ padding: '0.25rem' }}>
-                  <button type="button" className="btn waves-effect waves-light btn-rounded btn-primary m-t-10">Vào
-                      lớp</button>
-                  <button className="btn btn-success btn-rounded waves-effect waves-light m-t-10" data-toggle="modal" data-target="#show-modal-du-thinh">Dự
-                      thính</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+
+        {showMyArchieveCourses(archieveCourses)}
+
       </div >
-      <div className="row mt-2" style={{ paddingleft: '10px' }}>
+      {/* <div className="row mt-2" style={{ paddingleft: '10px' }}>
         <div className="card">
           <div className="box bg-info text-center">
             <h4 className="font-light text-white">Học nghe</h4>
@@ -181,8 +193,8 @@ function ListMyCourses (props) {
             </div>
           </div>
         </div>
-      </div >
-      <div className="row mt-2" style={{ paddingleft: '10px' }}>
+      </div > */}
+      {/* <div className="row mt-2" style={{ paddingleft: '10px' }}>
         <div className="card">
           <div className="box bg-info text-center">
             <h4 className="font-light text-white">Ôn tập</h4>
@@ -240,7 +252,7 @@ function ListMyCourses (props) {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div >
   );
 }

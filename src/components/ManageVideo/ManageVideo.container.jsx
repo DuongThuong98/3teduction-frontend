@@ -1,7 +1,7 @@
 /* eslint-disable import/named */
 /* eslint-disable import/no-named-as-default */
 import { connect } from 'react-redux'
-import { getAllTag, createTag, editTag, deleteTag } from '../../redux/actions/video.action'
+import { getAllTag, createTag, editTag, deleteTag, setVisible } from '../../redux/actions/video.action'
 import { getAllMajor } from '../../redux/actions/course.action'
 import ManageVideo from './ManageVideo.component'
 
@@ -20,6 +20,7 @@ const mapDispatchToProps = dispatch => ({
   createTag: data => dispatch(createTag(data)),
   editTag: data => dispatch(editTag(data)),
   deleteTag: data => dispatch(deleteTag(data)),
+  setVisible: data => dispatch(setVisible(data)),
 })
 
 const ManageVideoContainer = connect(mapStateToProps, mapDispatchToProps)(ManageVideo)
