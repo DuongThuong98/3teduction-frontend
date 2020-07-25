@@ -9,6 +9,8 @@ import ModalSkill from "./ModalVideo/ModalVideo.component";
 import CustomPagination from "../Pagination/Pagination.component";
 import { Document, Page, pdfjs } from "react-pdf";
 import pdf from "./Assignment 1 - Goi y dap an-1593849242396.pdf";
+import jwt_decode from "jwt-decode";
+
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const { confirm } = Modal;
@@ -18,6 +20,8 @@ const ManageVideo = ({
   data,
   dataMajor,
   loadingData,
+  uploading,
+  isVisible,
   getAllMajor,
   getAllTag,
   createTag,
@@ -34,11 +38,21 @@ const ManageVideo = ({
   const [numPages, setNumPages] = useState(1);
   const [pageNumber, setPageNumber] = useState(1);
   const [pageSize] = useState(5);
+  const [role, setRole] = useState(null);
 
   useEffect(() => {
+    getRoleFromLocalStorage();
     getAllMajor();
     getAllTag({ limit: pageSize, page: 1 });
-  }, [getAllTag, getAllMajor, pageSize]);
+  }, [getAllTag, getAllMajor, pageSize, role]);
+
+  const getRoleFromLocalStorage = () => {
+    var token = localStorage.getItem("token");
+    if (token) {
+      var decoded = jwt_decode(token);
+      setRole(decoded.role.toString());
+    }
+  };
 
   const showModal = () => {
     setVisible(true);
@@ -46,10 +60,6 @@ const ManageVideo = ({
 
   const handleOk = (values) => {
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setVisible(false);
-    }, 1000);
     createTag(values);
   };
 
@@ -154,23 +164,23 @@ const ManageVideo = ({
     },
   ];
 
-  const goToPrevPage = () =>
-    setPageNumber( pageNumber - 1 );
+  const goToPrevPage = () => setPageNumber(pageNumber - 1);
 
-  const goToNextPage = () =>
-  setPageNumber( pageNumber + 1 );
+  const goToNextPage = () => setPageNumber(pageNumber + 1);
 
   const onDocumentLoadSuccess = ({ numPages }) => {
-    setNumPages( numPages );
+    setNumPages(numPages);
   };
 
   const onDocumentLoadError = (error) =>
     alert("Error while loading document! " + error.message);
   return (
     <div className="tags">
-      <Button className="tags__button" type="primary" onClick={showModal}>
-        Thêm
-      </Button>
+      {role === "Teacher" ? (
+        <Button className="tags__button" type="primary" onClick={showModal}>
+          Thêm
+        </Button>
+      ) : null}
       {data ? (
         <Table
           rowKey={(record) => record._id}
@@ -192,8 +202,8 @@ const ManageVideo = ({
       ) : null}
       <ModalSkill
         showModal={showModal}
-        loading={loading}
-        visible={visible}
+        loading={uploading}
+        visible={visible && isVisible}
         handleOk={handleOk}
         handleCancel={handleCancel}
         options={dataMajor}
@@ -209,7 +219,7 @@ const ManageVideo = ({
         data={tag}
         title="Chỉnh sửa bài tập"
       />
-     
+
       {/* <div>
         <nav>
           <button onClick={goToPrevPage}>Prev</button>

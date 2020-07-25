@@ -9,6 +9,8 @@ const mapStateToProps = state => ({
   data: state.video.data,
   dataMajor: state.major.data,
   loadingData: state.major.loading,
+  uploading: state.video.loading,
+  isVisible: state.video.isVisible,
   length: state.video.length,
 })
 

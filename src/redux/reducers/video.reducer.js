@@ -4,6 +4,7 @@ import TagType from "../constant/video.types";
 const INITIAL_STATE = {
   data: [],
   loading: false,
+  isVisible: true,
   err: null,
   length: 1,
   dataVideo: null,
@@ -13,7 +14,12 @@ const INITIAL_STATE = {
 const TagReducers = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case TagType.GET_ALL_VIDEO:
-    case TagType.CREATE_VIDEO:
+    case TagType.CREATE_VIDEO: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
     case TagType.EDIT_VIDEO:
     case TagType.DELETE_VIDEO: {
       return {
@@ -43,6 +49,7 @@ const TagReducers = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         loading: false,
+        isVisible: false,
         data: state.data.concat(action.payload.data),
       };
     }
