@@ -11,7 +11,7 @@ import { useToasts } from "react-toast-notifications";
 import Select from "react-select";
 
 import * as api from "../../utils/api";
-import { Checkbox, DatePicker, Input, Radio } from "antd";
+import { Checkbox, DatePicker, Input, Radio, Modal } from "antd";
 import moment from "moment";
 
 function MyCoursesDetail (props) {
@@ -22,6 +22,11 @@ function MyCoursesDetail (props) {
     category: "",
     teacherName: ''
   });
+
+  const [resultTest, setResultTest] = useState({
+    numberTests: 0,
+    status: '',
+  })
 
   const idUrl = props.match.params.id;
 
@@ -34,6 +39,7 @@ function MyCoursesDetail (props) {
   });
   const [doc, setDoc] = useState();
   const [homework, setHomework] = useState();
+  const [isShowModal, setModal] = useState(false);
 
   const [teacherName, setTeacherName] = useState(null);
 
@@ -97,7 +103,7 @@ function MyCoursesDetail (props) {
     const element = data.map((c, index) => {
       var linkDoc = c.linkDoc ? c.linkDoc.url : null
       var linkHomework = c.linkHomework ? c.linkHomework : null
-     return (<React.Fragment key={c._id}>
+      return (<React.Fragment key={c._id}>
         <div className="message-widget message-scroll">
           <a style={{ display: 'flex' }}
             href="javascript:void(0)"
@@ -117,6 +123,25 @@ function MyCoursesDetail (props) {
     return element;
   };
 
+  const getTestGradeCourseApi = () => {
+    api.getTestGradeCourse(idUrl)
+      .then((res) => {
+        //notify here
+        console.log(res);
+        setResultTest(res.data.data);
+      })
+      .catch((err) => { });
+  };
+
+  const showModal = () => {
+    setModal(true);
+    getTestGradeCourseApi();
+  };
+
+  const handleCancel = () => {
+    setModal(false);
+  };
+
   const showVideo = (vid) => {
     return (
       <div className="col-lg-8 col-xlg-9 col-md-7">
@@ -129,23 +154,18 @@ function MyCoursesDetail (props) {
         </div>
         <div className="card" style={{ marginTop: "10px" }}>
           <div className="card-body">
-            {vid.name &&
-              <h4 className="card-title">Bài : {vid.name}</h4>
-            }
-          </div>
-        </div>
-        {/* <div className="col-sm-6">
-          <div className="row">
-            <div className="col text-center">
-              <a
-                className="btn btn-info btn-block waves-effect waves-light"
-                href="#"
-              >
-                Download file
-              </a>
+            <div className="row bg-secondary text-white">
+              <div className="col-6">
+                {vid.name &&
+                  <h4 className="card-title">Bài : {vid.name}</h4>
+                }
+              </div>
+              <div className="col-6 pull-right" style={{ textAlign: 'end' }}>
+                <button className="btn btn-info waves-effect waves-light" onClick={() => showModal()}>Xem kết quả toàn khóa</button>
+              </div>
             </div>
           </div>
-        </div> */}
+        </div>
       </div >
     )
   }
@@ -484,6 +504,17 @@ function MyCoursesDetail (props) {
             </div>
           </div>
         </div>
+
+        <Modal
+          title="Kết quả học tập trong khóa này:"
+          visible={isShowModal}
+          okType={"primary"}
+          onOk={handleCancel}
+          onCancel={handleCancel}>
+          <p>Số bài đã làm : {resultTest.numberTests}</p>
+          <p>Kết quả:  {resultTest.status}</p>
+        </Modal>
+
       </React.Fragment>
     </div>
   );

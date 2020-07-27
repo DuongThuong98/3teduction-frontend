@@ -283,6 +283,9 @@ export const getDiligenceDateInCourse = (idCourse) => {
   return httpClient.get(`courses/${idCourse}/diligences`);
 };
 
+export const getTestGradeCourse = (idCourse) => {
+  return httpClient.get(`courses/${idCourse}/test-grade/result`);
+};
 // Admin Manage
 export const getAllAdmins = () => {
   return httpClient.get("admins/all");
